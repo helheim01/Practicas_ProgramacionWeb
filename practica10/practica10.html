@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function diagonales(matriz) {
+            const n = matriz.length; // número de filas y columnas
+
+            let diagonalPrincipal = [];
+            let diagonalSecundaria = [];
+            let sumaPrincipal = 0;
+            let sumaSecundaria = 0;
+
+            for (let i = 0; i < n; i++) {
+                diagonalPrincipal.push(matriz[i][i]);           // elemento de la diagonal principal
+                sumaPrincipal += matriz[i][i];
+
+                diagonalSecundaria.push(matriz[i][n - 1 - i]); // elemento de la diagonal secundaria
+                sumaSecundaria += matriz[i][n - 1 - i];
+            }
+
+            return {
+                diagonalPrincipal,
+                diagonalSecundaria,
+                sumaPrincipal,
+                sumaSecundaria
+            };
+        }
+
+        // Ejemplo de uso
+        const matriz = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+        ];
+
+        const resultado = diagonales(matriz);
+
+        console.log("Diagonal principal:", resultado.diagonalPrincipal);   // [1,5,9]
+        console.log("Diagonal secundaria:", resultado.diagonalSecundaria); // [3,5,7]
+        console.log("Suma diagonal principal:", resultado.sumaPrincipal);  // 15
+        console.log("Suma diagonal secundaria:", resultado.sumaSecundaria);// 15
+
+    </script>
+</body>
+</html>

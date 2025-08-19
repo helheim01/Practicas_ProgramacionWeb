@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const matriz3D = [
+        [
+            [3, 2, 1],
+            [6, 5, 4]
+        ],
+        [
+            [9, 8, 7],
+            [12, 11, 10]
+        ]
+    ];
+
+
+    // Aplanar la matriz
+    const aplanado = matriz3D.flat(2);
+
+    // Ordenar
+    const ordenado = aplanado.sort((a, b) => a - b);
+
+    console.log("Aplanado:", aplanado);
+    console.log("Ordenado:", ordenado);
+
+    </script>
+</body>
+</html>

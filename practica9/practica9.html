@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // Matriz de ejemplo
+        const matriz = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+        ];
+
+        function sumar(matriz) {
+            const n = matriz.length;       // número de filas
+            const m = matriz[0].length;    // número de columnas
+
+            let sumaFilas = [];
+            let sumaColumnas = []; 
+
+            for (let i = 0; i < n; i++) {
+                let sumaFila = 0;
+                for (let j = 0; j < m; j++) {
+                    sumaFila += matriz[i][j];
+
+                    // si la columna no existe todavía, la inicializamos en 0
+                    if (sumaColumnas[j] === undefined) {
+                        sumaColumnas[j] = 0;
+                    }
+
+                    sumaColumnas[j] += matriz[i][j];
+                }
+                sumaFilas.push(sumaFila);
+            }
+
+            return { sumaFilas, sumaColumnas };
+        }
+
+        let matriz1=[[1,2], [3,4]];
+        let resultado = sumar(matriz1);
+        console.log("Suma de filas:", resultado.sumaFilas);      // [3, 7]
+        console.log("Suma de columnas:", resultado.sumaColumnas); // [4, 6]
+
+
+
+        
+    </script>
+</body>
+</html>

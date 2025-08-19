@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //Obtener un nuevo arreglo solo con los nombres de los estudiantes que aprobaron (nota ≥ 6).
+        //Ordenar el arreglo original por nota de mayor a menor.
+        //Calcular el promedio general de las notas
+        
+        const estudiantes = [
+            { nombre: "Ana", nota: 8 },
+            { nombre: "Luis", nota: 5 },
+            { nombre: "Carla", nota: 9 },
+            { nombre: "Juan", nota: 6 },
+            { nombre: "Pedro", nota: 4 }
+        ];
+
+
+        const aprobados=estudiantes.filter(estudiantes=>estudiantes.nota>=6);
+        estudiantes.map(estudiantes=>estudiantes.nombre);
+        console.log(aprobados);
+
+
+        const ordenados = [...estudiantes].sort((a, b) => b.nota - a.nota);  //a=nota, b=nombre
+        //b.nota (nota del segundo alumno) - a.nota (nota del primero alumno). Si el resultado da negativo, 
+        // a tiene mas nota que B, y si es negativo, B tiene mas que A. 
+        //Por ejemplo, A es Ana con 8, y B es Luis con 3. 8-5=-3, que es negativo, por lo que A tiene mas nota
+        console.log("Estudiantes ordenados por nota:", ordenados);
+
+
+        const promedio = estudiantes.reduce((acc, est) => acc + est.nota, 0) / estudiantes.length; //estudiantes.length → número total de estudiantes
+        //(acc, est) => acc + est.nota es la función que se ejecuta en cada elemento:
+            //acc → acumulador (va sumando todas las notas).
+            // est → estudiante actual del array.
+            // acc + est.nota → sumamos la nota del estudiante al acumulador.
+        //0 al final es el valor inicial de acc (empezamos sumando desde 0).
+        console.log("Promedio general:", promedio);
+
+
+    </script>
+</body>
+</html>

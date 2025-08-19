@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contar números repetidos</title>
+</head>
+<body>
+
+<script>
+    const numeros = [3, 6, 9, 6, 3, 6];
+
+    // Contamos cuántas veces se repite cada número
+    let masRepetido = numeros.reduce((acc, n) => {
+        acc[n] = (acc[n] || 0) + 1;
+        return acc;
+    }, {}); // valor inicial
+
+    console.log(masRepetido); // {3: 2, 6: 3, 9: 1}
+
+    // Encontramos el número que más se repite
+    let resultado = Object.keys(masRepetido).reduce((a, b) => 
+        masRepetido[a] > masRepetido[b] ? a : b
+    );
+
+    console.log("Número más repetido:", resultado); // 6
+</script>
+
+</body>
+</html>
