@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Práctica A4 - Jerónimo De Biazi</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <h1>Mi práctica 4</h1>
+  <table border="1" style="width: 100%;">
+    <colgroup>
+      <col style="width: 25%;" />
+      <col style="width: 25%;" />
+      <col style="width: 25%;" />
+      <col style="width: 25%;" />
+    </colgroup>
+    <tr style="background: #171985; color: #FFF;">
+      <th style="padding: 10px;">Nombre</th>
+      <th>Edad</th>
+      <th>Ciudad</th>
+      <th>Profesión</th>
+    </tr>
+    <tr>
+      <td>Jerónimo De Biazi</td>
+      <td>20</td>
+      <td>Mendoza</td>
+      <td>Desarrollador Web</td>
+    </tr>
+    <tr>
+      <td>Lucía Martínez</td>
+      <td>27</td>
+      <td>Buenos Aires</td>
+      <td>Diseñadora Gráfica</td>
+    </tr>
+    <tr>
+      <td>Martín Pérez</td>
+      <td>35</td>
+      <td>Córdoba</td>
+      <td>Ingeniero en Sistemas</td>
+    </tr>
+  </table>
+
+  <img src="1.jpg" alt="Foto de Jerónimo De Biazi" style="max-width: 300px; display: block; margin: 20px auto;" />
+
+  <div id="miDivEstilizado">
+    <p>Bienvenidos a mi página personal. Aquí podrás encontrar información sobre mis proyectos y contacto.</p>
+  </div>
+
+  <p style="text-align: center; margin-top: 30px;">
+    Visita mi <a href="https://www.espacoeccos.com.br" target="_blank">último trabajo</a> para conocer mis habilidades.
+  </p>
+
+  <form action="procesar.php" method="post" class="form-estilizado">
+    <h2>Formulario de Contacto</h2>
+
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="tuemail@ejemplo.com" required />
+
+    <label for="edad">Edad:</label>
+    <input type="number" id="edad" name="edad" min="18" max="100" placeholder="Edad" />
+
+    <label for="genero">Género:</label>
+    <select id="genero" name="genero" required>
+      <option value="" disabled selected>Selecciona tu género</option>
+      <option value="femenino">Femenino</option>
+      <option value="masculino">Masculino</option>
+      <option value="otro">Otro</option>
+    </select>
+
+    <label class="checkbox-container">
+      <input type="checkbox" name="aceptar" required />
+      Acepto los términos y condiciones
+    </label>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <ul class="lista-estilos">
+    <li>HTML5</li>
+    <li>CSS3</li>
+    <li>JavaScript</li>
+    <li>Node.js</li>
+  </ul>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Aplica un borde a cada elemento principal */
+header, nav, main, section, article, aside, footer {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 5px;
+}
+
+/* Para que aside se coloque al lado del section */
+main {
+    display: flex;
+    gap: 10px;
+}
+
+section {
+    flex: 3;
+}
+
+aside {
+    flex: 1;
+}

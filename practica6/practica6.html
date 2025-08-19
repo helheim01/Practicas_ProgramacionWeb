@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const numeros=[3,6,9,12,15,18];
+        let pares=numeros.filter(n=>n%2===0);
+        console.log(pares);
+        let cubo=pares.map(n=>n**3);
+        console.log(cubo);
+
+
+        const empleados=[
+            {nombre: "Ana", departamento: "Ventas"},
+            {nombre: "Luis", departamento: "IT"},
+            {nombre: "Marta", departamento: "Ventas"},
+            {nombre: "Pedro", departamento: "IT"},
+            {nombre: "Sofia", departamento: "Marketing"},
+        ];
+
+        let agrupado=empleados.reduce((acc, p)=>
+        {(acc[p.departamento] = acc[p.departamento] || [] ).push(p);
+            return acc;
+        }, {});
+        console.log(agrupado);
+    </script>
+</body>
+</html>

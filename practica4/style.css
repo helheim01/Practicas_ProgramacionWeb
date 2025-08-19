@@ -1,0 +1,166 @@
+/* Estilo general para toda la página */
+body {
+  background-color: #f0f4ff;
+  color: #171985;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Contenedor para centrar y limitar ancho */
+body > * {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Estilo para el div por id */
+#miDivEstilizado {
+  background-color: #d0e6f7;
+  padding: 15px 25px;
+  border: 2px solid #0a4a8f;
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(10, 58, 111, 0.2);
+}
+
+/* Tabla */
+table {
+  border-collapse: collapse;
+  font-family: inherit;
+  margin-bottom: 30px;
+  width: 100%;
+  box-shadow: 0 0 12px rgba(23, 25, 133, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+table th {
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 12px 10px;
+  background-color: #171985;
+  color: white;
+  text-align: left;
+}
+
+table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+table tr:nth-child(even) {
+  background-color: #f4f7ff;
+}
+
+/* Imagen */
+img {
+  max-width: 300px;
+  display: block;
+  margin: 0 auto 30px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(23, 25, 133, 0.2);
+}
+
+/* Lista */
+.lista-estilos {
+  list-style-type: square;
+  color: #0a4a8f;
+  font-weight: bold;
+  padding-left: 20px;
+  max-width: 400px;
+  margin: 30px auto;
+}
+
+/* Enlaces */
+a {
+  color: #171985;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #f07a20;
+  text-decoration: underline;
+}
+
+/* Formulario */
+.form-estilizado {
+  max-width: 400px;
+  margin: 30px auto 50px auto;
+  padding: 25px 30px;
+  background-color: #f9faff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(23, 25, 133, 0.2);
+  font-family: inherit;
+  color: #171985;
+}
+
+.form-estilizado h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.form-estilizado label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.form-estilizado input[type="text"],
+.form-estilizado input[type="email"],
+.form-estilizado input[type="number"],
+.form-estilizado select {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 15px;
+  border: 1.8px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-estilizado input[type="text"]:focus,
+.form-estilizado input[type="email"]:focus,
+.form-estilizado input[type="number"]:focus,
+.form-estilizado select:focus {
+  border-color: #171985;
+  outline: none;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.form-estilizado button {
+  width: 100%;
+  background-color: #171985;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 700;
+}
+
+.form-estilizado button:hover {
+  background-color: #0a3b6f;
+}
