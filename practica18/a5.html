@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contador</title>
+  <style>
+    body {
+      background: #424242;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .contenedor {
+      background: white;
+      color: black;
+      padding: 20px;
+      box-shadow: 10px 10px 15px gray;
+      width: fit-content;
+    }
+    h2 {
+      margin: 0 0 15px 0;
+    }
+    button {
+      margin: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <p>Realizar la siguiente página WEB, donde los botones incrementar y decrementar hacen lo propio con un contador, el cual es renderizado tras cada cambio.</p>
+  
+  <div class="contenedor">
+    <h2 id="contador">Contador: 0</h2>
+    <button onclick="incrementar()">Incrementar</button>
+    <button onclick="decrementar()">Decrementar</button>
+  </div>
+
+  <script>
+    let valor = 0;
+    const contador = document.getElementById("contador");
+
+    function renderizar() {
+      contador.textContent = `Contador: ${valor}`;
+    }
+
+    function incrementar() {
+      valor++;
+      renderizar();
+    }
+
+    function decrementar() {
+      valor--;
+      renderizar();
+    }
+  </script>
+</body>
+</html>
