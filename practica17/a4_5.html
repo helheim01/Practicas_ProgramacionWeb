@@ -10,125 +10,110 @@
   <script>
     // Clase Rueda
     class Rueda {
-      #marca;
-      #rodaje;
-
+      #marca; #rodaje;
       constructor(marca, rodaje) {
-        this.#marca = marca;
-        this.#rodaje = rodaje;
+        this.#marca = marca; this.#rodaje = rodaje;
       }
-
       get marca() { return this.#marca; }
-      set marca(nuevaMarca) { this.#marca = nuevaMarca; }
-
       get rodaje() { return this.#rodaje; }
-      set rodaje(nuevoRodaje) {
-        if (nuevoRodaje >= 0) this.#rodaje = nuevoRodaje;
-        else console.log("El rodaje no puede ser negativo.");
-      }
-
-      mostrar() {
-        return `Rueda - Marca: ${this.#marca}, Rodaje: ${this.#rodaje} km`;
-      }
+      mostrar() { return `Rueda ${this.#marca}, ${this.#rodaje} km`; }
     }
 
     // Clase Remolque
     class Remolque {
       #longitud;
-
-      constructor(longitud) {
-        this.#longitud = longitud;
-      }
-
-      get longitud() { return this.#longitud; }
-      set longitud(nuevaLongitud) { this.#longitud = nuevaLongitud; }
-
-      mostrar() {
-        return `Remolque - Longitud: ${this.#longitud} m`;
-      }
+      constructor(longitud) { this.#longitud = longitud; }
+      mostrar() { return `Remolque de ${this.#longitud} m`; }
     }
 
     // Clase Frigorifico
     class Frigorifico {
       #temperatura;
-
-      constructor(temperatura) {
-        this.#temperatura = temperatura;
-      }
-
-      get temperatura() { return this.#temperatura; }
-      set temperatura(nuevaTemperatura) { this.#temperatura = nuevaTemperatura; }
-
-      mostrar() {
-        return `Frigorífico - Temperatura: ${this.#temperatura}°C`;
-      }
+      constructor(temp) { this.#temperatura = temp; }
+      mostrar() { return `Frigorífico a ${this.#temperatura}°C`; }
     }
 
-    // Clase Vehiculo
+    // Clase Motor
+    class Motor {
+      #tipo; #caballos; #descripcion;
+      constructor(tipo, caballos, desc) {
+        this.#tipo = tipo; this.#caballos = caballos; this.#descripcion = desc;
+      }
+      mostrar() { return `Motor ${this.#tipo}, ${this.#caballos} CV (${this.#descripcion})`; }
+    }
+
+    // Clase Vehiculo (padre)
     class Vehiculo {
-      #velocidad;
-      #marca;
-      #modelo;
-      #ano;
-
-      constructor(marca, modelo, ano, velocidad) {
-        this.#marca = marca;
-        this.#modelo = modelo;
-        this.#ano = ano;
-        this.#velocidad = velocidad;
+      #velocidad; #marca; #modelo; #ano;
+      constructor(marca, modelo, ano, vel) {
+        this.#marca = marca; this.#modelo = modelo;
+        this.#ano = ano; this.#velocidad = vel;
+        this.ruedas = []; // composición
+        this.motor = null;
       }
+      agregarRueda(rueda) { this.ruedas.push(rueda); }
+      ponerMotor(motor) { this.motor = motor; }
+      acelerar() { this.#velocidad += 10; }
+      frenar() { this.#velocidad -= 10; }
+      info() {
+        return `${this.#marca} ${this.#modelo} (${this.#ano}) - Vel: ${this.#velocidad} km/h`;
+      }
+    }
 
-      get marca() { return this.#marca; }
-      set marca(nuevaMarca) { this.#marca = nuevaMarca; }
+    // Subclase Auto
+    class Auto extends Vehiculo {
+      #cantPuertas;
+      constructor(marca, modelo, ano, vel, puertas) {
+        super(marca, modelo, ano, vel);
+        this.#cantPuertas = puertas;
+      }
+      info() { return `Auto: ${super.info()}, Puertas: ${this.#cantPuertas}`; }
+    }
 
-      get modelo() { return this.#modelo; }
-      set modelo(nuevoModelo) { this.#modelo = nuevoModelo; }
+    // Subclase Camion
+    class Camion extends Vehiculo {
+      #capacidadCarga;
+      constructor(marca, modelo, ano, vel, capacidad) {
+        super(marca, modelo, ano, vel);
+        this.#capacidadCarga = capacidad;
+        this.remolque = null;
+        this.frigorifico = null;
+      }
+      engancharRemolque(r) { this.remolque = r; }
+      engancharFrigorifico(f) { this.frigorifico = f; }
+      info() {
+        let base = `Camión: ${super.info()}, Carga: ${this.#capacidadCarga} kg`;
+        if (this.remolque) base += " + " + this.remolque.mostrar();
+        if (this.frigorifico) base += " + " + this.frigorifico.mostrar();
+        return base;
+      }
+    }
 
-      get ano() { return this.#ano; }
-      set ano(nuevoAno) { this.#ano = nuevoAno; }
-
-      get velocidad() { return this.#velocidad; }
-      set velocidad(nuevaVelocidad) { this.#velocidad = nuevaVelocidad; }
-
+    // Concesionario
+    class Concesionario {
+      #nombre; #vehiculos;
+      constructor(nombre) { this.#nombre = nombre; this.#vehiculos = []; }
+      agregarVehiculo(v) { this.#vehiculos.push(v); }
       mostrar() {
-        return `Vehículo - ${this.#marca} ${this.#modelo} (${this.#ano}), Velocidad: ${this.#velocidad} km/h`;
+        return `Concesionario ${this.#nombre}:<br>` + 
+          this.#vehiculos.map(v => v.info()).join("<br>");
       }
     }
 
-    // Clase Fabrica
-    class Fabrica {
-      #nombre;
+    // --- Prueba ---
+    const auto = new Auto("Ford", "Focus", 2020, 180, 4);
+    auto.agregarRueda(new Rueda("Michelin", 10000));
+    auto.ponerMotor(new Motor("Nafta", 120, "1.6L"));
 
-      constructor(nombre) {
-        this.#nombre = nombre;
-      }
+    const camion = new Camion("Volvo", "FH16", 2022, 160, 30000);
+    camion.engancharRemolque(new Remolque(12));
+    camion.engancharFrigorifico(new Frigorifico(-18));
 
-      get nombre() { return this.#nombre; }
-      set nombre(nuevoNombre) { this.#nombre = nuevoNombre; }
+    const concesionario = new Concesionario("Multimarcas");
+    concesionario.agregarVehiculo(auto);
+    concesionario.agregarVehiculo(camion);
 
-      construye(tipo) {
-        if (tipo === "vehiculo") {
-          return new Vehiculo("Ford", "Focus", 2022, 180);
-        } else if (tipo === "rueda") {
-          return new Rueda("Michelin", 15000);
-        } else if (tipo === "remolque") {
-          return new Remolque(12);
-        } else if (tipo === "frigorifico") {
-          return new Frigorifico(-5);
-        }
-        return null;
-      }
-    }
-
-    // Ejemplo de uso
-    const fabrica = new Fabrica("Fabrica Central");
-    const auto = fabrica.construye("vehiculo");
-    const rueda = fabrica.construye("rueda");
-    const remolque = fabrica.construye("remolque");
-    const frigo = fabrica.construye("frigorifico");
-
-    document.getElementById("demo").innerHTML =
-      `${auto.mostrar()}<br>${rueda.mostrar()}<br>${remolque.mostrar()}<br>${frigo.mostrar()}`;
+    document.getElementById("demo").innerHTML = concesionario.mostrar();
   </script>
 </body>
 </html>
