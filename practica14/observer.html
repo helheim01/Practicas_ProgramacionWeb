@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MutationObserver Example</title>
+</head>
+<body>
+
+  <div id="contenedor"></div>
+
+  <script>
+    const contenedor = document.getElementById("contenedor");
+
+    // Creamos un observador que detecta cambios en el DOM
+    const observer = new MutationObserver(mutaciones => {
+      mutaciones.forEach(m => {
+        console.log("Cambio detectado:", m);
+      });
+    });
+
+    // Configuramos qué queremos observar
+    observer.observe(contenedor, { childList: true, attributes: true });
+
+    // Disparar cambios
+    setTimeout(() => {
+      const nuevo = document.createElement("p");
+      nuevo.textContent = "Elemento agregado dinámicamente";
+      contenedor.appendChild(nuevo);
+    }, 2000);
+  </script>
+
+</body>
+</html>

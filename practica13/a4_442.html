@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="demo"></p>
+    <script>
+        //Dado un arreglo de objetos con {nombre, clave}, aplicar funciones de primer orden para capitalizar el nombre, y encriptar la clave
+        const usuarios = [
+            {nombre: "juan", clave: "1234"},
+            {nombre: "maria", clave: "abcd"},
+            {nombre: "pedro", clave: "5678"}
+        ];
+        const capitalizar = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+        const encriptar = (str) => btoa(str); // Usando base64
+        const procesarUsuarios = (arr) => arr.map(user => ({
+            nombre: capitalizar(user.nombre),
+            clave: encriptar(user.clave)
+        }));
+        document.getElementById("demo").innerHTML=procesarUsuarios(usuarios).map(u => `Nombre: ${u.nombre}, Clave: ${u.clave}`).join("<br>");
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Simple</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-box {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      width: 300px;
+      text-align: center;
+    }
+    input {
+      width: 90%;
+      padding: 8px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: gray;
+      cursor: not-allowed;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h2>Login</h2>
+    <input type="text" id="usuario" placeholder="Usuario"><br>
+    <input type="password" id="password" placeholder="Contraseña"><br>
+    <button onclick="login()" id="btnLogin">Ingresar</button>
+    <p id="mensaje" class="error"></p>
+  </div>
+
+  <script>
+    let intentos = 0;
+
+    function login() {
+      let usuario = document.getElementById("usuario").value;
+      let password = document.getElementById("password").value;
+      let mensaje = document.getElementById("mensaje");
+
+      if (usuario === "" || password === "") {
+        mensaje.textContent = "Completa todos los campos";
+        return;
+      }
+
+      if (usuario === "admin" && password === "1234") {
+        mensaje.style.color = "green";
+        mensaje.textContent = "Login exitoso ✅";
+      } else {
+        intentos++;
+        mensaje.style.color = "red";
+        mensaje.textContent = "Usuario o contraseña incorrectos. Intento " + intentos + " de 3";
+      }
+
+      if (intentos >= 3) {
+        document.getElementById("btnLogin").disabled = true;
+        mensaje.textContent = "Bloqueado: 3 intentos fallidos 🚫";
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Crea un objeto Libro con propiedades titulo, autor, anio. Agrega un método descripcion() que muestre la información.
+        //Modela un objeto cuentaBancaria con propiedades saldo, titular.  Métodos: depositar(monto) y retirar(monto).
+        // Crea un objeto Rectangulo con ancho y alto.  Métodos: area() y perimetro().
+
+        // Objeto Libro
+        const libro = {
+            titulo: "Cien Años de Soledad",
+            autor: "Gabriel García Márquez",
+            anio: 1967,
+            descripcion: function() {
+                return `${this.titulo}, escrito por ${this.autor} en el año ${this.anio}.`;
+            }
+        };
+
+        console.log(libro.descripcion());
+        // Objeto cuentaBancaria
+        const cuentaBancaria = {    
+            saldo: 1000,
+            titular: "Juan Pérez",
+            depositar: function(monto) {
+                this.saldo += monto;
+                return `Depósito de $${monto}. Nuevo saldo: $${this.saldo}.`;
+            },
+            retirar: function(monto) {
+                if (monto > this.saldo) {
+                    return "Fondos insuficientes.";
+                }
+                this.saldo -= monto;
+                return `Retiro de $${monto}. Nuevo saldo: $${this.saldo}.`;
+            }
+        };
+        console.log(cuentaBancaria.depositar(500));
+        console.log(cuentaBancaria.retirar(200));
+        console.log(cuentaBancaria.retirar(2000)); // Fondos insuficientes
+        // Objeto Rectangulo
+        const rectangulo = {
+            ancho: 5,
+            alto: 10,
+            area: function() {
+                return this.ancho * this.alto;
+            },
+            perimetro: function() {
+                return 2 * (this.ancho + this.alto);
+            }
+        };  
+        console.log(`Área del rectángulo: ${rectangulo.area()}`);
+        console.log(`Perímetro del rectángulo: ${rectangulo.perimetro()}`);
+        
+    </script>
+</body>
+</html>

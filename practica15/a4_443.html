@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .done { text-decoration: line-through; color: green; }
+    ul { list-style: none; padding: 0; }
+    li { background:#f0f0f0; margin:5px 0; padding:5px;
+         display:flex; justify-content:space-between; align-items:center;}
+    button { margin-left: 5px; }
+  </style>
+</head>
+<body>
+  <h2>To-Do List</h2>
+  <input type="text" id="tarea" placeholder="Escribe una tarea...">
+  <button id="agregar">Agregar</button>
+  
+  <ul id="lista"></ul>
+
+  <h3>Registro de cambios en el DOM:</h3>
+  <pre id="log"></pre>
+
+  <script>
+    const input = document.getElementById("tarea");
+    const btnAgregar = document.getElementById("agregar");
+    const lista = document.getElementById("lista");
+    const log = document.getElementById("log");
+
+    // Observer
+    const observer = new MutationObserver(muts=>{
+      muts.forEach(c=>{
+        log.textContent += `Cambio: ${c.type} en ${c.target.nodeName}\n`;
+      });
+    });
+    observer.observe(lista,{childList:true,attributes:true,subtree:true});
+
+    // Crear tarea
+    function crearTarea(texto){
+      const li = document.createElement("li");
+      const span = document.createElement("span");
+      span.textContent = texto;
+
+      const btnC = document.createElement("button");
+      btnC.textContent = "C";
+      btnC.className = "completar";
+
+      const btnE = document.createElement("button");
+      btnE.textContent = "E";
+      btnE.className = "eliminar";
+
+      li.append(span, btnC, btnE);
+      return li;
+    }
+
+    // Agregar tarea al hacer click
+    btnAgregar.addEventListener("click", ()=>{
+      if(input.value.trim()==="") return;
+      lista.appendChild(crearTarea(input.value));
+      input.value = "";
+    });
+
+    // Delegación de eventos en la lista
+    lista.addEventListener("click", e=>{
+      if(e.target.classList.contains("eliminar")){
+        e.target.closest("li").remove();
+      }
+      else if(e.target.classList.contains("completar")){
+        e.target.closest("li").querySelector("span").classList.toggle("done");
+      }
+    });
+  </script>
+</body>
+</html>
