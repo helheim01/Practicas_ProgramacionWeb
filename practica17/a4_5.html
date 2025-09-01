@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p id="demo"></p>
+  <script>
+    // Clase Rueda
+    class Rueda {
+      #marca;
+      #rodaje;
+
+      constructor(marca, rodaje) {
+        this.#marca = marca;
+        this.#rodaje = rodaje;
+      }
+
+      get marca() { return this.#marca; }
+      set marca(nuevaMarca) { this.#marca = nuevaMarca; }
+
+      get rodaje() { return this.#rodaje; }
+      set rodaje(nuevoRodaje) {
+        if (nuevoRodaje >= 0) this.#rodaje = nuevoRodaje;
+        else console.log("El rodaje no puede ser negativo.");
+      }
+
+      mostrar() {
+        return `Rueda - Marca: ${this.#marca}, Rodaje: ${this.#rodaje} km`;
+      }
+    }
+
+    // Clase Remolque
+    class Remolque {
+      #longitud;
+
+      constructor(longitud) {
+        this.#longitud = longitud;
+      }
+
+      get longitud() { return this.#longitud; }
+      set longitud(nuevaLongitud) { this.#longitud = nuevaLongitud; }
+
+      mostrar() {
+        return `Remolque - Longitud: ${this.#longitud} m`;
+      }
+    }
+
+    // Clase Frigorifico
+    class Frigorifico {
+      #temperatura;
+
+      constructor(temperatura) {
+        this.#temperatura = temperatura;
+      }
+
+      get temperatura() { return this.#temperatura; }
+      set temperatura(nuevaTemperatura) { this.#temperatura = nuevaTemperatura; }
+
+      mostrar() {
+        return `Frigorífico - Temperatura: ${this.#temperatura}°C`;
+      }
+    }
+
+    // Clase Vehiculo
+    class Vehiculo {
+      #velocidad;
+      #marca;
+      #modelo;
+      #ano;
+
+      constructor(marca, modelo, ano, velocidad) {
+        this.#marca = marca;
+        this.#modelo = modelo;
+        this.#ano = ano;
+        this.#velocidad = velocidad;
+      }
+
+      get marca() { return this.#marca; }
+      set marca(nuevaMarca) { this.#marca = nuevaMarca; }
+
+      get modelo() { return this.#modelo; }
+      set modelo(nuevoModelo) { this.#modelo = nuevoModelo; }
+
+      get ano() { return this.#ano; }
+      set ano(nuevoAno) { this.#ano = nuevoAno; }
+
+      get velocidad() { return this.#velocidad; }
+      set velocidad(nuevaVelocidad) { this.#velocidad = nuevaVelocidad; }
+
+      mostrar() {
+        return `Vehículo - ${this.#marca} ${this.#modelo} (${this.#ano}), Velocidad: ${this.#velocidad} km/h`;
+      }
+    }
+
+    // Clase Fabrica
+    class Fabrica {
+      #nombre;
+
+      constructor(nombre) {
+        this.#nombre = nombre;
+      }
+
+      get nombre() { return this.#nombre; }
+      set nombre(nuevoNombre) { this.#nombre = nuevoNombre; }
+
+      construye(tipo) {
+        if (tipo === "vehiculo") {
+          return new Vehiculo("Ford", "Focus", 2022, 180);
+        } else if (tipo === "rueda") {
+          return new Rueda("Michelin", 15000);
+        } else if (tipo === "remolque") {
+          return new Remolque(12);
+        } else if (tipo === "frigorifico") {
+          return new Frigorifico(-5);
+        }
+        return null;
+      }
+    }
+
+    // Ejemplo de uso
+    const fabrica = new Fabrica("Fabrica Central");
+    const auto = fabrica.construye("vehiculo");
+    const rueda = fabrica.construye("rueda");
+    const remolque = fabrica.construye("remolque");
+    const frigo = fabrica.construye("frigorifico");
+
+    document.getElementById("demo").innerHTML =
+      `${auto.mostrar()}<br>${rueda.mostrar()}<br>${remolque.mostrar()}<br>${frigo.mostrar()}`;
+  </script>
+</body>
+</html>
