@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floristería, Contactos y Práctica de Tipos</title>
+</head>
+<body>
+    <script>
+        // ===== Ejercicio 1 =====
+        console.log("=== Ejercicio 1 ===");
+
+        var JERO=2*3 **3-1;
+        console.log(JERO);
+
+        let rosePrice1 = 8;
+        let roseQty1 = 70;
+        let lilyPrice1 = 10;
+        let lilyQty1 = 50;
+        let tulipPrice1 = 2;
+        let tulipQty1 = 120;
+
+        let roseTotal1 = rosePrice1 * roseQty1;
+        let lilyTotal1 = lilyPrice1 * lilyQty1;
+        let tulipTotal1 = tulipPrice1 * tulipQty1;
+
+        let total1 = roseTotal1 + lilyTotal1 + tulipTotal1;
+
+        console.log("Rose – unit price:", rosePrice1, ", quantity:", roseQty1, ", value:", roseTotal1);
+        console.log("Lily – unit price:", lilyPrice1, ", quantity:", lilyQty1, ", value:", lilyTotal1);
+        console.log("Tulip – unit price:", tulipPrice1, ", quantity:", tulipQty1, ", value:", tulipTotal1);
+        console.log("Total:", total1);
+
+        // ===== Ejercicio 2 =====
+        console.log("\n=== Ejercicio 2 ===");
+
+        const rosePrice = 8;
+        const lilyPrice = 10;
+        const tulipPrice = 2;
+
+        let numberOfRoses = 70;
+        let numberOfLilies = 50;
+        let numberOfTulips = 120;
+
+        let rosesValue = rosePrice * numberOfRoses;
+        let liliesValue = lilyPrice * numberOfLilies;
+        let tulipsValue = tulipPrice * numberOfTulips;
+
+        let total = rosesValue + liliesValue + tulipsValue;
+
+        console.log("=== Inventario inicial ===");
+        console.log("Rose – unit price:", rosePrice, ", quantity:", numberOfRoses, ", value:", rosesValue);
+        console.log("Lily – unit price:", lilyPrice, ", quantity:", numberOfLilies, ", value:", liliesValue);
+        console.log("Tulip – unit price:", tulipPrice, ", quantity:", numberOfTulips, ", value:", tulipsValue);
+        console.log("Total:", total);
+
+        numberOfRoses -= 20;
+        numberOfLilies -= 30;
+
+        rosesValue = rosePrice * numberOfRoses;
+        liliesValue = lilyPrice * numberOfLilies;
+        tulipsValue = tulipPrice * numberOfTulips;
+
+        total = rosesValue + liliesValue + tulipsValue;
+
+        console.log("\n=== Inventario actualizado ===");
+        console.log("Rose – unit price:", rosePrice, ", quantity:", numberOfRoses, ", value:", rosesValue);
+        console.log("Lily – unit price:", lilyPrice, ", quantity:", numberOfLilies, ", value:", liliesValue);
+        console.log("Tulip – unit price:", tulipPrice, ", quantity:", numberOfTulips, ", value:", tulipsValue);
+        console.log("Total:", total);
+
+        // ===== Ejercicio 3 =====
+        console.log("\n=== Ejercicio 3 ===");
+
+        let nombre1, telefono1, email1;
+        let nombre2, telefono2, email2;
+        let nombre3, telefono3, email3;
+
+        nombre1 = "Maxwell Wright";
+        telefono1 = "(0191)7196495";
+        email1 = "Curabitur.egestas.nunc@nonummyac.co.uk";
+
+        nombre2 = "Raja Villareal";
+        telefono2 = "0866 398 2895";
+        email2 = "posuere.vulputate@sed.com";
+
+        nombre3 = "Helen Richards";
+        telefono3 = "0800 1111";
+        email3 = "Clibrero@convallis.edu";
+
+        console.log(`Nombre: ${nombre1}, Telefono: ${telefono1}, Email: ${email1}`);
+        console.log(`Nombre: ${nombre2}, Telefono: ${telefono2}, Email: ${email2}`);
+        console.log(`Nombre: ${nombre3}, Telefono: ${telefono3}, Email: ${email3}`);
+
+        // ===== Ejercicio 4 =====
+        let STR  =  "java  script  language";
+
+        console.log(STR.length);
+        console.log('test'.length);
+        console.log(STR.charAt(0));
+        console.log('abc'.charAt(1));
+        console.log(STR.slice(0, 4));
+        console.log('test'.slice(1, 3));
+        console.log(STR.split('  '));
+        console.log('192.168.1.1'.split('.'));
+
+        let str  =  "text";
+        let strStr  =  String(str);
+        console.log(`${typeof str}  :  ${str}`);
+        console.log(`${typeof strStr}  :  ${strStr}`);
+
+        let nr  =  42;
+        let strNr  =  String(nr);
+        console.log(`${typeof nr}  :  ${nr}`);
+        console.log(`${typeof strNr}  :  ${strNr}`);
+
+        let bl  =  true;
+        let strBl  =  String(bl);
+        console.log(`${typeof bl}  :  ${bl}`);
+        console.log(`${typeof strBl}  :  ${strBl}`);
+
+        let bnr  =  123n;
+        let strBnr  =  String(bnr);
+        console.log(`${typeof bnr}  :  ${bnr}`);
+        console.log(`${typeof strBnr}  :  ${strBnr}`);
+
+        let un  =  undefined;
+        let strUn  =  String(un);
+        console.log(`${typeof un}  :  ${un}`);
+        console.log(`${typeof strUn}  :  ${strUn}`);
+
+        let n  =  null;
+        let strN  =  String(n);
+        console.log(`${typeof n}  :  ${n}`);
+        console.log(`${typeof strN}  :  ${strN}`);
+
+        console.log(Number(42));
+        console.log(Number("11"));
+        console.log(Number("0x11"));
+        console.log(Number("0o11"));
+        console.log(Number("0b11"));
+        console.log(Number("12e3"));
+        console.log(Number("Infinity"));
+        console.log(Number("text"));
+        console.log(Number(14n));
+        console.log(Number(123456789123456789123n));
+        console.log(Number(true));
+        console.log(Number(false));
+        console.log(Number(undefined));
+        console.log(Number(null));
+
+        // ===== Ejercicio 5: 2.1.11 SECTION PRACTICE =====
+        console.log("\n=== Ejercicio 5: Práctica de tipos ===");
+
+        //Crear variables de distintos tipos
+        let b1 = true;
+        let b2 = Boolean(true);
+
+        let n1 = 100;
+        let n2 = Number(200);
+
+        let bi1 = 100n;
+        let bi2 = BigInt(200);
+
+        let s1 = "Hello";
+        let s2 = String("Hello");
+
+        let u1 = undefined;
+
+        //Mostrar valores y tipos
+        console.log(`${b1} [${typeof b1}]`);
+        console.log(`${b2} [${typeof b2}]`);
+        console.log(`${n1} [${typeof n1}]`);
+        console.log(`${n2} [${typeof n2}]`);
+        console.log(`${bi1} [${typeof bi1}]`);
+        console.log(`${bi2} [${typeof bi2}]`);
+        console.log(`${s1} [${typeof s1}]`);
+        console.log(`${s2} [${typeof s2}]`);
+        console.log(`${u1} [${typeof u1}]`);
+
+        //Cadena de conversiones
+        let b = Boolean(BigInt(Number("1234")));
+        console.log(`${b} [${typeof b}]`);
+
+        //Sumar valores del mismo tipo
+        let bb = true + false;
+        let nn = 100 + 200;
+        let bii = 100n + 200n;
+        let ss = "He" + "llo";
+        let uu = undefined + undefined;
+
+        console.log(`${bb} [${typeof bb}]`);
+        console.log(`${nn} [${typeof nn}]`);
+        console.log(`${bii} [${typeof bii}]`);
+        console.log(`${ss} [${typeof ss}]`);
+        console.log(`${uu} [${typeof uu}]`);
+
+        //Sumar valores de distinto tipo
+        let b1sum = true + 100;
+        // let b2sum = true + 100n; // -> error
+        let b3sum = true + "100";
+        // let n1sum = 100 + 200n; // -> error
+        let n2sum = 100 + true;
+        let n3sum = 100 + "200";
+        // let bi1sum = 100n + 200; // -> error
+        // let bi2sum = 100n + true; // -> error
+        let bi3sum = 100n + "200";
+        let s1sum = "100" + 200;
+        let s2sum = "100" + 200n;
+        let s3sum = "100" + true;
+        let s4sum = "abc" + 200;
+        let s5sum = "abc" + 200n;
+        let s6sum = "abc" + true;
+
+        console.log(`${b1sum} [${typeof b1sum}]`);
+        console.log(`${b3sum} [${typeof b3sum}]`);
+        console.log(`${n2sum} [${typeof n2sum}]`);
+        console.log(`${n3sum} [${typeof n3sum}]`);
+        console.log(`${bi3sum} [${typeof bi3sum}]`);
+        console.log(`${s1sum} [${typeof s1sum}]`);
+        console.log(`${s2sum} [${typeof s2sum}]`);
+        console.log(`${s3sum} [${typeof s3sum}]`);
+        console.log(`${s4sum} [${typeof s4sum}]`);
+        console.log(`${s5sum} [${typeof s5sum}]`);
+        console.log(`${s6sum} [${typeof s6sum}]`);
+
+        //Modificar la suma para obtener 43
+        const str1 = 42 + +"1";
+        console.log(`${str1} [${typeof str1}]`);
+
+        const distance=120;
+
+        let x="abcdefg".slice(2, 4);
+        console.log(x);
+
+
+
+    </script>
+</body>
+</html>

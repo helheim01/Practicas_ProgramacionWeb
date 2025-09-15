@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operadores y Diálogos en JavaScript</title>
+</head>
+<body>
+    <script>    
+        
+        /*
+        ===========================================================
+        APUNTE DE JAVASCRIPT – OPERADORES Y DIÁLOGOS
+        ===========================================================
+        
+        Los operadores son símbolos que realizan acciones sobre valores o variables (operandos).
+
+        Tipos de operadores según cantidad de operandos:
+        - Unario: usa 1 operando (ej: typeof, ++, --, !).
+        - Binario: usa 2 operandos (ej: +, -, *, &&).
+        - Ternario: usa 3 operandos (ej: cond ? expr1 : expr2).
+        */
+
+        /* ===========================================================
+        1. Operadores de Asignación (=)
+        ============================================================ */
+        let x = 10; // Asigna el valor 10
+        x += 5;     // x = x + 5 → 15
+        x *= 2;     // x = x * 2 → 30
+        console.log("Asignación compuesta:", x);
+
+        /* ===========================================================
+        2. Operadores Aritméticos
+        ============================================================ */
+        console.log(5 + 2);  // 7
+        console.log(5 - 2);  // 3
+        console.log(5 * 2);  // 10
+        console.log(5 / 2);  // 2.5
+        console.log(5 % 2);  // 1 (resto)
+        console.log(2 ** 3); // 8 (potencia)
+
+        // Unarios
+        console.log(+"5");   // 5 (convierte a número)
+        console.log(-"5");   // -5
+        let n = 1;
+        console.log(++n);    // 2 (prefijo: suma antes)
+        console.log(n++);    // 2 (sufijo: suma después)
+        console.log(n);      // 3
+
+        /* ===========================================================
+        3. Operadores de Comparación
+        ============================================================ */
+        console.log(5 == "5");   // true (igualdad débil)
+        console.log(5 === "5");  // false (igualdad estricta)
+        console.log(5 != "5");   // false (!= ignora tipo)
+        console.log(5 !== "5");  // true (!== respeta tipo)
+        console.log(10 > 5);     // true
+        console.log(10 < 5);     // false
+        console.log(10 >= 10);   // true
+        console.log(5 <= 3);     // false
+
+        // Comparación de strings
+        console.log("b" > "a");   // true
+        console.log("a" > "B");   // true
+        console.log("ab" < "abc"); // true
+        console.log("abcd" > "Abcd") //true, porque Se comparan los primeros caracteres: "a" vs "A". En Unicode, "a" (código 97) es mayor que "A" (código 65). 
+
+        /* ===========================================================
+        4. Operadores Lógicos
+        ============================================================ */
+        console.log(true && false); // false
+        console.log(true || false); // true
+        console.log(!true);         // false
+
+        // Cortocircuito
+        console.log("Alice" && "Bob"); // "Bob"
+        console.log("" || "Bob");      // "Bob"
+
+        /* ===========================================================
+        5. Otros Operadores
+        ============================================================ */
+        console.log(typeof 123);        // number
+        console.log(typeof false);      // boolean
+
+        let arr = [1,2,3];
+        console.log(arr instanceof Array); // true
+
+        let user = {name:"Alice", age:30};
+        console.log(user.age); // 30
+        delete user.age;
+        console.log(user.age); // undefined
+
+        // Operador ternario
+        let edad = 20;
+        let status = edad >= 18 ? "Adulto" : "Menor";
+        console.log(status);
+
+        /* ===========================================================
+        6. Precedencia y Asociatividad
+        ============================================================ */
+        let a = 10;
+        let b = a + 2 * 3;       // 16 (multiplicación antes que suma)
+        let c = (a + 2) < (20-15); // false
+        console.log(a, b, c);
+
+        let d, e;
+        e = (d = (20 + 20) * 2) > (3 ** 2);
+        console.log(d); // 80
+        console.log(e); // true
+
+        // Siempre que tengas dudas, usa paréntesis para aclarar.
+
+        /* ===========================================================
+        7. Interacción con el Usuario
+        ============================================================ */
+
+        // Input con HTML + JS (ejemplo teórico)
+        // <input id="myId" type="text">
+        // <button onClick="console.log(document.getElementById('myId').value)">Get Text</button>
+
+        // 7.1 Alert
+        alert("Hola Mundo!");
+        alert(4 * 7); // muestra 28
+
+        // 7.2 Confirm
+        let decision = confirm("¿Quieres continuar?");
+        console.log("Confirm:", decision);
+
+        let remove = confirm("¿Borrar datos?");
+        let msg = remove ? "Datos eliminados" : "Acción cancelada";
+        console.log(msg);
+
+        // 7.3 Prompt
+        let nombre = prompt("¿Cuál es tu nombre?", "Anónimo");
+        nombre = nombre ? nombre : "Sin nombre";
+        let edadPrompt = prompt("Hola " + nombre + ", ¿cuántos años tienes?");
+        alert(nombre + " tiene " + edadPrompt + " años.");
+
+        //Practica
+        let width = Number(prompt("Ingrese el ancho de la caja:")); //se usa prompt para pedir datos
+        let height = Number(prompt("Ingrese el alto de la caja:"));
+        let length = Number(prompt("Ingrese el largo de la caja:"));
+
+        if (isNaN(width) || isNaN(height) || isNaN(length)) { //isNaN es para comprobar si un valor NO es un número.
+            alert("Por favor, ingresa números válidos.");
+        } else {
+            let volume = width * height * length;
+            alert("El volumen de la caja es: " + volume);
+        }
+
+        //LAB
+        let contacts = [{
+            name: "Maxwell Wright",
+            phone: "(0191) 719 6495",
+            email: "Curabitur.egestas.nunc@nonummyac.co.uk"
+            }, {
+            name: "Raja Villarreal",
+            phone: "0866 398 2895",
+            email: "posuere.vulputate@sed.com"
+            }, {
+            name: "Helen Richards",
+            phone: "0800 1111",
+            email: "libero@convallis.edu"
+        }];
+
+        // write your code here
+        let nuevoNombre = (prompt("Ingrese el nombre del nuevo contacto:"));
+        let nuevoNumero = (prompt("Ingrese el numero del nuevo contacto:"));
+        let nuevoEmail = (prompt("Ingrese el email del nuevo contacto:"));
+
+        contacts.push({
+            name:nuevoNombre,
+            phone:nuevoNumero,
+            email:nuevoEmail
+        })
+        let last = contacts.length - 1;
+
+        console.log(`${contacts[0].name} / ${contacts[0].phone} / ${contacts[0].email}`);
+        console.log(`${contacts[last].name} / ${contacts[last].phone} / ${contacts[last].email}`);
+
+
+
+    </script>
+</body>
+</html>

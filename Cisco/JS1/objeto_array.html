@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // ===== Objetos =====
+        let users = [  
+            {
+                name: "Calvin",
+                surname: "Hart",
+                age: 66,
+                email: "CalvinMHart@teleworm.us"
+            },
+            {
+                name: "Mateus",
+                surname: "Pinto",
+                age: 21,
+                email: "MateusPinto@dayrep.com"
+            }
+        ];
+   
+        console.log(users[0].name);  // Calvin
+        console.log(users[1].age);   // 21
+
+        // ===== Arrays =====
+        let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        console.log(typeof days);  // object
+
+        let names = ["Olivia", "Emma", "Mateo", "Samuel"];
+        console.log(names.length);  // 4
+
+        // Agregar un nuevo elemento en la posición 5
+        names[5] = "Amelia";
+        console.log(names.length);  // 6
+        console.log(names);  // ["Olivia", "Emma", "Mateo", "Samuel", <empty>, "Amelia"]
+
+        // ===== indexOf =====
+        console.log(names.indexOf("Mateo"));   // 2
+        console.log(names.indexOf("Victor"));  // -1 (no existe)
+
+        // ===== push =====
+        let namesPush = ["Olivia", "Emma", "Mateo", "Samuel"];
+        console.log(namesPush.length);  // 4
+
+        namesPush.push("Amelia");
+        console.log(namesPush.length);  // 5
+        console.log(namesPush);  // ["Olivia", "Emma", "Mateo", "Samuel", "Amelia"]
+
+        // ===== unshift =====
+        let namesUnshift = ["Olivia", "Emma", "Mateo", "Samuel"];
+        namesUnshift.unshift("Amelia");  // agrega al inicio
+        console.log(namesUnshift);  // ["Amelia", "Olivia", "Emma", "Mateo", "Samuel"]
+
+        // ===== Práctica con objeto ticket =====
+        let ticket = {
+            de: "Madrid",
+            para: "Barcelona",
+            precio: 2000
+        };
+        console.log("Ticket de: " + ticket.de);
+        console.log("Ticket para: " + ticket.para);
+        console.log("Ticket precio: " + ticket.precio);
+
+        //2
+        let persona = {};
+        persona.nombre = "Mary";
+        persona.lastname = "Poppyns";
+        console.log("Nombre: " + persona.nombre + ", Apellido: " + persona.lastname);
+
+        //3
+        let books = [{
+            title: "Speaking JavaScript",
+            author: "Axel Rauschmayer",
+            pages: 460
+        },
+        {
+            title: "Programming JavaScript Applications",
+            author: "Eric Elliot",
+            pages: 254
+        },
+        {
+            title: "Understanding ECMAScript 6",
+            author: "Nicholas C. Zakas",
+            pages: 352
+        }
+    ];
+
+        //4
+        let newBook = {
+            title: "Learning JavaScript Design Patterns",
+            author: "Addy Osmani",
+            pages: 254
+        };
+        books.push(newBook);
+        console.log(books.length);
+        console.log(books[0].title);
+        console.log(books[1].title);
+        console.log(books[2].title);
+        console.log(books[3].title);
+
+        //5
+        let selectedBooks = books.slice(-2);
+
+        //6
+        books.shift();
+        console.log(books.length);
+        console.log(books[0].title);
+        console.log(books[1].title);
+        console.log(books[2].title);
+
+        //7
+        let sum = books[0].pages + books[1].pages + books[2].pages;
+        console.log("Pagina: " + sum);
+
+        //LAB
+        let contacts = [
+            {
+                name: "Maxwell Wright",
+                phone: "(0191) 719 6495",
+                email: "Curabitur.egestas.nunc@nonummyac.co.uk"
+            },
+            {
+                name: "Raja Villarreal",
+                phone: "0866 398 2895",
+                email: "posuere.vulputate@sed.com"
+            },
+            {
+                name: "Helen Richards",
+                phone: "0800 1111",
+                email: "libero@convallis.edu"
+            }
+        ];
+
+        // Agregar nuevo contacto
+        contacts.push({
+            name: "Maisie Haley",
+            phone: "0913 531 3030",
+            email: "risus.Quisque@urna.ca"
+        });
+
+        // Mostrar el primer contacto
+        console.log(`${contacts[0].name} / ${contacts[0].phone} / ${contacts[0].email}`);
+
+        // Mostrar el último contacto usando length
+        console.log(`${contacts[contacts.length - 1].name} / ${contacts[contacts.length - 1].phone} / ${contacts[contacts.length - 1].email}`);
+
+        //Comentar
+        "use strict"; 
+        
+        const prefix = "username_"; 
+        
+        let userName = "Jack"; 
+        // const userName = "Adam"; 
+        
+        let prefixedUserName; 
+        // const prefixedUserName; 
+        
+        userName = "John"; 
+        prefixedUserName = prefix + userName; 
+        
+        console.log(prefixedUserName /*+ prefixedUserName2*/); 
+        // console.log(prefixedUserName2); 
+
+        
+    </script>
+</body>
+</html>

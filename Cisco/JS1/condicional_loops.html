@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //Condicionales 
+        /*
+        //let isUserReady = confirm("Are you ready?");
+        //if (isUserReady)
+            //console.log("User ready!");
+            //alert("User ready!");
+
+            let precioUnitario = 10;
+            let cantidad = prompt("Cantidad de piezas a ordenar: ", 0);
+            if(isNaN(cantidad)){
+                alert("Solo valores numericos. Intente de nuevo");
+            } else if (cantidad != 0) {
+                let total = precioUnitario * cantidad;
+                console.log(total);
+                alert("Total: " + total);
+            }
+        
+            //Operador condicional (ternario): Es una forma abreviada de if ... else. 
+            // Sintaxis: condicion ? valorSiTrue : valorSiFalse
+            
+            // Ejemplo:
+            let precio = 100;
+            let envio = precio > 50 ? 0 : 5;
+            console.log(`Precio = ${precio}, Envío = ${envio}`);
+
+
+            //Otro ejemplo:
+            let start = confirm("¿Iniciar?");
+            let mensaje = start ? "¡Vamos allá!" : "Cancelado";
+            alert(mensaje);
+
+            //Sentencia switch ... case: Cuando hay múltiples posibles valores para una misma variable, es más legible usar switch.
+            let gate = prompt("Elige puerta: a, b o c");
+            let win = false;
+            switch (gate) {
+                case "a":
+                    alert("Puerta A: vacía");
+                    break;
+                case "b":
+                    alert("Puerta B: premio mayor");
+                    win = true;
+                    break;
+                case "c":
+                    alert("Puerta C: vacía");
+                    break;
+                default:
+                    alert("No existe la puerta " + gate);
+            }
+            if (win) {
+                alert("¡Ganaste!");
+            }
+
+            //Ejercicio 1
+            // Pedir al usuario un número. Si está entre 90 y 110 → mostrar "Bingo!", si no → mostrar "Miss".
+            let bingo=Number(prompt("Ingresa un numero, y prueba tu suerte", 0));
+            if(isNaN(bingo)){
+                alert("Ingresa un valor numero");
+            }else if (bingo >90 && bingo<110){
+                alert("Bingo! Ganaste");
+            }else{
+                alert("Mala suerte gil");
+            }
+
+            //Ejercicio 2 version ternario
+            let bingo2=Number(prompt("Ingresa un numero, y prueba tu suerte", 0));
+            let message=(bingo2>90 && bingo2<110)? "Bingo, ganaste!" : "Chupate mansa";
+            alert(message);
+
+            //Ejercicio 3
+            let a = Number(prompt("Ingrese el primer número:"));
+            let b = Number(prompt("Ingrese el segundo número:"));
+            let operacion = prompt("Ingrese operación (+, -, *, /)");
+
+            if (Number.isNaN(a) || Number.isNaN(b)) {
+                alert("Error: valores no válidos");
+            } else {
+                let resultado;
+                if (operacion === "+") {
+                    resultado = a + b;
+                } else if (operacion === "-") {
+                    resultado = a - b;
+                } else if (operacion === "*") {
+                    resultado = a * b;
+                } else if (operacion === "/") {
+                    resultado = b !== 0 ? a / b : "Error: división por 0";
+                } else {
+                    resultado = "Operación no válida";
+                }
+                alert("Resultado: " + resultado);
+            }
+
+            
+            LAB:
+
+            Tomar el programa de la lista de contactos y darle al usuario un menú de opciones para elegir qué hacer con la lista:
+            Mostrar el primer contacto (cuando el usuario escriba "first")
+            Mostrar el último contacto (cuando el usuario escriba "last")
+            Agregar un nuevo contacto (cuando el usuario escriba "new")
+
+            En el caso de agregar un contacto, el programa debe:
+            Pedir name, phone y email con prompt().
+            Verificar que los tres campos no estén vacíos.
+            Si falta alguno, NO agregar el contacto.
+            Si todo está bien, agregarlo al array contacts.
+           
+
+            let contacts = [{
+                name: "Maxwell Wright",
+                phone: "(0191) 719 6495",
+                email: "Curabitur.egestas.nunc@nonummyac.co.uk"
+            }, {
+                name: "Raja Villarreal",
+                phone: "0866 398 2895",
+                email: "posuere.vulputate@sed.com"
+            }, {
+                name: "Helen Richards",
+                phone: "0800 1111",
+                email: "libero@convallis.edu"
+            }];
+
+            let accion = prompt("¿Que queres hacer? (first / last / new)");
+            
+            if(accion==="first"){
+                console.log("Nombre: " + contacts[0].name + ", Telefono: " + contacts[0].phone + ". Email: " + contacts[0].email);
+            }else if(accion==="last"){
+                let last=contacts.length -1;
+                console.log("Nombre: " + contacts[last].name + ", Telefono: " + contacts[last].phone + ". Email: " + contacts[last].email);
+            }else if(accion==="new"){
+                let nuevoNombre = (prompt("Ingrese el nombre del nuevo contacto:"));
+                let nuevoNumero = (prompt("Ingrese el numero del nuevo contacto:"));
+                let nuevoEmail = (prompt("Ingrese el email del nuevo contacto:"));
+
+                if(nuevoNombre && nuevoNumero && nuevoEmail){
+                    contacts.push({
+                    name:nuevoNombre,
+                    phone:nuevoNumero,
+                    email:nuevoEmail
+                })
+                console.log("Contacto agregado");
+                console.log(contacts);
+                }else{alert("Error. Faltan datos")}
+            }else{console.log("Opcion no valida")}
+
+            */
+
+            //Loops--------------------------------
+            /*
+            ¿Qué son los bucles? Los bucles son estructuras de control que nos permiten repetir un bloque de código varias veces:
+
+            Ejemplo con bucle (más eficiente):
+                let n = 0;
+                while (n < 91) {
+                console.log(n); // 0, 10, 20, ..., 90
+                n += 10;
+                }
+
+            Bucle while: Se ejecuta mientras la condición sea verdadera. Ideal cuando no sabemos cuántas veces se repetirá el código.
+            Sintaxis:
+                while (condición) {
+                // bloque de código
+                }
+
+
+            Ejemplo interactivo con confirm:
+                let isOver = false;
+                let counter = 1;
+
+                while (!isOver) {
+                isOver = !confirm(`[${counter++}] ¿Continuar el bucle?`);
+                }
+
+            Bucle do ... while: Igual que while, pero garantiza al menos una ejecución porque la condición se evalúa al final.
+            Sintaxis:
+                do {
+                // bloque de código
+                } while (condición);
+
+
+            Ejemplo:
+                let condition = false;
+
+                while (condition) {
+                console.log("while → nunca entra");
+                }
+
+                do {
+                console.log("do...while → siempre entra al menos 1 vez");
+                } while (condition);
+
+            Bucle for: Más usado cuando sabemos cuántas veces repetir el código. Tiene tres partes: inicialización, condición, incremento.
+
+            Sintaxis:
+            for (inicialización; condición; incremento) {
+            // bloque de código
+            }
+
+
+            Ejemplo clásico:
+                for (let i = 0; i < 10; i++) {
+                console.log(i); // 0 al 9
+                }
+
+            Suma de un array:
+                let valores = [10, 30, 50, 100];
+                let suma = 0;
+
+                for (let i = 0; i < valores.length; i++) {
+                suma += valores[i];
+                }
+                console.log(suma); // 190
+
+            Bucles y arrays
+
+            Ejemplo: ingresar nombres dinámicamente con prompt.
+                let nombres = [];
+                let isOver = false;
+
+                while (!isOver) {
+                let nombre = prompt("Ingrese un nombre o Cancelar:");
+                if (nombre != null) {
+                    nombres.push(nombre);
+                } else {
+                    isOver = true;
+                }
+                }
+
+                for (let i = 0; i < nombres.length; i++) {
+                console.log(nombres[i]);
+                }
+
+            Bucle for...of: Sirve para recorrer arrays u objetos iterables. Más sencillo que for, no requiere índice.
+
+            Ejemplo con suma:
+                let valores = [10, 30, 50, 100];
+                let suma = 0;
+
+                for (let numero of valores) {
+                suma += numero;
+                }
+                console.log(suma); // 190
+
+
+            Ejemplo con objetos en un array:
+                let ciudades = [
+                { nombre: "México", poblacion: 21.34e6 },
+                { nombre: "Tokio", poblacion: 37.26e6 },
+                ];
+
+                for (let ciudad of ciudades) {
+                if (ciudad.poblacion > 20e6) {
+                    console.log(`${ciudad.nombre} (${ciudad.poblacion})`);
+                }
+                }
+
+            Bucle for...in: Sirve para recorrer propiedades de un objeto.
+
+            Ejemplo:
+                let usuario = {
+                nombre: "Calvin",
+                apellido: "Hart",
+                edad: 66
+                };
+
+                for (let clave in usuario) {
+                console.log(`${clave} → ${usuario[clave]}`);
+                }
+
+            Sentencias break y continue
+                break: interrumpe completamente el bucle.
+                continue: salta la iteración actual y sigue con la siguiente.
+
+            Ejemplo con break:
+            let i = 0;
+            while (true) {
+            console.log(i);
+            if (i >= 4) break;
+            i++;
+            }
+
+            Ejemplo con continue:
+            for (let i = 0; i < 10; i++) {
+            if (i === 3) continue;
+            console.log(i); // se salta el 3
+            }
+
+            */
+
+            //Ejercicio 1: Escriba un fragmento de código que escriba números del 100 al 0 en la consola, pero en pasos de 10; es decir, 100, 90, 80... etc.
+            let n = 100;
+            while (n >= 0) {
+                console.log(n); // 0, 10, 20, ..., 90
+                n -= 10;
+            }
+            //Alternativa
+            //for (i=100; i>=0; i-=10) {
+                //console.log(i);
+            //}
+
+            //Ejercicio 2: Modifique el programa anterior para que solicite al usuario el primer y el último número que utiliza en lugar de 100 y 0 
+            // Compruebe si los valores introducidos son correctos (que el valor inicial sea mayor que el valor final).
+            let primero=Number(prompt("Ingrese el valor inicial: "));
+            let ultimo=Number(prompt("Ingrese el ultimo valor (menor al valor inicial): "));
+
+            if(isNaN(primero) || isNaN(ultimo)){
+                alert("Ingrese valores validos");
+            }else if(primero<ultimo){
+                alert("Te dije que el ultimo debe ser menor, tarado");
+            }else{
+                for(let i=primero; i>=ultimo; i-=10){
+                    console.log(i);
+                }
+            }
+            /*
+            Alternativa mas corta
+            let upperLimit = Number(prompt("Enter upper limit"));
+            let lowerLimit = Number(prompt("Enter lower limit"));
+
+            if (!Number.isNaN(upperLimit) && !Number.isNaN(lowerLimit) && upperLimit > lowerLimit) {
+                for (i = upperLimit; i >= lowerLimit; i -= 10) {
+                    console.log(i);
+                }
+            }
+            */
+
+            //Ejercicio 3: Hay diez números diferentes en la siguiente matriz de números:
+            // let numbers = [21, 45, 100, 12, 11, 78, 61, 4, 39, 22];
+            // Escribe un programa que primero escriba todos estos números en la consola, luego solo los pares 
+            // (pista: el resto de dividir un número par entre 2 es igual a 0), y luego solo los mayores que 10 y menores que 60.
+
+            let numbers = [21, 45, 100, 12, 11, 78, 61, 4, 39, 22];
+            console.log("Todos los numeros del arreglo: ");
+            for (let num of numbers){
+                console.log(num); //los numeros del arreglo
+            }
+
+            //Solo pares
+            console.log("Todos los numeros PARES del arreglo: ");
+            for (let num of numbers){
+                if(num%2==0){
+                    console.log(num); //los numeros del arreglo
+                }
+            }
+
+            //Mayores que 10 y menores que 60
+            console.log("Mayores que 10 y menores que 60: ");
+            for (let num of numbers){
+                if(num>10 && num<60){
+                    console.log(num); //los numeros del arreglo
+                }
+            }
+
+            //Ejercicio 4: Ejercicio 4: Escriba un programa con un bucle que solicite al usuario el nombre de la película (primera solicitud) y 
+            // su calificación de www.imdb.com (segunda solicitud). El programa le permitirá ingresar tantas películas como desee en la matriz 
+            // "películas". Cada elemento de la matriz será un objeto compuesto por dos campos: título e imdb. 
+            // La entrada se completa si el usuario presiona Cancelar en el cuadro de diálogo. 
+            // A continuación, el programa debe mostrar en la consola primero todas las películas con una calificación menor a 7 y 
+            // luego aquellas con una calificación mayor o igual a 7. Escriba el nombre de la película y su calificación uno al lado del otro, 
+            // por ejemplo: Lost in Translation (7.7)
+                
+
+
+
+
+
+    </script>
+</body>
+</html>
