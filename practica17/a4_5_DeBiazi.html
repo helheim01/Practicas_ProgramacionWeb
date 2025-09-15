@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>UML Vehículos</title>
 </head>
 <body>
   <p id="demo"></p>
   <script>
-    // Clase Rueda
     class Rueda {
       #marca; #rodaje;
       constructor(marca, rodaje) {
@@ -19,21 +18,18 @@
       mostrar() { return `Rueda ${this.#marca}, ${this.#rodaje} km`; }
     }
 
-    // Clase Remolque
     class Remolque {
       #longitud;
       constructor(longitud) { this.#longitud = longitud; }
       mostrar() { return `Remolque de ${this.#longitud} m`; }
     }
 
-    // Clase Frigorifico
     class Frigorifico {
       #temperatura;
       constructor(temp) { this.#temperatura = temp; }
       mostrar() { return `Frigorífico a ${this.#temperatura}°C`; }
     }
 
-    // Clase Motor
     class Motor {
       #tipo; #caballos; #descripcion;
       constructor(tipo, caballos, desc) {
@@ -42,25 +38,46 @@
       mostrar() { return `Motor ${this.#tipo}, ${this.#caballos} CV (${this.#descripcion})`; }
     }
 
-    // Clase Vehiculo (padre)
+    class Titulo {
+      #prop;
+      constructor(prop) { this.#prop = prop; }
+      get prop() { return this.#prop; }
+    }
+
+    class RNA {
+      #provincia; #info;
+      constructor(provincia, info) {
+        this.#provincia = provincia; this.#info = info;
+      }
+      registrar(titulo) {
+        return `Título de ${titulo.prop} registrado en ${this.#provincia} (${this.#info})`;
+      }
+    }
+
     class Vehiculo {
       #velocidad; #marca; #modelo; #ano;
       constructor(marca, modelo, ano, vel) {
         this.#marca = marca; this.#modelo = modelo;
         this.#ano = ano; this.#velocidad = vel;
-        this.ruedas = []; // composición
+        this.ruedas = []; 
         this.motor = null;
+        this.titulo = null;
       }
       agregarRueda(rueda) { this.ruedas.push(rueda); }
       ponerMotor(motor) { this.motor = motor; }
+      ponerTitulo(titulo) { this.titulo = titulo; }
       acelerar() { this.#velocidad += 10; }
       frenar() { this.#velocidad -= 10; }
+      compararVelocidad(otroVehiculo) {
+        if (this.#velocidad > otroVehiculo.#velocidad) return `${this.#marca} es más rápido`;
+        if (this.#velocidad < otroVehiculo.#velocidad) return `${otroVehiculo.#marca} es más rápido`;
+        return "Ambos tienen la misma velocidad";
+      }
       info() {
         return `${this.#marca} ${this.#modelo} (${this.#ano}) - Vel: ${this.#velocidad} km/h`;
       }
     }
 
-    // Subclase Auto
     class Auto extends Vehiculo {
       #cantPuertas;
       constructor(marca, modelo, ano, vel, puertas) {
@@ -70,7 +87,6 @@
       info() { return `Auto: ${super.info()}, Puertas: ${this.#cantPuertas}`; }
     }
 
-    // Subclase Camion
     class Camion extends Vehiculo {
       #capacidadCarga;
       constructor(marca, modelo, ano, vel, capacidad) {
@@ -89,7 +105,14 @@
       }
     }
 
-    // Concesionario
+    class Fabrica {
+      #nombre;
+      constructor(nombre) { this.#nombre = nombre; }
+      construir(marca, modelo, ano, vel) {
+        return new Vehiculo(marca, modelo, ano, vel);
+      }
+    }
+
     class Concesionario {
       #nombre; #vehiculos;
       constructor(nombre) { this.#nombre = nombre; this.#vehiculos = []; }
@@ -99,8 +122,7 @@
           this.#vehiculos.map(v => v.info()).join("<br>");
       }
     }
-
-    //Prueba
+    
     const auto = new Auto("Ford", "Focus", 2020, 180, 4);
     auto.agregarRueda(new Rueda("Michelin", 10000));
     auto.ponerMotor(new Motor("Nafta", 120, "1.6L"));
@@ -109,11 +131,23 @@
     camion.engancharRemolque(new Remolque(12));
     camion.engancharFrigorifico(new Frigorifico(-18));
 
+    const fabrica = new Fabrica("Ford Argentina");
+    const vehiculoGenerico = fabrica.construir("Ford","Fiesta",2019,150);
+
+    const titulo = new Titulo("Juan Pérez");
+    vehiculoGenerico.ponerTitulo(titulo);
+
+    const registro = new RNA("Buenos Aires","Oficina Central");
+
     const concesionario = new Concesionario("Multimarcas");
     concesionario.agregarVehiculo(auto);
     concesionario.agregarVehiculo(camion);
+    concesionario.agregarVehiculo(vehiculoGenerico);
 
-    document.getElementById("demo").innerHTML = concesionario.mostrar();
+    document.getElementById("demo").innerHTML =
+      concesionario.mostrar() + "<br><br>" +
+      registro.registrar(titulo) + "<br>" +
+      auto.compararVelocidad(camion);
   </script>
 </body>
 </html>
