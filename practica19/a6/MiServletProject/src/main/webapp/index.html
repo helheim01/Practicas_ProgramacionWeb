@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Enviar datos al Servlet</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h2>Formulario</h2>
+
+<input type="text" id="nombre" placeholder="Escribe tu nombre">
+<input type="number" id="edad" placeholder="Tu edad">
+<button id="btnEnviar">Enviar</button>
+
+<div id="respuesta"></div>
+
+<script>
+    $(document).ready(function() {
+        $("#btnEnviar").click(function() {
+            let nombre = $("#nombre").val();
+            let edad = $("#edad").val();
+
+            $.ajax({
+                url: "hola",
+                type: "GET",
+                data: {
+                    nombre: nombre,
+                    edad: edad
+                },
+                success: function(data) {
+                    alert("Se llamo al servlet");
+                    $("#respuesta").text(data.mensaje);
+                },
+                error: function() {
+                    alert("Algo anduvo mal");
+                    $("#respuesta").text("Error en la petición.");
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

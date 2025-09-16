@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Enviar datos al Servlet</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h2>Formulario</h2>
+<form id="miFormulario">
+    Nombre: <input type="text" name="nombre" id="nombre"><br>
+    Edad: <input type="number" name="edad" id="edad"><br>
+    <button type="submit">Enviar</button>
+</form>
+
+<div id="resultado"></div>
+
+<script>
+    $(document).ready(function() {
+        $("#miFormulario").submit(function(e) {
+            e.preventDefault(); // Evita que se recargue la página
+
+            $.post("hola",
+                {
+                    nombre: $("#nombre").val(),
+                    edad: $("#edad").val()
+                },
+                function(respuesta) {
+                    $("#resultado").html(respuesta);
+                }
+            );
+        });
+    });
+</script>
+</body>
+</html>
