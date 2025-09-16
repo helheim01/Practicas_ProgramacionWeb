@@ -8,7 +8,7 @@
 <body>
     <script>
 
-        //Condicionales 
+        //Condicionales-------------------------
         /*
         //let isUserReady = confirm("Are you ready?");
         //if (isUserReady)
@@ -367,7 +367,181 @@
             // luego aquellas con una calificación mayor o igual a 7. Escriba el nombre de la película y su calificación uno al lado del otro, 
             // por ejemplo: Lost in Translation (7.7)
                 
+            let peliculas=[];
+            while(true){
+                let nombrePeli=String(prompt("Ingrese el nombre de la pelicula: "));
+                let calificacionPeli=parseFloat(prompt("Ingrese la calificacion de la pelicula en IMDB: "));
 
+                if(nombrePeli==null || calificacionPeli==null){
+                    alert("Sos un pete");
+                    break;
+                }else{
+                    peliculas.push({
+                        nombrePeli:nombrePeli,
+                        calificacionPeli:calificacionPeli
+                    });
+                }
+            }
+
+            console.log("Pelculas con calificacion menor a 7--------");
+            for(pelicula of peliculas){
+                if(pelicula.calificacionPeli<7){
+                    console.log("Titulo: " + nombrePeli + ", Calificacion en IMDB: " + calificacionPeli);
+                }
+            }
+
+            console.log("Pelculas con calificacion mayor a 7--------");
+            for(pelicula of peliculas){
+                if(pelicula.calificacionPeli>=7){
+                    console.log("Titulo: " + nombrePeli + ", Calificacion en IMDB: " + calificacionPeli);
+                    break;
+                }
+            }
+
+            /*
+            Ejercicio 5: En la consola debe mostrarse esto.
+            LATITUDE -> 40.07288 
+            LONGITUDE -> 154.48535 
+            COURSE -> 285.6 
+            SPEED -> 14.0 
+            IMO -> 9175717 
+            NAME -> MARENO
+
+            Completa el codigo para que muestre todo:
+            let vessel = ... 
+            for( let key in vessel) { 
+                console.log(`${key} -> ${vessel[key]}`); 
+            }
+            */
+
+            let vessel ={
+                LATITUDE: 40.07288,
+                LONGITUDE: 154.48535,
+                COURSE: 285.6,
+                SPEED: 14.0,
+                IMO: 9175717, 
+                NAME: "MARENO"
+            };
+            for( let key in vessel) { 
+                console.log(`${key} -> ${vessel[key]}`); 
+            }
+
+
+            //Ejercicio 6: Modifique el programa de calculadora que creó en el Módulo 4 Sección 2 de tal manera que funcione en el 
+            // bucle hasta que el usuario ingrese Q en cualquiera de los cuadros de solicitud.
+            
+            while(true){
+                let a = (prompt("Ingrese el primer número (Q para salir): "));
+                let b = (prompt("Ingrese el segundo número (Q para salir): "));
+                let operacion = prompt("Ingrese operación (+, -, *, /) (Q para salir): ");
+
+                if(a=="Q" || (b=="Q") || (operacion=="Q")){
+                    alert("Cerrando programa.....");
+                    break;
+                }
+
+                A=Number(a);
+                B=Number(b);
+
+                if (Number.isNaN(A) && Number.isNaN(B)) {
+                    alert("Error: valores no válidos");
+                } else {
+                    let resultado;
+                    if (operacion === "+") {
+                        resultado = A + B;
+                    } else if (operacion === "-") {
+                        resultado = A - B;
+                    } else if (operacion === "*") {
+                        resultado = A * B;
+                    } else if (operacion === "/") {
+                        resultado = B !== 0 ? A / B : "Error: división por 0";
+                    } else {
+                        resultado = "Operación no válida";
+                    }
+                    alert("Resultado: " + resultado);
+                }
+            }
+
+
+            /*
+            LAB: Escenario: mejorar el programa de lista de contactos para que funcione en un bucle, 
+            donde el usuario pueda elegir qué acción realizar repetidamente hasta que decida salir.
+
+            Opciones que el usuario puede seleccionar:
+                Mostrar el primer contacto (first)
+                Mostrar el último contacto (last)
+                Mostrar todos los contactos (all)
+                Agregar un nuevo contacto (new)
+                Salir del programa (quit)
+
+            El programa debe ejecutar la acción elegida y luego volver a mostrar el menú hasta que el usuario ingrese quit.
+            */
+
+            let contacts = [
+                {
+                    name: "Maxwell Wright",
+                    phone: "(0191) 719 6495",
+                    email: "Curabitur.egestas.nunc@nonummyac.co.uk"
+                },
+                {
+                    name: "Raja Villarreal",
+                    phone: "0866 398 2895",
+                    email: "posuere.vulputate@sed.com"
+                },
+                {
+                    name: "Helen Richards",
+                    phone: "0800 1111",
+                    email: "libero@convallis.edu"
+                }
+            ];
+
+            while (true) {
+                let accion = prompt("¿Qué querés hacer? (first / last / all / new / quit)");
+
+                switch (accion) {
+                    case "first":
+                        console.log(`Nombre: ${contacts[0].name}, Teléfono: ${contacts[0].phone}, Email: ${contacts[0].email}`);
+                        break;
+
+                    case "last":
+                        let last = contacts.length - 1;
+                        console.log(`Nombre: ${contacts[last].name}, Teléfono: ${contacts[last].phone}, Email: ${contacts[last].email}`);
+                        break;
+
+                    case "all":
+                        for (let contact of contacts) {
+                            console.log(`Nombre: ${contact.name}, Teléfono: ${contact.phone}, Email: ${contact.email}`);
+                        }
+                        break;
+
+                    case "new":
+                        let nuevoNombre = prompt("Ingrese el nombre del nuevo contacto:");
+                        let nuevoNumero = prompt("Ingrese el número del nuevo contacto:");
+                        let nuevoEmail = prompt("Ingrese el email del nuevo contacto:");
+
+                        if (nuevoNombre && nuevoNumero && nuevoEmail) {
+                            contacts.push({
+                                name: nuevoNombre,
+                                phone: nuevoNumero,
+                                email: nuevoEmail
+                            });
+                            console.log("Contacto agregado");
+                        } else {
+                            alert("Error. Faltan datos");
+                        }
+                        break;
+
+                    case "quit":
+                        alert("Cerrando programa...");
+                        console.log("Programa finalizado");
+                        break;
+
+                    default:
+                        alert("Opción no válida");
+                }
+
+                if (accion === "quit") break; // salir del bucle
+            }
 
 
 
