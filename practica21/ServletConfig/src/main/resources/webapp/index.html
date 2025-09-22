@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServletConfig - Página Principal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+
+        .servlet-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .servlet-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .servlet-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .servlet-card h3 {
+            margin: 0 0 10px 0;
+            color: #667eea;
+        }
+
+        .servlet-card p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .info-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .info-section h3 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        .info-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .info-list li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .info-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🚀 ServletConfig Demo</h1>
+    <p class="subtitle">Demostración de configuración de Servlets con Spring Boot</p>
+
+    <div class="servlet-links">
+        <a href="/miservlet" class="servlet-card">
+            <h3>MiServlet</h3>
+            <p>Servlet configurado mediante web.xml</p>
+            <p><strong>URL:</strong> /miservlet</p>
+        </a>
+
+        <a href="/anotado" class="servlet-card">
+            <h3>MiServletAnotado</h3>
+            <p>Servlet configurado con anotaciones @WebServlet</p>
+            <p><strong>URL:</strong> /anotado</p>
+        </a>
+    </div>
+
+    <div class="info-section">
+        <h3>📋 Características del Proyecto</h3>
+        <ul class="info-list">
+            <li><strong>Framework:</strong> Spring Boot 3.5.5</li>
+            <li><strong>Java Version:</strong> 17</li>
+            <li><strong>Build Tool:</strong> Maven</li>
+            <li><strong>Servlet API:</strong> Jakarta EE</li>
+            <li><strong>Configuración:</strong> web.xml + Anotaciones</li>
+        </ul>
+    </div>
+
+    <div class="info-section">
+        <h3>🔧 Diferencias entre Servlets</h3>
+        <ul class="info-list">
+            <li><strong>MiServlet:</strong> Configurado en web.xml con parámetros de inicialización</li>
+            <li><strong>MiServletAnotado:</strong> Configurado completamente con anotaciones Java</li>
+            <li>Ambos muestran sus parámetros de configuración</li>
+            <li>Demuestran diferentes enfoques de configuración</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>💡 Haz clic en cualquier servlet para ver su funcionamiento</p>
+        <p>Proyecto creado con Spring Boot y configuración tradicional de Servlets</p>
+    </div>
+</div>
+</body>
+</html>

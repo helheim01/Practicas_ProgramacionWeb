@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones en JavaScript</title>
+</head>
+<body>
+    <script>
+        /*
+        ====================================================
+        FUNCIONES EN JAVASCRIPT
+        ====================================================
+        Una función es una pieza de código separada que constituye un conjunto lógico cerrado, 
+        destinada a realizar una tarea específica. Le asignamos un nombre a esta pieza de código 
+        para poder llamarla (ejecutarla) múltiples veces en diferentes lugares del programa.
+
+        ----------------------------------------------------
+        ¿Por qué usar funciones?
+        ----------------------------------------------------
+        - Modularidad: Dividen el código en partes lógicamente independientes.
+        - Reutilización: Evita repetir el mismo código múltiples veces.
+        - Facilita el mantenimiento: Los cambios solo se hacen una vez, dentro de la función.
+        - Legibilidad: Hace el código más fácil de leer y analizar.
+        - Testing: Permite probar fragmentos de código de manera independiente.
+        
+
+        ====================================================
+        5.1.1 DECLARACIÓN DE FUNCIONES
+        ====================================================
+        Sintaxis:
+            function nombreFuncion() {
+                // código
+            }
+
+        Ejemplo:
+            function getMeanTemp() {
+                let sum = 0;
+                for (let i = 0; i < temperatures.length; i++) {
+                    sum += temperatures[i];
+                }
+                meanTemp = sum / temperatures.length;
+            }
+
+        Llamado a la función:
+            getMeanTemp(); 
+            // Ejecuta el bloque de código definido dentro de la función
+
+
+        ----------------------------------------------------
+        Ejemplo completo
+        ----------------------------------------------------
+        */
+            let temperatures;
+            let sum;
+            let meanTemp;
+
+            function getMeanTemp() {
+                sum = 0; // Reinicia la suma
+                for (let i = 0; i < temperatures.length; i++) {
+                    sum += temperatures[i]; // Acumula las temperaturas
+                }
+                meanTemp = sum / temperatures.length; // Calcula el promedio
+            }
+
+            temperatures = [12, 12, 11, 11, 10, 9, 9, 10, 12, 13, 15, 18, 21, 24, 24, 23, 25, 25, 23, 21, 20, 19, 17, 16];
+            getMeanTemp();
+            console.log(`mean: ${meanTemp}`); 
+            // -> mean: 16.666666666666668
+
+
+        /*
+        ====================================================
+        VARIABLES LOCALES EN FUNCIONES
+        ====================================================
+        */
+            function getMeanTemp2() {
+                let sum = 0; // Variable local: solo existe dentro de esta función
+                for (let i = 0; i < temperatures.length; i++) {
+                    sum += temperatures[i];
+                }
+                meanTemp = sum / temperatures.length; // meanTemp es global
+            }
+
+        /*
+        ====================================================
+        RETURN
+        ====================================================
+        */
+            function showMsg() {
+                console.log("mensaje 1");
+                return; // Finaliza la función aquí
+                console.log("mensaje 2"); // Nunca se ejecuta
+            }
+            showMsg(); // -> mensaje 1
+
+            function getTrue() {
+                return true; // Devuelve un valor al llamador
+            }
+            let test = getTrue();
+            console.log(test); // -> true
+
+
+        /*
+        ====================================================
+        PARÁMETROS
+        ====================================================
+        */
+            function add(first, second) {
+                return first + second;
+            }
+            let result = add(5, 7); // Pasa 5 y 7 como parámetros
+            console.log(result); // -> 12
+
+            function getElement(elements, index) {
+                return elements[index]; // Devuelve el elemento en la posición indicada
+            }
+            let names = ["Alice", "Bob", "Eve", "John"];
+            let name = getElement(names, 2);
+            console.log(name); // -> Eve
+
+
+        /*
+        ====================================================
+        SHADOWING (SOMBREADO DE VARIABLES)
+        ====================================================
+        */
+            function add2(first, second) {
+                return first + second;
+            }
+
+            let first = 10, second = 20, third = 40, fourth = 80;
+            console.log(add2(first, second));  // -> 30
+            console.log(add2(second, third));  // -> 60
+            console.log(add2(third, fourth));  // -> 120
+
+            let a = 100, b = 200, c = 300;
+            function testShadowing(a) {
+                let b = 10; 
+                console.log(a); // usa el parámetro (1)
+                console.log(b); // usa la variable local (10)
+                console.log(c); // usa la global (300)
+            }
+            testShadowing(1);
+
+
+        /*
+        ====================================================
+        VALIDACIÓN DE PARÁMETROS
+        ====================================================
+        */
+            function getMeanTemp3(temperatures) {
+                if (!(temperatures instanceof Array)) {
+                    return NaN; // Si no es array, devuelve NaN
+                }
+                let sum = 0;
+                for (let i = 0; i < temperatures.length; i++) {
+                    sum += temperatures[i];
+                }
+                return sum / temperatures.length;
+            }
+            console.log(getMeanTemp3(10)); // -> NaN
+            console.log(getMeanTemp3([10,30])); // -> 20
+
+
+        /*
+        ====================================================
+        RECURSIÓN Y FACTORIAL
+        ====================================================
+        */
+            function factorialWhile(n) {
+                let result = 1;
+                while (n > 1) { 
+                    result *= n;
+                    n--; // va bajando hasta 1
+                }
+                return result;
+            }
+            console.log(factorialWhile(6)); // -> 720
+
+            function factorialRec(n) {
+                // Caso recursivo: n * factorial(n-1)
+                // Caso base: si n == 1 devuelve 1
+                return n > 1 ? n * factorialRec(n - 1) : 1;
+            }
+            console.log(factorialRec(6)); // -> 720
+
+
+        /*
+        ====================================================
+        FUNCIONES COMO CIUDADANOS DE PRIMERA CLASE
+        ====================================================
+        */
+            function showMessage(message) {
+                console.log(`Message: ${message}`);
+            }
+            let sm = showMessage; // Asigno función a variable
+            sm("Funciona!"); // -> Message: Funciona!
+
+            function multiply(a,b){ return a*b; }
+            function operation(func, first, second) {
+                return func(first, second); // Ejecuta la función pasada como parámetro
+            }
+            console.log(operation(add,10,20)); // -> 30
+            console.log(operation(multiply,10,20)); // -> 200
+
+
+        /*
+        ====================================================
+        EXPRESIONES DE FUNCIÓN
+        ====================================================
+        */
+            let myAdd = function(a,b){ return a+b; }; // Función anónima
+            console.log(myAdd(10,20)); // -> 30
+
+            // Pasando función anónima directamente
+            console.log(operation(function(a,b){ return a*b; }, 10, 20)); // -> 200
+
+
+        /*
+        ====================================================
+        CALLBACKS
+        ====================================================
+        */
+            // Funciones diferentes
+            let f1 = function() { console.log("Soy la función 1"); }
+            let f2 = function() { console.log("Soy la función 2"); }
+            let f3 = function() { console.log("Soy la función 3"); }
+
+            // Función que recibe un callback
+            let outer = function(callback) {
+                console.log("Inicio en outer");
+                callback();  // ejecuta la función pasada
+                console.log("Fin en outer");
+            }
+
+            // Acá decido qué función usar
+            outer(f1);  
+            // -> Inicio en outer
+            // -> Soy la función 1
+            // -> Fin en outer
+
+            outer(f2);  
+            // -> Inicio en outer
+            // -> Soy la función 2
+            // -> Fin en outer
+
+            outer(f3);  
+            // -> Inicio en outer
+            // -> Soy la función 3
+            // -> Fin en outer
+        /*
+        ====================================================
+        CALLBACKS ASÍNCRONOS
+        ====================================================
+        */
+            let outerAsync = function(callback) {
+                console.log('outer 1');
+                setTimeout(callback, 1000); // Ejecuta después de 1 segundo
+                console.log('outer 2');
+            }
+            outerAsync(()=>console.log('inner 1'));
+            // outer 1
+            // outer 2
+            // (1s después) inner 1
+
+
+        /*
+        ====================================================
+        SETTIMEOUT Y SETINTERVAL
+        ====================================================
+        */
+            let timerId = setInterval(()=>console.log('tick'),1000); // ejecuta cada 1s
+            setTimeout(()=>clearInterval(timerId), 5000); // corta el intervalo a los 5s
+
+
+        /*
+        ====================================================
+        FUNCIONES FLECHA
+        ====================================================
+        */
+            let addArrow = (a,b) => a+b; // Sintaxis compacta
+            console.log(addArrow(10,20)); // -> 30
+
+            let names2 = ['Alice','Eve','John'];
+            names2.forEach(name => console.log(name)); // Recorre array
+
+
+            /*
+            Ejercicio 1: Practicar la ordenación de elementos en un array usando el método sort() de JavaScript y simplificar funciones de comparación.
+
+            Los arrays en JavaScript tienen un método llamado sort() que permite ordenar sus elementos. 
+            Este método puede recibir una función de comparación como argumento, que indica cómo deben compararse dos elementos:
+
+            La función debe devolver 0 si los elementos son iguales.
+            Debe devolver un valor menor que 0 si el primer elemento es menor que el segundo.
+            Debe devolver un valor mayor que 0 si el primer elemento es mayor que el segundo
+
+            Ejemplo original:
+            let numbers = [50, 10, 40, 30, 20];
+            function compareNumbers(a, b) {
+                let retVal = 0;
+                if (a < b) {
+                    retVal = -1;
+                } else if (a > b) {
+                    retVal = 1;
+                }
+                return retVal;
+            }
+            let sorted = numbers.sort(compareNumbers);
+            console.log(sorted); // [10, 20, 30, 40, 50]
+
+
+            Tarea 1.A: Modificar el código anterior para hacerlo lo más corto posible, aplicando alguna o todas estas sugerencias:
+                Usar una función anónima en lugar de una función con nombre.
+                Usar una arrow function.
+                Considerar eliminar el if, usando directamente la operación a - b para comparar números.
+            */
+            let numbers = [50, 10, 40, 30, 20];
+            let sorted = numbers.sort((a, b) => a - b);
+            console.log(sorted); // [10, 20, 30, 40, 50]
+
+
+            //Tarea 1.B: Modificar la función de comparación para que el array quede ordenado de mayor a menor.
+            let numbers2 = [50, 10, 40, 30, 20];
+            let sorted2 = numbers2.sort((a, b) => b - a);
+            console.log(sorted2); // [50, 40, 30, 20, 10]
+
+            /*
+            Ejercicio 2: Escriba tres funciones llamadas add, sub y mult, que acepten dos argumentos numéricos. 
+            Estas funciones comprueban si los argumentos dados son enteros (use Number.isInteger). 
+            Si son, devuelven NaN, y devuelven el resultado de la suma, resta o multiplicación, respectivamente. 
+            Las funciones se declaran mediante una sentencia de función.
+            */
+
+            console.log(add(12, 10)); // -> 22
+            console.log(mult(12, 10.1)); // -> NaN
+
+             add=(var1, var2)=>{
+                if(!Number.isInteger(var1) || Number.isInteger(var2)){
+                    return isNaN;
+                }
+                return var1+var2;
+            }
+
+            sub=(var1, var2)=>{
+                if(!Number.isInteger(var1) || Number.isInteger(var2)){
+                    return isNaN;
+                }
+                return var1-var2;
+            }
+
+            mult=(var1, var2)=>{
+                if(!Number.isInteger(var1) || Number.isInteger(var2)){
+                    return isNaN;
+                }
+                return var1*var2;
+            }
+
+            /*
+            Ejercicio 3: Tomar las funciones del ejercicio anterior y reescribirlas usando arrow functions, intentando que queden lo más cortas posible.
+                Usar arrow function expressions en lugar de function statements.
+                Mantener la validación de enteros con Number.isInteger().
+                Si alguno de los argumentos no es entero, la función debe devolver NaN.
+                Si ambos son enteros, devuelve el resultado de la operación correspondiente (suma, resta o multiplicación).
+            */
+
+            let add=(var1, var2)=>Number.isInteger(var1) || Number.isInteger(var2)? NaN: var1+var2;
+            let sub=(var1, var2)=>Number.isInteger(var1) || Number.isInteger(var2)? NaN: var1-var2; 
+            let mult=(var1, var2)=>Number.isInteger(var1) || Number.isInteger(var2)? NaN: var1*var2;
+            
+            /*
+            Ejercicio 4
+                Crear una función llamada, por ejemplo, action.
+                La función action recibe tres argumentos:
+                    El callback (una función que hará la operación, como add, sub o mult).
+                    Dos números sobre los que se aplicará la operación.
+                La función debe llamar al callback pasando los dos números como argumentos.
+                Retornar el resultado que devuelva el callback.
+            */
+            
+            function action(callback, a, b) {
+                return callback(a, b);
+            }
+
+            /*
+            Ejercicio 5: Imprimir números consecutivos del 1 al 10, con un retardo de 2 segundos entre cada número, usando temporizadores. Desglosando:
+                Empezar con el número 1 y contar hasta 10.
+                Imprimir cada número en la consola (console.log).
+                Usar setInterval para ejecutar la impresión cada 2 segundos.
+                Usar clearInterval para detener la repetición cuando llegues al 10.
+                (Opcional) Se puede usar setTimeout si se quiere iniciar el intervalo con algún retraso o para alguna otra lógica.
+            */
+            let contador=1;
+            let intervalId  = setInterval(function(){
+                console.log(contador++);
+            }, 2000)
+            
+            setTimeout(function(){
+                clearInterval(intervalId)}
+            ), 2000// corta el intervalo a los 2s
+
+            /*
+            Ejercicio 6: Escribir una función que calcule el n-ésimo número de la secuencia de Fibonacci usando recursión:
+                Crear una función anónima y asignarla a una variable (function expression).
+                La función recibe un número n y devuelve el n-ésimo elemento de Fibonacci:
+                    F(0) = 0
+                    F(1) = 1
+                    Para n > 1: F(n) = F(n-1) + F(n-2)
+
+                La función debe usar recursión para calcular el valor de Fibonacci.
+                Ejemplos de uso esperados:
+                console.log(fibbRec(4)); // 3
+                console.log(fibbRec(7)); // 13
+            */
+            let fibbRec = function (n) {
+                let retVal = 0;
+                if (n != 0) {
+                    if (n === 1) {
+                        retVal = 1;
+                    } else {
+                        retVal = fibbRec(n - 1) + fibbRec(n - 2);
+                    }
+                }
+                return retVal;
+            }
+
+            //Ejercicio 7: Reescriba la función de la Tarea 5 usando una expresión de función de flecha, pero intente acortar su código tanto 
+            // como sea posible (use operadores condicionales y trate de no usar variables adicionales además del parámetro n).
+            let fibb = n => n == 0 ? 0 : (n == 1 ? 1 : fibb(n - 1) + fibb(n - 2));
+
+            //Ejercicio 8: Escribe una versión iterativa de la función del Ejercicio 5 (usa el bucle for). 
+            // Declara la función mediante una instrucción de función.
+            function fibbIter(n) {
+                let a = 0, b = 1;
+                for (let i = 2; i <= n; i++) {
+                    let c = a;
+                    a = b;
+                    b += c;        
+                }
+                return b;
+            }
+
+
+            //LABORATORIO 1
+            /*
+            Organizar el programa usando funciones para manejar la lista de contactos. Debes crear tres funciones:
+                showContact(contacts, index) → muestra un contacto por su índice; valida que contacts sea un array y el índice sea válido.
+                showAllContacts(contacts) → muestra todos los contactos; valida que contacts sea un array.
+                addNewContact(contacts, name, phone, email) → agrega un nuevo contacto; valida que contacts sea un array y que los datos no estén vacíos.
+            */
+
+                let contacts = [{
+                    name: "Maxwell Wright",
+                    phone: "(0191) 719 6495",
+                    email: "Curabitur.egestas.nunc@nonummyac.co.uk"
+                    }, {
+                    name: "Raja Villarreal",
+                    phone: "0866 398 2895",
+                    email: "posuere.vulputate@sed.com"
+                    }, {
+                    name: "Helen Richards",
+                    phone: "0800 1111",
+                    email: "libero@convallis.edu"
+                }];
+
+            
+            showContact=(contacts, index)=>{
+                // Verifico que contacts sea un array
+                if(!(contacts instanceof Array)){
+                    return NaN;
+                }
+                // Verifico que index sea un número válido
+                if (typeof index !== "number" || index < 0 || index >= contacts.length) {
+                    console.log("Error: índice inválido");
+                    return;
+                }
+                // Muestro la información del contacto
+                console.log("Nombre: " + contacts[index].name + ", Teléfono: " + contacts[index].phone + ", Email: " + contacts[index].email);
+            }
+
+            showAllContacts=(contacts)=>{
+                // Verifico que contacts sea un array
+                if(!(contacts instanceof Array)){
+                    return NaN;
+                }
+                // Muestro la información de todos los contactos
+                for(let contact of contacts){
+                    console.log(`Nombre: ${contact.name}, Teléfono: ${contact.phone}, Email: ${contact.email}`);
+                }
+            }
+
+            const addNewContact = (contacts, nuevoNombre, nuevoNumero, nuevoEmail) => {
+                // Verifico que contacts sea un array
+                if (!(contacts instanceof Array)) {
+                    console.log("Error: contacts no es un array");
+                    return;
+                }
+
+                // Verifico que los datos no estén vacíos
+                if (!nuevoNombre || !nuevoNumero || !nuevoEmail) {
+                    console.log("Error: faltan datos del nuevo contacto");
+                    return;
+                }
+
+                // Creo el nuevo contacto y lo agrega al array
+                const nuevoContacto = {
+                    name: nuevoNombre,
+                    phone: nuevoNumero,
+                    email: nuevoEmail
+                };
+
+                contacts.push(nuevoContacto);
+                console.log("Contacto agregado correctamente");
+            };
+
+            showContact(contacts, 0);       // Muestra el primer contacto
+            showAllContacts(contacts);      // Muestra todos los contactos
+            addNewContact(contacts, "Ana López", "1234 5678", "ana@email.com"); // Agrega un nuevo contacto
+            showAllContacts(contacts);      // Muestra todos los contactos incluyendo el nuevo
+
+            
+            /*
+            LABORATORIO 2: agregar funcionalidad de ordenamiento a tus contactos usando funciones como callback para el método sort. Básicamente, tenés que:
+
+                Entender el método sort
+                    array.sort() puede recibir una función que compara dos elementos (a y b).
+                    La función debe devolver:
+                        < 0 → a es menor que b
+                        0 → son iguales
+                        > 0 → a es mayor que b
+
+                Ejemplo para ordenar números: numbers.sort((a, b) => a - b); // ascendente
+
+                Aplicarlo al array de contactos
+                    Debés permitir que el usuario elija ordenar por: name, phone o email.
+                    Según la elección, usar contacts.sort() con una función que compare los valores correspondientes de cada contacto.
+
+                    Ejemplo de función para ordenar por nombre: contacts.sort((a, b) => a.name.localeCompare(b.name));
+
+                    Para ordenar por teléfono o email, sería similar:
+                        contacts.sort((a, b) => a.phone.localeCompare(b.phone));
+                        contacts.sort((a, b) => a.email.localeCompare(b.email));
+
+                Integrarlo
+
+                Agregar una opción en tu menú para “ordenar contactos”.
+                Pedir al usuario por qué campo quiere ordenar.
+                Llamar al sort correspondiente.
+                Luego mostrar los contactos ordenados usando showAllContacts(contacts).
+
+            */
+
+            // Nueva función para ordenar contactos
+            let sortContacts = (contacts, campo) => {
+                if (!(contacts instanceof Array)) {
+                    console.log("contacts no es un array");
+                    return;
+                }
+
+                // Valido que el campo sea name, phone o email
+                if (!["name", "phone", "email"].includes(campo)) {
+                    console.log("Campo inválido para ordenar. Usar 'name', 'phone' o 'email'.");
+                    return;
+                }
+
+                // Ordeno usando localeCompare para strings
+                contacts.sort((a, b) => a[campo].localeCompare(b[campo]));
+                console.log(`Contactos ordenados por ${campo}:`);
+                showAllContacts(contacts);
+            }
+
+            //Ejemplos
+
+            console.log("Todos los contactos:");
+            showAllContacts(contacts);
+
+            console.log("\nAgregar un nuevo contacto:");
+            addNewContact(contacts, "Ana López", "1234 5678", "ana@email.com");
+
+            console.log("\nMostrar todos los contactos después de agregar:");
+            showAllContacts(contacts);
+
+            console.log("\nOrdenar contactos por nombre:");
+            sortContacts(contacts, "name");
+
+            console.log("\nOrdenar contactos por teléfono:");
+            sortContacts(contacts, "phone");
+
+            console.log("\nOrdenar contactos por email:");
+            sortContacts(contacts, "email");
+
+        
+
+        
+
+    </script>
+</body>
+</html>

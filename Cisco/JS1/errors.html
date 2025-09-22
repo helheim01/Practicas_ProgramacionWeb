@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // ================================
+        // Errors & Exceptions en JavaScript
+        // ================================
+
+        // Errores de sintaxis, semánticos o lógicos (manejarlos con técnicas como try...catch)
+
+        // ================================
+        // 1. Syntax Error (Error de sintaxis): Rompe el inicio
+        // ================================
+
+        // ❌ Falta una coma entre parámetros:
+        let multiplySyntaxError = (a b) => a + b; 
+        // -> Uncaught SyntaxError: Unexpected identifier
+        // Explicación: El motor JS no puede interpretar la instrucción porque la "gramática" del lenguaje fue escrita de forma incorrecta.
+
+        // Se produce cuando el código está mal formado
+        "use strict";
+        // ❌ Escribimos mal "if" como "iff"
+        iff (true) { // -> Uncaught SyntaxError: Unexpected token '{'
+        // El motor no puede ni empezar a ejecutar el programa
+            console.log("true");
+        }
+
+        // ================================
+        // 2. Semantic Error (Error semántico / ReferenceError): Referencia o palabra inexistente.
+        // ================================
+
+        // ❌ Definimos la función como "multipl" pero la llamamos como "multiply"
+        let multipl = (a, b) => a + b; 
+        let resultSemanticError = multiply(10, 20); 
+        // -> Uncaught ReferenceError: multiply is not defined
+        // Explicación: "multiply" no existe, es un error de referencia. El programa se detiene en esa línea.
+
+        // Intentamos usar una variable o función que NO existe
+        try {
+            let a = b; // ❌ "b" no está definida
+        } catch (error) {
+            console.log("Caught " + error); // -> Caught ReferenceError: b is not defined
+        }
+
+        try {
+            fun(); // ❌ No existe la función "fun"
+        } catch (error) {
+            console.log("Caught " + error); // -> Caught ReferenceError: fun is not defined
+        }
+
+        // ================================
+        // 3. Logical Error (Error lógico): Corre, pero da resultados equivocados.
+        // ================================
+
+        // ❌ Todo funciona, pero la lógica está mal:
+        let multiplyLogic = (a, b) => a + b; 
+        let resultLogic = multiplyLogic(10, 20);
+        console.log(resultLogic); // -> 30 ❌ (se espera 200)
+        // Explicación: el programa corre sin problemas, pero en vez de multiplicar suma. Son los más difíciles de detectar automáticamente.
+
+        // ✅ Corrección:
+        let multiply = (a, b) => a * b;
+        let resultOk = multiply(10, 20);
+        console.log(resultOk); // -> 200 ✅
+
+        // 4. TypeError (Error de tipo)
+        // Sucede cuando usamos un valor con un tipo no válido
+        try {
+            const someConstValue = 5;
+            someConstValue = 7; // ❌ No se puede reasignar una constante
+        } catch (error) {
+            console.log("Caught " + error); // -> Assignment to constant variable
+        }
+
+        try {
+            let someNumber = 10;
+            someNumber.length(); // ❌ length no existe en números
+        } catch (error) {
+            console.log("Caught " + error); // -> someNumber.length is not a function
+        }
+
+        // 5. RangeError (Error de rango)
+        // Se da cuando usamos un valor fuera del rango permitido
+        try {
+            let testArray1 = Array(10); // ✅ crea array de longitud 10
+            console.log(testArray1.length); // -> 10
+            let testArray2 = Array(-1); // ❌ longitud negativa
+        } catch (error) {
+            console.log("Caught " + error); // -> Invalid array length
+        }
+
+        // Otros errores menos comunes: EvalError, InternalError, URIError.
+
+        // ================================
+        // 4. Excepciones en JavaScript
+        // ================================
+
+        // ❌ ReferenceError: typo en "console"
+        console.log("abc");   // ✅ imprime "abc"
+        conole.log("def");    // ❌ ReferenceError: conole is not defined
+        console.log("ghi");   // ❌ nunca llega a ejecutarse
+
+        // ✅ Manejo con try...catch:
+        try {
+            console.log("abc");   // ✅ funciona
+            conole.log("def");    // ❌ genera excepción
+        } catch (error) {
+            console.log("Se atrapó un error:");
+            console.log(error.message); // -> conole is not defined
+        }
+        console.log("El programa continúa después del catch ✅");
+
+
+        // ================================
+        // 5. Errores sin excepción
+        // ================================
+
+        // No siempre hay un "throw" de error. 
+        // Devuelve valores NaN o Infinity.
+
+        console.log(100 / 0);      // -> Infinity ❌ (división por cero)
+        console.log(100 * "2");    // -> 200 ✅ (conversión automática de string a número)
+        console.log(100 * "abc");  // -> NaN ❌ (no se puede convertir a número)
+
+        console.log(Math.pow("abc", "def")); // -> NaN ❌
+        // Explicación: No se lanza excepción, solo devuelve "NaN".
+
+
+        // ================================
+        // 6. Validación de datos (Confianza limitada)
+        // ================================
+
+        // Desconfiar del input del usuario.
+        // Ejemplo: pedimos dos números y validamos antes de dividir.
+        let sX = prompt("Enter the first number");  
+        let sY = prompt("Enter the second number");
+
+        let x = Number(sX);
+        let y = Number(sY);
+
+        // Validamos con Number.isFinite y chequeamos divisor distinto de 0
+        if (Number.isFinite(x) && Number.isFinite(y) && y !== 0) {
+            console.log(x / y); // ✅ División válida
+        } else {
+            console.log("Incorrect arguments ❌");
+        }
+
+
+        //----------------------------------------------------------------------------------
+
+        // ================================
+        // 📌 try...catch
+        // ================================
+
+        // Sintaxis básica:
+        // try { ... } catch(error) { ... }
+
+        try {
+            let a = b; // ❌ ReferenceError
+        } catch (error) {
+            console.log("Caught " + error); // -> atrapado
+        }
+        console.log("El programa continúa después del catch ✅");
+
+        // Nota: try...catch no atrapa SyntaxError, porque el código ni siquiera arranca.
+
+        // ================================
+        // 📌 Manejo condicional con instanceof
+        // ================================
+
+        let a = -2;
+        try {
+            a = b; // ❌ ReferenceError
+        } catch (error) {
+            if (error instanceof ReferenceError) {
+                console.log("Reference error, reset a to -2"); 
+                a = -2; // Recuperamos el valor
+            } else {
+                console.log("Otro tipo de error: " + error);
+            }
+        }
+        console.log(a); // -> -2
+
+        // Explicación: instanceof permite diferenciar el tipo de error atrapado.
+
+        // ================================
+        // 📌 finally
+        // ================================
+
+        // finally se ejecuta SIEMPRE, haya error o no
+
+        let x = 10;
+        try {
+            x = 5; // ✅ sin error
+        } finally {
+            console.log(x); // -> 5 (se ejecuta sí o sí)
+        }
+        console.log(x); // -> 5
+
+        // Caso con error:
+        let y = 10;
+        try {
+            y = b; // ❌ ReferenceError
+        } finally {
+            console.log(y); // -> 10 (se ejecuta igual)
+        }
+        // El programa se detiene porque no hay catch.
+
+        // Uso combinado de catch + finally
+        let z = 10;
+        try {
+            z = b; // ❌ ReferenceError
+        } catch (error) {
+            console.log("An Error!"); 
+        } finally {
+            console.log("Finally!"); // Siempre se ejecuta
+        }
+        console.log(z); // -> 10
+
+        // ================================
+        // 📌 ¿Por qué usar finally?
+        // ================================
+
+        // Diferencia: finally corre incluso si ocurre otro error en el catch.
+
+        let n = 10;
+        try {
+            n = b; // ❌ Primer ReferenceError
+        } catch (error) {
+            console.log(b); // ❌ Segundo ReferenceError
+        }
+        console.log("Finally!"); // ❌ Nunca se ejecuta
+
+        // Con finally:
+        let m = 10;
+        try {
+            m = b; // ❌ Primer ReferenceError
+        } catch (error) {
+            console.log(b); // ❌ Segundo ReferenceError
+        } finally {
+            console.log("Finally!"); // ✅ Se ejecuta siempre
+        }
+
+        // También podemos anidar try...catch
+        let q = 10;
+        try {
+            q = b; // ❌ ReferenceError
+        } catch (error) {
+            try {
+                console.log(b); // ❌ Segundo ReferenceError
+            } catch {
+                console.log("Second catch!"); // ✅ atrapado
+            }
+        } finally {
+            console.log("Finally!"); // ✅
+        }
+
+        // ================================
+        // 📌 throw y errores personalizados
+        // ================================
+
+        // Podemos lanzar nuestras propias excepciones con "throw"
+
+        // Ejemplo básico
+        console.log("start"); // -> start
+        try {
+            throw 100; // Lanzamos el número 100 como excepción
+        } catch (error) {
+            console.log(error); // -> 100
+        }
+        console.log("end"); // -> end
+
+        // Ejemplo más útil: factorial con validación
+        function factorial(n) {
+            if (n > 20) {
+                // Lanzamos un error de tipo RangeError con mensaje personalizado
+                throw new RangeError("Max value 20");
+            }
+            let result = 1;
+            for (; n > 1; n--) {
+                result = result * n;
+            }
+            return result;
+        }
+
+        try {
+            console.log(factorial(5));  // ✅ -> 120
+            console.log(factorial(20)); // ✅ -> número grande
+            console.log(factorial(1000)); // ❌ lanza RangeError
+        } catch (error) {
+            console.log("Error atrapado: " + error.message); // -> Max value 20
+        }
+
+
+        /*
+        Ejercicio 1: Escribe tu propia función div que reciba dos argumentos y devuelva el resultado de dividir el primer argumento entre el segundo.
+        En JavaScript, el resultado de dividir entre cero es el valor Infinity (o -Infinity, si intentamos dividir un número negativo). 
+        Cambia este comportamiento:
+        Si pasas 0 como segundo argumento, tu función debe lanzar una excepción RangeError con un mensaje adecuado.
+        Prepara una llamada de prueba de la función tanto para una división válida como para una división entre cero.
+        */
+
+        let var1=(prompt("Ingresa el primer valor: "));
+        let var2=(prompt("Ingrese el segundo valor: "))
+
+        A=Number(var1);
+        B=Number(var2);
+
+        div=(x,y)=>{
+            if (Number.isInteger(x) || Number.isInteger(y)) {
+                    alert("Error: valores no válidos");
+            } else if (y==0){
+                throw new RangeError("No se puede dividir por 0");
+            }else{
+                return x/y;
+            }
+        }
+
+        try{
+            let reesultado=div(A,B);
+            alert("Resultado: " + reesultado);
+        }catch (error){
+            alert(error.message);
+        }
+
+
+        /*
+        Ejercicio 2:
+        Se ha declarado el siguiente arreglo de números: let numbers = [10, 40, 0, 20, 50];
+        Escribe un programa que, dentro de un bucle, divida el número 1000 por los elementos sucesivos del arreglo numbers, 
+        mostrando el resultado de cada división.
+        Para realizar la división, utiliza la función del ejercicio anterior.
+        Usa la construcción try...catch para manejar la excepción que se lanza en el caso de división por cero.
+        Si se captura esa excepción, el programa debe imprimir un mensaje adecuado (tomado de la excepción) y continuar su
+        ejecución (realizando la división con los elementos siguientes del arreglo).
+        */
+
+        let numbers = [10, 40, 0, 20, 50];
+
+        for(let i=0;i<numbers.length;i++){
+            try{
+                let resultadoArreglo=div(1000, numbers[i]);
+                console.log("1000 / " + numbers[i] + " = " + resultadoArreglo);
+            }catch(error){
+                console.log("Error con 1000 / " + numbers[i] + " = " + error.message);
+            }
+        }
+
+
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+        // ====================================================================
+        //Testing and debugging your code
+        // ====================================================================
+
+        // ❌ Ejemplo de un error lógico (no de sintaxis)
+        function average(a, b) {
+            // ERROR: la división se hace primero, así que no calcula el promedio real
+            return a + b / 2;
+        }
+        console.log(average(2, 10)); // -> 7 (esperábamos 6)
+        console.log(average(5, 5));  // -> 7.5 (esperábamos 5)
+
+        // 🔎 El error está en el orden de operaciones
+        // a + b / 2 = a + (b/2)
+        // Solución correcta:
+        function averageFixed(a, b) {
+            return (a + b) / 2; // ✅ Ahora sí calcula el promedio
+        }
+        console.log(averageFixed(2, 10)); // -> 6
+        console.log(averageFixed(5, 5));  // -> 5
+
+        // ====================================================================
+        // Otro ejemplo con errores lógicos más sutiles
+        // ====================================================================
+        function largest(a, b, c) {
+            if (a > b && a > c) {
+                return a;
+            } else if (b > a && b > c) {
+                return b;
+            } else {
+                return c;
+            }
+        }
+
+        // 🧪 Pruebas
+        console.log(largest(1, 1, 2)); // -> 2 (Correcto)
+        console.log(largest(1, 2, 3)); // -> 3 (Correcto)
+        console.log(largest(3, 2, 1)); // -> 3 (Correcto)
+        console.log(largest(2, 2, 1)); // -> 1 (❌ Incorrecto: debería ser 2)
+
+        // ❌ El problema: cuando dos valores son iguales, la condición ">" falla.
+        // ✅ Solución: usar >= en vez de solo >.
+        function largestFixed(a, b, c) {
+            if (a >= b && a >= c) {
+                return a;
+            } else if (b >= a && b >= c) {
+                return b;
+            } else {
+                return c;
+            }
+        }
+        console.log(largestFixed(2, 2, 1)); // -> 2 ✅ Corregido
+
+        // ====================================================================
+        // 6.2.2 Debugger básico
+        // ====================================================================
+
+        console.log("Before debugger");
+        debugger; // Pausa el código aquí si la consola de desarrollo está abierta
+        console.log("After debugger"); // No se ejecuta hasta continuar en el debugger
+
+        // ====================================================================
+        // 6.2.4 Ejemplo de outer() y inner()
+        // ====================================================================
+
+        function outer() {
+            let name = "outer";
+            let str = inner();
+            return str;
+        }
+        function inner() {
+            let name = "inner";
+            return "Hello !";
+        }
+        console.log("before outer() call");
+        console.log(outer());  // -> "Hello !"
+        console.log("after outer() call");
+
+        // Si ponemos debugger antes del outer():
+        console.log("before outer() call");
+        debugger; // Aquí el navegador pausa y nos deja ejecutar paso a paso
+        console.log(outer());
+        console.log("after outer() call");
+
+        // ====================================================================
+        // Step Over y Step Into
+        // ====================================================================
+        // - Step Over: ejecuta la función como un bloque sin entrar dentro.
+        // - Step Into: entra línea por línea en la función llamada.
+        // - Step Out: sale de la función y vuelve a donde fue llamada.
+
+        // ====================================================================
+        // Call stack y scopes
+        // ====================================================================
+        // Cuando outer llama a inner(), se forma una "pila de llamadas":
+        // [global] -> outer -> inner
+        // Podemos inspeccionar variables en cada contexto desde la consola.
+        // Ejemplo:
+        // console.log(name); // dentro de inner -> "inner"
+        // console.log(name); // en outer -> "outer"
+
+        // ====================================================================
+        // Step out
+        // ====================================================================
+        // Resume la ejecución hasta salir de la función actual y volver a la anterior.
+
+        // ====================================================================
+        // Medición de tiempo con console.time y console.timeEnd
+        // ====================================================================
+
+        // Aproximación de PI usando la serie de Leibniz
+        let part = 0;
+        console.time('Leibniz'); // ⏱ Empieza el cronómetro
+        for (let k = 0; k < 1000000; k++) {
+            part = part + ((-1) ** k) / (2 * k + 1);
+        }
+        console.timeEnd('Leibniz'); // ⏱ Termina y muestra el tiempo
+        let pi = part * 4;
+        console.log(pi); // -> Aproximación de PI
+
+        // Optimización: evitar usar potencia ** en cada iteración
+        let partOpt = 0;
+        console.time('LeibnizOptimizado');
+        for (let k = 0; k < 1000000; k++) {
+            partOpt = partOpt + (k % 2 ? -1 : 1) / (2 * k + 1);
+        }
+        console.timeEnd('LeibnizOptimizado');
+        let piOpt = partOpt * 4;
+        console.log(piOpt); // -> Aproximación de PI (más rápido)
+
+        // ====================================================================
+        // Resumen:
+        // - Errores lógicos no siempre son detectados por el intérprete.
+        // - debugger permite pausar y examinar paso a paso.
+        // - Breakpoints se ponen en el navegador sin usar código.
+        // - console.time y console.timeEnd permiten medir performance.
+        // ====================================================================
+
+        /*
+        Ejercicio 1: Ejecutá el siguiente código:
+            let end = 2;
+            for (let i = 1; i <= end; i++) {
+                console.log(i);
+            }
+
+            Debería imprimir 1 y 2 en la consola.
+            Usá el debugger para hacer que el programa imprima 1, 2, 3, 4, 5 en la consola sin modificar el código: 
+            sólo podés usar breakpoints y la opción de modificar variables en el depurador.
+
+        
+        Ejercicio 2: Usá el depurador para entender por qué el resultado final impreso es igual a 0 cuando en cada iteración la 
+        variable result parece aumentar. Usá Watch para seguir los cambios de las variables seleccionadas.
+
+            let counter = 0;
+            let maxValue = 10;
+            let result = 1;
+            debugger;
+            for (counter = 0; counter < maxValue; counter++) {
+                console.log(result);
+                result *= maxValue - counter - 1;
+            }
+            console.log("Final result: ", result);
+
+        Ejercicio 3: Ejecutá este código:
+
+            function max(array) {
+                let maxValue = array[1];
+                for (let i = 1; i < array.length; i++) {
+                    if (array[i] > maxValue) {
+                        maxValue = array[i];
+                    }
+                }
+                return maxValue;
+            }
+            console.log(max([1, 4, 6, 2]));  // -> 6
+            console.log(max([10, 4, 6, 2])); // -> 6  (incorrecto; debería devolver 10)
+
+            La función max debería devolver el número mayor del array. En el segundo caso devuelve 6 en lugar de 10. Usá el debugger para seguir 
+            la ejecución paso a paso, observá i y maxValue, localizá el problema y arreglá el código.
+        */
+    </script>
+</body>
+</html>

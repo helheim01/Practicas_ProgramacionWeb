@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <display-name>ServletConfig</display-name>
+
+    <!-- Configuración del servlet MiServlet -->
+    <servlet>
+        <servlet-name>MiServlet</servlet-name>
+        <servlet-class>com.example.ServletConfig.MiServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>Hola desde MiServlet configurado en web.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>version</param-name>
+            <param-value>1.0</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MiServlet</servlet-name>
+        <url-pattern>/miservlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Configuración del servlet MiServletAnotado -->
+    <servlet>
+        <servlet-name>MiServletAnotado</servlet-name>
+        <servlet-class>com.example.ServletConfig.MiServletAnotado</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MiServletAnotado</servlet-name>
+        <url-pattern>/anotado</url-pattern>
+    </servlet-mapping>
+
+    <!-- Parámetros de inicialización globales -->
+    <context-param>
+        <param-name>config</param-name>
+        <param-value>desde el Servlet Config</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>version</param-name>
+        <param-value>1.0</param-value>
+    </context-param>
+
+    <!-- Página de bienvenida -->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- Configuración de sesiones -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <!-- Configuración de páginas de error -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.html</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/500.html</location>
+    </error-page>
+
+</web-app>
