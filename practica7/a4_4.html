@@ -10,20 +10,79 @@
 <script>
     const numeros = [3, 6, 9, 6, 3, 6];
 
-    // Contamos cuántas veces se repite cada número
-    let masRepetido = numeros.reduce((acc, n) => {
+    /*
+    PASO 1: Contar cuántas veces aparece cada número
+    
+    - reduce convierte el array en un objeto contador
+    - acc (acumulador) = objeto que cuenta las repeticiones
+    - Cada número se vuelve una propiedad del objeto
+    - El valor de cada propiedad es cuántas veces apareció
+    
+    Resultado esperado: {3: 2, 6: 3, 9: 1}
+    */
+    let Repetidos = numeros.reduce((acc, n) => {
+        /*
+        Esta línea cuenta cada número:
+        
+        1. acc[n] → Busca si el número ya existe como propiedad
+        2. || 0 → Si no existe, toma 0 como valor inicial
+        3. + 1 → Le suma 1 (incrementa el contador)
+        4. acc[n] = → Asigna el nuevo valor al número en el objeto
+        
+        Ejemplo con el primer 3:
+        - acc[3] es undefined
+        - undefined || 0 = 0
+        - 0 + 1 = 1
+        - acc[3] = 1
+        
+        Ejemplo con el segundo 3:
+        - acc[3] ya existe y vale 1
+        - 1 || 0 = 1 (toma el valor existente)
+        - 1 + 1 = 2
+        - acc[3] = 2
+        */
         acc[n] = (acc[n] || 0) + 1;
-        return acc;
-    }, {}); // valor inicial
+        
+        return acc; // Devuelve el objeto contador actualizado
+    }, {}); // Inicializa el acumulador como objeto vacío
 
-    console.log(masRepetido); // {3: 2, 6: 3, 9: 1}
+    console.log(Repetidos); // {3: 2, 6: 3, 9: 1}
 
-    // Encontramos el número que más se repite
-    let resultado = Object.keys(masRepetido).reduce((a, b) => 
-        masRepetido[a] > masRepetido[b] ? a : b
+    /*
+    PASO 2: Encontrar cuál número se repitió más veces
+    
+    - Object.keys() obtiene todas las claves del objeto como String: ["3", "6", "9"]
+        Las claves (o propiedades) son: 3, 6, 9
+        Los valores son: 2, 3, 1
+    - reduce compara los valores para encontrar el mayor
+    - a y b son las claves (números) que se están comparando
+    - Devuelve la clave del número que más se repite
+    */
+    let masRepetido = Object.keys(Repetidos).reduce((a, b) => 
+        /*
+        Comparación para encontrar el mayor:
+        
+        - masRepetido[a] = cantidad de veces que se repite 'a'
+        - masRepetido[b] = cantidad de veces que se repite 'b'
+        - Si a > b, devuelve 'a', sino devuelve 'b'
+        - El resultado se vuelve el nuevo 'a' para la siguiente comparación
+        
+        Ejemplo paso a paso:
+        - Compara "3" vs "6": masRepetido["3"]=2 vs masRepetido["6"]=3 → devuelve "6"
+        - Compara "6" vs "9": masRepetido["6"]=3 vs masRepetido["9"]=1 → devuelve "6"
+        - Resultado final: "6"
+        */
+        Repetidos[a] > Repetidos[b] ? a : b
+        /*
+        if (masRepetido[a] > masRepetido[b]) {
+            return a;
+        } else {
+            return b;
+        }
+        */
     );
 
-    console.log("Número más repetido:", resultado); // 6
+    console.log("Número más repetido:", masRepetido); // 6
 </script>
 
 </body>

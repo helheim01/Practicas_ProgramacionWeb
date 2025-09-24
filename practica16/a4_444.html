@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Login Simple</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -46,6 +47,7 @@
       margin-top: 10px;
     }
   </style>
+  
 </head>
 <body>
 
@@ -58,30 +60,40 @@
   </div>
 
   <script>
-    let intentos = 0;
+    // QUÉ HACE EL CÓDIGO: Sistema de login con validación y límite de intentos
 
+    // 1. VARIABLE GLOBAL PARA CONTAR INTENTOS FALLIDOS
+    let intentos = 0;                                    // Empieza en 0, cuenta los intentos fallidos
+
+    // 2. FUNCIÓN QUE SE EJECUTA AL HACER CLICK EN "INGRESAR"
     function login() {
-      let usuario = document.getElementById("usuario").value;
-      let password = document.getElementById("password").value;
-      let mensaje = document.getElementById("mensaje");
+      // Obtener valores de los campos de entrada
+      let usuario = document.getElementById("usuario").value;   // Texto del campo usuario
+      let password = document.getElementById("password").value; // Texto del campo contraseña
+      let mensaje = document.getElementById("mensaje");         // Elemento para mostrar mensajes
 
-      if (usuario === "" || password === "") {
-        mensaje.textContent = "Completa todos los campos";
-        return;
+      // 3. VALIDAR QUE LOS CAMPOS NO ESTÉN VACÍOS
+      if (usuario === "" || password === "") {          // Si algún campo está vacío
+        mensaje.textContent = "Completa todos los campos"; // Muestra mensaje de error
+        return;                                          // Sale de la función sin continuar
       }
 
-      if (usuario === "admin" && password === "1234") {
-        mensaje.style.color = "green";
-        mensaje.textContent = "Login exitoso ✅";
-      } else {
-        intentos++;
-        mensaje.style.color = "red";
-        mensaje.textContent = "Usuario o contraseña incorrectos. Intento " + intentos + " de 3";
+      // 4. VERIFICAR CREDENCIALES CORRECTAS
+      if (usuario === "admin" && password === "1234") { // Si las credenciales son correctas
+        mensaje.style.color = "green";                  // Cambia color del mensaje a verde
+        mensaje.textContent = "Login exitoso ✅";        // Muestra mensaje de éxito
+      } 
+      // 5. MANEJAR CREDENCIALES INCORRECTAS
+      else {
+        intentos++;                                     // Incrementa contador de intentos fallidos
+        mensaje.style.color = "red";                    // Cambia color del mensaje a rojo
+        mensaje.textContent = "Usuario o contraseña incorrectos. Intento " + intentos + " de 3"; // Muestra intento actual
       }
 
-      if (intentos >= 3) {
-        document.getElementById("btnLogin").disabled = true;
-        mensaje.textContent = "Bloqueado: 3 intentos fallidos 🚫";
+      // 6. BLOQUEAR DESPUÉS DE 3 INTENTOS FALLIDOS
+      if (intentos >= 3) {                              // Si llegó a 3 intentos fallidos
+        document.getElementById("btnLogin").disabled = true; // Desactiva el botón de login
+        mensaje.textContent = "Bloqueado: 3 intentos fallidos 🚫"; // Muestra mensaje de bloqueo
       }
     }
   </script>

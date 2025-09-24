@@ -17,30 +17,33 @@
             autor: "Gabriel García Márquez",
             anio: 1967,
             descripcion: function() {
-                return `${this.titulo}, escrito por ${this.autor} en el año ${this.anio}.`;
+                return this.titulo + ", escrito por " + this.autor + " en el año " + this.anio;
             }
         };
-
         console.log(libro.descripcion());
+
+
         // Objeto cuentaBancaria
         const cuentaBancaria = {    
             saldo: 1000,
             titular: "Juan Pérez",
             depositar: function(monto) {
-                this.saldo += monto;
-                return `Depósito de $${monto}. Nuevo saldo: $${this.saldo}.`;
+                this.saldo += monto; //modifica el saldo del objeto
+                return "Depósito de " + monto + ". Nuevo saldo: " + this.saldo;
             },
             retirar: function(monto) {
                 if (monto > this.saldo) {
                     return "Fondos insuficientes.";
                 }
                 this.saldo -= monto;
-                return `Retiro de $${monto}. Nuevo saldo: $${this.saldo}.`;
+                return "Retiro de " + monto + " Nuevo saldo: " + this.saldo;
             }
         };
         console.log(cuentaBancaria.depositar(500));
         console.log(cuentaBancaria.retirar(200));
         console.log(cuentaBancaria.retirar(2000)); // Fondos insuficientes
+
+        
         // Objeto Rectangulo
         const rectangulo = {
             ancho: 5,
@@ -52,8 +55,8 @@
                 return 2 * (this.ancho + this.alto);
             }
         };  
-        console.log(`Área del rectángulo: ${rectangulo.area()}`);
-        console.log(`Perímetro del rectángulo: ${rectangulo.perimetro()}`);
+        console.log("Área del rectángulo: " + rectangulo.area());
+        console.log("Perímetro del rectángulo: " + rectangulo.perimetro());
         
     </script>
 </body>

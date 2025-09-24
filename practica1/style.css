@@ -1,30 +1,33 @@
+/* Reset básico: elimina márgenes y rellenos por defecto, y ajusta el modelo de caja */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Incluye borde y padding dentro del ancho/alto total */
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif; /* Fuente base */
 }
 
-/* Aplica un borde a cada elemento principal */
+/* Aplica un borde y separación a cada sección principal */
 header, nav, main, section, article, aside, footer {
-    border: 1px solid black;
-    padding: 10px;
-    margin: 5px;
+    border: 1px solid black; /* Línea negra alrededor */
+    padding: 10px;           /* Espacio interno */
+    margin: 5px;             /* Espacio externo */
 }
 
-/* Para que aside se coloque al lado del section */
+/* MAIN usa flexbox para organizar section y aside en la misma fila */
 main {
-    display: flex;
-    gap: 10px;
+    display: flex; /* Coloca hijos en fila (por defecto) */
+    gap: 10px;     /* Espacio entre section y aside */
 }
 
+/* SECTION ocupará más espacio (3 partes de 4) */
 section {
     flex: 3;
 }
 
+/* ASIDE ocupará menos espacio (1 parte de 4) */
 aside {
     flex: 1;
 }

@@ -7,10 +7,21 @@
 </head>
 <body>
     <script>
-        //Desestructurar
-        let [p,s, {nombre, edad}]=[10,20, {nombre:"Luis", edad: 40}]; 
-        //Le indico que tengo un nombre y una edad dentro de un objeto, que replico en el arreglo
-        console.log(nombre);
+        // Desestructuración: asignar valores de un arreglo y un objeto a variables; permite simplificar código y evita acceder muchas veces con índices o propiedades.
+        let [p, s, {nombre, edad}] = [10, 20, {nombre: "Luis", edad: 40}]; 
+
+        /*
+          Explicación paso a paso:
+          - p = 10   (primer valor del arreglo)
+          - s = 20   (segundo valor del arreglo)
+          - {nombre, edad} = {nombre: "Luis", edad: 40}  
+              → se extraen las propiedades 'nombre' y 'edad' del objeto
+        */
+
+        console.log(nombre); // Muestra "Luis"
+        console.log(p);      // 10
+        console.log(s);      // 20
+        console.log(edad);   // 40
     </script>
 </body>
 </html>

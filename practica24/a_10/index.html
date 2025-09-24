@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrito AJAX + PHP</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .producto { border: 1px solid #ccc; padding: 10px; margin: 10px; display: inline-block; }
+    #carrito { float: right; background: #eee; padding: 10px; margin: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Tienda</h1>
+
+  <div id="carrito">
+    🛒 Carrito (<span id="cantidad">0</span> items)
+  </div>
+
+  <button onclick="vaciarCarrito()">Vaciar carrito</button>
+
+  <!-- Lista de productos -->
+  <div class="producto">
+    <h3>Producto A</h3>
+    <p>$10</p>
+    <button onclick="agregarAlCarrito(1)">Agregar al carrito</button>
+  </div>
+
+  <div class="producto">
+    <h3>Producto B</h3>
+    <p>$20</p>
+    <button onclick="agregarAlCarrito(2)">Agregar al carrito</button>
+  </div>
+
+  <div class="producto">
+    <h3>Producto C</h3>
+    <p>$30</p>
+    <button onclick="agregarAlCarrito(3)">Agregar al carrito</button>
+  </div>
+
+  <h2>Contenido del carrito</h2>
+  <div id="contenido-carrito"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

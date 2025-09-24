@@ -7,26 +7,55 @@
 </head>
 <body>
     <script>
+        /*
+        EJERCICIO: Aplanar una matriz 3D y ordenar sus elementos
+        
+        Matriz 3D = Array de arrays de arrays (3 niveles de profundidad)
+        */
+
+        /*
+        ESTRUCTURA:
+        matriz3D[0] → Primer bloque: [[3,2,1], [6,5,4]]
+        matriz3D[1] → Segundo bloque: [[9,8,7], [12,11,10]]
+        */
         const matriz3D = [
-        [
-            [3, 2, 1],
-            [6, 5, 4]
-        ],
-        [
-            [9, 8, 7],
-            [12, 11, 10]
-        ]
-    ];
+            [
+                [3, 2, 1],
+                [6, 5, 4]
+            ],
+            [
+                [9, 8, 7],
+                [12, 11, 10]
+            ]
+        ];
 
+        /*
+        MÉTODO flat(2): Aplana 2 niveles de profundidad
+        
+        Original: [ [[3,2,1],[6,5,4]], [[9,8,7],[12,11,10]] ]
+        flat(2):  [3, 2, 1, 6, 5, 4, 9, 8, 7, 12, 11, 10]
+        
+        - flat(1) solo aplanarían 1 nivel → quedarían 4 arrays anidados
+            [
+            [3,2,1], [6,5,4],         ← Se "sacaron" del bloque 0
+            [9,8,7], [12,11,10]       ← Se "sacaron" del bloque 1
+            ]
+            
+        - flat(2) aplana completamente → array de números individuales
+        */
+        const aplanado = matriz3D.flat(2);
+        console.log("Aplanado:", aplanado);   // [3,2,1,6,5,4,9,8,7,12,11,10]
 
-    // Aplanar la matriz
-    const aplanado = matriz3D.flat(2);
+        /*
+        MÉTODO sort(): Ordena de menor a mayor
+        
+        - (a, b) => a - b → función de comparación para números
+        - Si a - b < 0 → a va antes que b (orden ascendente)
+        - Sin esta función, sort() ordenaría como texto (incorrecto para números)
+        */
+        const ordenado = aplanado.sort((a, b) => a - b);
 
-    // Ordenar
-    const ordenado = aplanado.sort((a, b) => a - b);
-
-    console.log("Aplanado:", aplanado);
-    console.log("Ordenado:", ordenado);
+        console.log("Ordenado:", ordenado);   // [1,2,3,4,5,6,7,8,9,10,11,12]
 
     </script>
 </body>

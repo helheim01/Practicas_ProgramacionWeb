@@ -7,14 +7,29 @@
 </head>
 <body>
     <script>
-        const numeros=[3,6,9,12,15,18];
-        let pares=numeros.filter(n=>n%2===0);
-        console.log(pares);
-        let cubo=pares.map(n=>n**3);
-        console.log(cubo);
+
+        /*
+        filter → selecciona elementos que cumplen una condición.
+        map → transforma cada elemento del arreglo en otro.
+        reduce → acumula valores para construir algo más complejo (ej: agrupar objetos).
+        */
 
 
-        const empleados=[
+        // --- Parte 1: Trabajando con números ---
+        const numeros = [3, 6, 9, 12, 15, 18];
+
+        // Filtrar: quedarse solo con los números pares
+        let pares = numeros.filter(n => n % 2 === 0);
+        console.log(pares); // [6, 12, 18]
+
+        // Mapear: calcular el cubo de cada número par
+        let cubo = pares.map(n => n ** 3);
+        console.log(cubo); // [216, 1728, 5832]
+
+
+
+        // --- Parte 2: Trabajando con objetos ---
+        const empleados = [
             {nombre: "Ana", departamento: "Ventas"},
             {nombre: "Luis", departamento: "IT"},
             {nombre: "Marta", departamento: "Ventas"},
@@ -22,11 +37,62 @@
             {nombre: "Sofia", departamento: "Marketing"},
         ];
 
-        let agrupado=empleados.reduce((acc, p)=>
-        {(acc[p.departamento] = acc[p.departamento] || [] ).push(p);
-            return acc;
-        }, {});
+        /*
+        Agrupar empleados por departamento usando reduce:
+        
+        - reduce convierte el array de empleados en un objeto agrupado
+        - acc (acumulador) empieza como {} (objeto vacío). Es el objeto que va acumulando los resultados. Cada iteración modifica y devuelve ese mismo objeto
+        - Para cada empleado, creamos o reutilizamos un array por departamento
+        
+        Resultado final:
+        {
+            "Ventas": [Ana, Marta],
+            "IT": [Luis, Pedro], 
+            "Marketing": [Sofia]
+        }
+        */
+        let agrupado = empleados.reduce((acc, p) => {
+            /*
+            Esta línea hace 3 cosas en orden:
+            
+            1. acc[p.departamento] → Busca si ya existe un array para ese departamento
+            2. || [] → Si no existe (undefined), crea un array vacío []
+            3. acc[p.departamento] = → CREA la propiedad del departamento en el objeto (acumulador)
+            4. .push(p) → Agrega el empleado actual al array, en ese departamento
+            
+            Ejemplo con Ana (primera ejecución):
+            - acc["Ventas"] es undefined
+            - Se crea acc["Ventas"] = []
+            - Se hace push de Ana: acc["Ventas"] = [Ana]
+            */
+            (acc[p.departamento] = acc[p.departamento] || []).push(p);
+            
+            return acc; // Devuelve el objeto acumulado para la siguiente iteración
+        }, {}); // Inicializa el acumulador como objeto vacío
+
         console.log(agrupado);
+
+        /*
+        lo que hago es ver si en el acumulador existe el departamento; si no existe, lo añade, y genera un array de ese departamento, al cual luego le hace el push del empleado. 
+        Pero si ya existe, solamente hace el push del empleado. el reduce sirve para almacenar el departamento que contiene un array de empleados
+        */
+
+        /*
+          Resultado final:
+          {
+            Ventas: [
+              {nombre: "Ana", departamento: "Ventas"},
+              {nombre: "Marta", departamento: "Ventas"}
+            ],
+            IT: [
+              {nombre: "Luis", departamento: "IT"},
+              {nombre: "Pedro", departamento: "IT"}
+            ],
+            Marketing: [
+              {nombre: "Sofia", departamento: "Marketing"}
+            ]
+          }
+        */
     </script>
 </body>
 </html>

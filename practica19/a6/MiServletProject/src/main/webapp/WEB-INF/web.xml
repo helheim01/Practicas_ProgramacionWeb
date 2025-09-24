@@ -1,17 +1,100 @@
+<!--
+    ============================================================================
+    WEB.XML - DESCRIPTOR DE DESPLIEGUE (Deployment Descriptor)
+    ============================================================================
+    
+    ¿QUÉ ES web.xml?
+    • Es el archivo de configuración principal de una aplicación web Java
+    • Le dice al servidor web (Tomcat) cómo debe comportarse tu aplicación
+    • Es como el "manual de instrucciones" para el servidor
+    • Sin este archivo, el servidor no sabría qué hacer con los servlets
+    
+    ¿PARA QUÉ SIRVE?
+    • Mapea URLs a clases Java (servlets)
+    • Define parámetros de configuración
+    • Establece filtros, listeners, páginas de error
+    • Configura seguridad y recursos
+    
+    ============================================================================
+-->
+
+<!-- 
+    DECLARACIÓN XML Y NAMESPACES
+    ============================================================================
+    Esta es la "cabecera" que define:
+    • Qué tipo de archivo XML es
+    • Qué versión de Java EE usamos (4.0)
+    • Dónde encontrar las reglas de validación
+-->
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          version="4.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                              http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
 
+    <!-- 
+        DEFINICIÓN DEL SERVLET
+        ========================================================================
+        Acá le decimos al servidor: "Existe una clase Java llamada HolaServlet"
+        
+        <servlet-name>: Un nombre único para identificar este servlet internamente
+                       (puede ser cualquier nombre, no tiene que coincidir con la clase)
+        
+        <servlet-class>: La ubicación EXACTA de tu clase Java
+                        - com.ejemplo = paquete (carpeta)
+                        - HolaServlet = nombre de la clase
+                        
+        IMPORTANTE: Si tu clase está en com.ejemplo.HolaServlet, 
+                   debe estar físicamente en: src/main/java/com/ejemplo/HolaServlet.java
+    -->
     <servlet>
         <servlet-name>HolaServlet</servlet-name>
         <servlet-class>com.ejemplo.HolaServlet</servlet-class>
     </servlet>
 
+    <!-- 
+        MAPEO URL → SERVLET
+        ========================================================================
+        Aquí conectamos una URL con el servlet que definimos arriba
+        
+        <servlet-name>: Debe coincidir EXACTAMENTE con el <servlet-name> de arriba
+                       Es como decir "agarra el servlet que definí como 'HolaServlet'"
+        
+        <url-pattern>: La URL que el usuario escribirá en el navegador
+                      - /hola significa: http://localhost:8080/tu-proyecto/hola
+                      - Siempre empieza con /
+                      - Puede usar wildcards: /api/* , *.jsp
+        
+        FLUJO COMPLETO:
+        1. Usuario va a: http://localhost:8080/servletproject/hola
+        2. Servidor ve "/hola" en la URL
+        3. Busca en web.xml qué servlet maneja "/hola"
+        4. Encuentra que es "HolaServlet" 
+        5. Ejecuta la clase com.ejemplo.HolaServlet
+        6. El método doGet() o doPost() se ejecuta
+        7. Se envía la respuesta al navegador
+    -->
     <servlet-mapping>
         <servlet-name>HolaServlet</servlet-name>
         <url-pattern>/hola</url-pattern>
     </servlet-mapping>
 
 </web-app>
+
+<!-- 
+    RESUMEN EJECUTIVO:
+    ==================
+    
+    Este web.xml hace UNA cosa simple pero fundamental:
+    
+    "Cuando alguien visite /hola en mi aplicación web,
+     ejecuta la clase HolaServlet que está en com.ejemplo"
+    
+    Sin este archivo:
+    ❌ El servidor no sabría qué hacer con /hola
+    ❌ El servlet nunca se ejecutaría
+    ❌ Obtendría un error 404
+    
+    Con este archivo:
+    ✅ http://localhost:8080/servletproject/hola → ejecuta HolaServlet
+    ✅ Los métodos doGet() y doPost() funcionan

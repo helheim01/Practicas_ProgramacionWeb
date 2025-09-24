@@ -1,41 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"> <!-- Codificación para caracteres especiales -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Adaptable a móviles -->
     <title>Document</title>
 </head>
 <body>
+
+    <!--colgroup y col → definir anchos de columnas.-->
+    <!--colspan → combinar varias columnas en una celda.-->
+    <!--rowspan → combinar varias filas en una celda.-->
+
+    <!-- Estructura básica de tabla:
+    <table>
+    <tr>  Fila 
+        <th>Encabezado</th> Celda de encabezado 
+        <td>Dato</td>        Celda normal 
+    </tr>
+    </table>
+    
+    colgroup → sirve para aplicar estilos o definir anchos a columnas enteras.
+    colspan="n" → hace que una celda ocupe n columnas.
+    rowspan="n" → hace que una celda ocupe n filas.
+    Inline CSS (style="") → se usa dentro de la etiqueta, aunque normalmente es mejor en un archivo .css.
+
+    -->
+    
+    <!-- TABLA con borde y ancho completo -->
     <table border="1" style="width: 100%;">
+        
+        <!-- colgroup permite definir estilos para columnas enteras -->
         <colgroup>
-            <col style="width: 200px;">
-            <col style="width: 40%;">
-            <col style="width: 20%;">
-            <col style="width: 10%;">
+            <col style="width: 200px;">   <!-- Columna 1 fija en 200px -->
+            <col style="width: 40%;">     <!-- Columna 2 ocupa 40% -->
+            <col style="width: 20%;">     <!-- Columna 3 ocupa 20% -->
+            <col style="width: 10%;">     <!-- Columna 4 ocupa 10% -->
+            <!-- OJO: Falta definir ancho para la 5ta columna (Profesión), 
+                 pero el navegador la ajusta automáticamente -->
         </colgroup>
-        <tr style="background: #000; color: #FFF;">
-            <th style="padding: 40px;"> <b>Nombre</b></th>
+
+        <!-- FILA DE ENCABEZADOS -->
+        <tr style="background: #000; color: #FFF;"> <!-- Fondo negro, texto blanco -->
+            <th style="padding: 40px;"> <b>Nombre</b></th> <!-- Celda de encabezado con padding extra -->
             <th> <b>Edad</b></th>
-            <th colspan="2"><b>Ciudad</b></th>
+            <th colspan="2"><b>Ciudad</b></th> <!-- Combina 2 columnas para "Ciudad" -->
             <th><b>Profesión</b></th>
         </tr>
+
+        <!-- FILA 1 -->
         <tr>
-            <td>Ana</td>
-            <td>28</td>
-            <td colspan="2">Buenos Aires</td>
-            <td rowspan="3" style="text-align: center;">Ingeniero</td>
+            <td>Ana</td> <!-- Nombre -->
+            <td>28</td> <!-- Edad -->
+            <td colspan="2">Buenos Aires</td> <!-- Combina dos columnas -->
+            <td rowspan="3" style="text-align: center;">Ingeniero</td>  <!-- "Ingeniero" se estira verticalmente en 3 filas -->
         </tr>
+
+        <!-- FILA 2 -->
         <tr>
             <td>Lucas</td>
-            <td rowspan="2">35</td>
+            <td rowspan="2">35</td> <!-- "35" ocupa 2 filas -->
             <td colspan="1">Córdoba</td>
             <td colspan="1">Mendoza</td>
         </tr>
+
+        <!-- FILA 3 -->
         <tr>
             <td>Martina</td>
             <td colspan="1">Rosario</td>
             <td colspan="1">Cordoba</td>
         </tr>
     </table>
+
 </body>
 </html>

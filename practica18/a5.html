@@ -5,54 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contador</title>
   <style>
+    /* Estilos visuales de la página */
     body {
-      background: #424242;
-      color: white;
-      font-family: Arial, sans-serif;
-      padding: 20px;
+      background: #424242;  /* Fondo gris oscuro */
+      color: white;  /* Texto blanco */
+      font-family: Arial, sans-serif; /* Fuente */
+      padding: 20px; /* Espaciado interno */
     }
     .contenedor {
-      background: white;
-      color: black;
-      padding: 20px;
-      box-shadow: 10px 10px 15px gray;
-      width: fit-content;
+      background: white;  /* Fondo blanco */
+      color: black;       /* Texto negro */
+      padding: 20px;      /* Espaciado interno */
+      box-shadow: 10px 10px 15px gray; /* Sombras */
+      width: fit-content; /* Tamaño ajustado al contenido */
     }
     h2 {
-      margin: 0 0 15px 0;
+      margin: 0 0 15px 0; /* Margen inferior de 15px */
     }
     button {
-      margin: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
+      margin: 5px;          /* Separación entre botones */
+      padding: 5px 10px;    /* Tamaño de los botones */
+      cursor: pointer;      /* Manito al pasar */
     }
   </style>
 </head>
 <body>
-  <p>Realizar la siguiente página WEB, donde los botones incrementar y decrementar hacen lo propio con un contador, el cual es renderizado tras cada cambio.</p>
+  <!-- Explicación de lo que hace la página -->
+  <p>Los botones Incrementar y Decrementar cambian un contador.</p>
   
   <div class="contenedor">
+    <!-- Aquí mostramos el contador -->
     <h2 id="contador">Contador: 0</h2>
+    <!-- Botones que llaman funciones en JS -->
     <button onclick="incrementar()">Incrementar</button>
     <button onclick="decrementar()">Decrementar</button>
   </div>
 
   <script>
+    // Valor inicial del contador
     let valor = 0;
+
+    // Guardamos en una variable el elemento <h2> para poder modificarlo
     const contador = document.getElementById("contador");
 
+    // Función que actualiza el texto en pantalla
     function renderizar() {
+      // Mostramos el texto junto con el valor actual
       contador.textContent = `Contador: ${valor}`;
     }
 
+    // Función para aumentar en 1 el contador
     function incrementar() {
-      valor++;
-      renderizar();
+      valor++;     // suma 1 al valor
+      renderizar(); // actualiza en pantalla
     }
 
+    // Función para restar en 1 el contador
     function decrementar() {
-      valor--;
-      renderizar();
+      valor--;     // resta 1 al valor
+      renderizar(); // actualiza en pantalla
     }
   </script>
 </body>

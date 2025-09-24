@@ -3,34 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>Enviar datos al Servlet</title>
+    <!-- Incluimos jQuery desde CDN para usar AJAX -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <h2>Formulario</h2>
-<form id="miFormulario">
-    Nombre: <input type="text" name="nombre" id="nombre"><br>
-    Edad: <input type="number" name="edad" id="edad"><br>
-    <button type="submit">Enviar</button>
-</form>
 
-<div id="resultado"></div>
+<!-- Campo de texto para el nombre -->
+<input type="text" id="nombre" placeholder="Escribe tu nombre">
+
+<!-- Campo numérico para la edad -->
+<input type="number" id="edad" placeholder="Tu edad">
+
+<!-- Botón para enviar los datos -->
+<button id="btnEnviar">Enviar</button>
+
+<!-- Aquí mostraremos la respuesta que venga del Servlet -->
+<div id="respuesta"></div>
 
 <script>
+    // Esperamos que la página cargue
     $(document).ready(function() {
-        $("#miFormulario").submit(function(e) {
-            e.preventDefault(); // Evita que se recargue la página
 
-            $.post("hola",
-                {
-                    nombre: $("#nombre").val(),
-                    edad: $("#edad").val()
+        // Cuando se haga click en el botón "Enviar"
+        $("#btnEnviar").click(function() {
+
+            // Obtenemos los valores de los inputs
+            let nombre = $("#nombre").val();
+            let edad = $("#edad").val();
+
+            // Hacemos la llamada AJAX
+            $.ajax({
+                url: "hola",   // URL del servlet (mapeado como /hola)
+                type: "GET",   // Tipo de petición: GET
+                data: {
+                    nombre: nombre, // Se envía ?nombre=lo_que_escribio
+                    edad: edad      // Se envía ?edad=lo_que_escribio
                 },
-                function(respuesta) {
-                    $("#resultado").html(respuesta);
+                success: function(data) {
+                    // Si la petición sale bien
+                    alert("Se llamó al servlet"); // Avisamos con un popup
+                    $("#respuesta").text(data.mensaje);
+                    // Mostramos el mensaje del JSON en el div
+                },
+                error: function() {
+                    // Si algo falla
+                    alert("Algo anduvo mal");
+                    $("#respuesta").text("Error en la petición.");
                 }
-            );
+            });
         });
     });
+
+
+    /*
+    Resumen del flujo:
+        1. Usuario abre: http://localhost:8080/MiServletProject/index.html
+        2. Escribe "Juan" y "25"
+        3. Hace click en "Enviar"
+        4. AJAX envía: GET http://localhost:8080/MiServletProject/hola?nombre=Juan&edad=25
+        5. web.xml ve "/hola" y ejecuta HolaServlet
+        6. HolaServlet.doGet() procesa los datos
+        7. Devuelve: {"mensaje":"Hola, Juan. Tienes 25 años."}
+        8. JavaScript muestra el mensaje en la página
+    */
 </script>
 </body>
 </html>

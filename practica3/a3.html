@@ -1,33 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8"> <!-- Soporte para acentos y caracteres especiales -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Adaptación móvil -->
+    <link rel="stylesheet" href="style.css"> <!-- Archivo de estilos (opcional) -->
     <title>Práctica a3 - Hipervínculos</title>
 </head>
 <body>
 
     <h1>Práctica a3 - Hipervínculos</h1>
 
-    <!-- 1. Enlace a Google -->
+    <!-- 1. Enlace a una página externa (Google) -->
     <p><a href="https://www.google.com/?hl=es">Ir a Google</a></p>
 
-    <!-- 2. Enlace a otra página del sitio en una nueva pestaña -->
+    <!-- 2. Enlace a otra página del mismo sitio.
+         "target=_blank" abre en una pestaña nueva -->
     <p><a href="pagina2.html" target="_blank">Ir a la segunda página</a></p>
 
-    <!-- 3. Enlace para enviar un correo -->
-    <p><a href="https://mail.google.com/mail/u/0/#inbox">Enviar correo</a></p>
+    <!-- 3. Enlace para enviar un correo.
+         Lo correcto sería usar "mailto:", pero acá se usó Gmail web -->
+    <p><a href="https://mail.google.com/mail/u/0/#inbox" mailto>Enviar correo</a></p>
 
-    <!-- 4. Enlace a sección inferior usando id -->
+    <!-- 4. Enlace dentro de la misma página.
+         href="#id" hace scroll a ese elemento -->
     <p><a href="#seccion-inferior">Ir a la sección inferior</a></p>
 
-    <!-- 5. Enlace para descargar un PDF -->
+    <!-- 5. Enlace para descargar un archivo PDF.
+         "download" obliga a que se descargue en vez de abrirse -->
     <p><a href="CV_Jerónimo De Biazi.pdf" download>Descargar archivo PDF</a></p>
 
-    <!-- Sección inferior -->
+    <!-- SECCIÓN INFERIOR: destino del enlace interno -->
     <h2 id="seccion-inferior">Sección inferior</h2>
-    <p>sección inferior de la página.</p>
+    <p>Sección inferior de la página.</p>
+
+    <!--
+    Memorizar
+
+     Estructura básica:
+     <a href="URL">Texto del enlace</a>
+
+     Abrir en nueva pestaña:
+     <a href="pagina.html" target="_blank">Ir</a>
+
+     Ir a una sección dentro de la misma página: 
+     <a href="#mi-seccion">Bajar</a>
+     ...
+     <h2 id="mi-seccion">Aquí llegamos</h2>
+
+     Forzar descarga de archivo:
+     <a href="archivo.pdf" download>Descargar PDF</a>
+
+     Enviar correo (forma recomendada):
+     <a href="mailto:correo@ejemplo.com">Enviar correo</a>
+    -->
 
 </body>
 </html>

@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
     <script>
-
-        //Obtener un nuevo arreglo solo con los nombres de los estudiantes que aprobaron (nota ≥ 6).
-        //Ordenar el arreglo original por nota de mayor a menor.
-        //Calcular el promedio general de las notas
+        /*
+        EJERCICIO: 
+        1. Obtener nombres de estudiantes que aprobaron (nota ≥ 6)
+        2. Ordenar estudiantes por nota de mayor a menor
+        3. Calcular promedio general de las notas
+        */
         
         const estudiantes = [
             { nombre: "Ana", nota: 8 },
@@ -19,28 +21,83 @@
             { nombre: "Juan", nota: 6 },
             { nombre: "Pedro", nota: 4 }
         ];
+        
+        /*
+        PARTE 1: Obtener solo los NOMBRES de estudiantes aprobados
+        
+        Proceso en 2 pasos:
+        1. filter() → Filtra estudiantes con nota ≥ 6
+        2. map() → Extrae solo los nombres de los aprobados
+        */
+        
+        // Paso 1: Filtrar estudiantes aprobados (nota ≥ 6)
+        const aprobados = estudiantes.filter(estudiante => estudiante.nota >= 6);
+        console.log("Estudiantes aprobados (objetos completos):", aprobados);
+        
+        // Paso 2: Extraer solo los nombres de los aprobados
+        const nombresAprobados = aprobados.map(estudiante => estudiante.nombre);
+        console.log("Solo nombres de aprobados:", nombresAprobados);
+        
+        /*Alternativa: Todo en una línea
+        const nombresAprobadosEnUnaLinea = estudiantes
+            .filter(estudiante => estudiante.nota >= 6)  // Filtra aprobados
+            .map(estudiante => estudiante.nombre);       // Extrae nombres
+        console.log("Nombres aprobados (en una línea):", nombresAprobadosEnUnaLinea);
+        */
 
-
-        const aprobados=estudiantes.filter(estudiantes=>estudiantes.nota>=6);
-        estudiantes.map(estudiantes=>estudiantes.nombre);
-        console.log(aprobados);
-
-
-        const ordenados = [...estudiantes].sort((a, b) => b.nota - a.nota);  //a=nota, b=nombre
-        //b.nota (nota del segundo alumno) - a.nota (nota del primero alumno). Si el resultado da negativo, 
-        // a tiene mas nota que B, y si es negativo, B tiene mas que A. 
-        //Por ejemplo, A es Ana con 8, y B es Luis con 3. 8-5=-3, que es negativo, por lo que A tiene mas nota
+        /*
+        PARTE 2: Ordenar estudiantes por nota de mayor a menor
+        
+        - [...estudiantes] → Crea una copia para no modificar el original
+        - sort() → Ordena los elementos
+        - (a, b) => b.nota - a.nota → Función de comparación
+        */
+        const ordenados = [...estudiantes].sort((a, b) => b.nota - a.nota);
+        
+        /*
+        ¿Cómo funciona b.nota - a.nota?
+        
+        - Si el resultado es NEGATIVO → b va antes que a (b > a)
+        - Si el resultado es POSITIVO → a va antes que b (a > b)
+        - Si el resultado es 0 → son iguales, no se cambian
+        
+        Ejemplo:
+        - Comparando Ana (8) vs Carla (9):
+        Si b.nota - a.nota da POSITIVO, significa que b > a, entonces b va ANTES.
+        Si da NEGATIVO, significa que a > b, entonces a va ANTES.
+        En el ejemplo: 9 - 8 = 1 (positivo) → Carla(9) va antes que Ana(8)
+        
+        */
         console.log("Estudiantes ordenados por nota:", ordenados);
 
-
-        const promedio = estudiantes.reduce((acc, est) => acc + est.nota, 0) / estudiantes.length; //estudiantes.length → número total de estudiantes
-        //(acc, est) => acc + est.nota es la función que se ejecuta en cada elemento:
-            //acc → acumulador (va sumando todas las notas).
-            // est → estudiante actual del array.
-            // acc + est.nota → sumamos la nota del estudiante al acumulador.
-        //0 al final es el valor inicial de acc (empezamos sumando desde 0).
+        /*
+        PARTE 3: Calcular promedio general
+        
+        Proceso:
+        1. reduce() → Suma todas las notas
+        2. Dividir entre el número total de estudiantes
+        */
+        const promedio = estudiantes.reduce((acc, est) => acc + est.nota, 0) / estudiantes.length;
+        
+        /*
+        ¿Cómo funciona este reduce?
+        
+        - acc → Acumulador (suma total de notas)
+        - est → Estudiante actual
+        - acc + est.nota → Suma la nota actual al total
+        - 0 → Valor inicial del acumulador
+        - estudiantes.length → Número total de estudiantes (5)
+        
+        Proceso paso a paso:
+        - Inicio: acc = 0
+        - Ana: acc = 0 + 8 = 8
+        - Luis: acc = 8 + 5 = 13  
+        - Carla: acc = 13 + 9 = 22
+        - Juan: acc = 22 + 6 = 28
+        - Pedro: acc = 28 + 4 = 32
+        - Final: 32 / 5 = 6.4
+        */
         console.log("Promedio general:", promedio);
-
 
     </script>
 </body>

@@ -1,43 +1,311 @@
+<!--
+ * ============================================================================
+ * INDEX.HTML - INTERFAZ DE USUARIO (FRONTEND)
+ * ============================================================================
+ * 
+ * ¿QUÉ ES ESTE ARCHIVO?
+ * • Es la página web que ve el usuario en su navegador
+ * • Contiene el formulario para capturar datos (nombre y edad)
+ * • Usa JavaScript para enviar datos al servlet SIN recargar la página
+ * • Es el "cliente" que habla con el "servidor" (servlet)
+ * 
+ * TECNOLOGÍAS USADAS:
+ * • HTML → Estructura de la página (campos, botones)
+ * • jQuery → Biblioteca JavaScript para AJAX simplificado
+ * • AJAX → Para comunicarse con el servidor de forma asíncrona
+ * 
+ * ¿PARA QUÉ SIRVE?
+ * • Capturar datos del usuario
+ * • Enviarlos al servlet
+ * • Mostrar la respuesta sin recargar la página
+ * • Crear una experiencia interactiva
+ * ============================================================================
+-->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
+   <!--No es visible para el usuario, pero es importante para el navegador -->
     <meta charset="UTF-8">
     <title>Enviar datos al Servlet</title>
+    <!-- IMPORTACIÓN DE JQUERY: Hace que AJAX sea más fácil de escribir-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
-<h2>Formulario</h2>
+    <h2>Formulario</h2>
+    <!-- 
+        PASOS PARA EJECUTAR:
+        1. En IntelliJ, abrir el proyecto y poner en la consola: mvn clean package
+        2. Esto, genera un WAR en la carpeta TARGET
+        3. Ese WAR, debemos ponerlo en: C:\xampp\tomcat\webapps
+        4. Levantar Tomcat, e ir en el navegador a: http://localhost:8080/servletproject/
+    -->
 
-<input type="text" id="nombre" placeholder="Escribe tu nombre">
-<input type="number" id="edad" placeholder="Tu edad">
-<button id="btnEnviar">Enviar</button>
+    <!-- CAMPOS DE ENTRADA -->    
+    <input type="text" id="nombre" placeholder="Escribe tu nombre"> <!--$("#nombre") en jQuery se refiere a este input-->
+    <input type="number" id="edad" placeholder="Tu edad">
+    <button id="btnEnviar">Enviar</button> <!--$("#btnEnviar") en jQuery se refiere a este boton-->
+    <!--
+        BOTÓN DE ENVÍO:
+        • No es type="submit" porque NO queremos recargar la página
+        • Usamos JavaScript para manejar el click
+        • id="btnEnviar" → Para que JavaScript lo encuentre
+    -->
 
-<div id="respuesta"></div>
+    <div id="respuesta"></div>
+    <!--
+        CONTENEDOR PARA LA RESPUESTA:
+        • Inicialmente está vacío
+        • JavaScript escribirá aquí la respuesta del servlet
+        • Es como un "espacio reservado" para mostrar resultados
+        
+        ¿POR QUÉ <div> y no <p>? Más flexible para futuros cambios
+    -->
 
-<script>
-    $(document).ready(function() {
-        $("#btnEnviar").click(function() {
-            let nombre = $("#nombre").val();
-            let edad = $("#edad").val();
+    <!-- JAVASCRIPT / JQUERY -->
+    <!-- ================================================================== -->
+    <script>
+        // ESPERAR A QUE LA PÁGINA CARGUE COMPLETAMENTE; SOLO DESPUES DE ESTO EJECUTA EL JS
+        $(document).ready(function() {
 
-            $.ajax({
-                url: "hola",
-                type: "GET",
-                data: {
-                    nombre: nombre,
-                    edad: edad
-                },
-                success: function(data) {
-                    alert("Se llamo al servlet");
-                    $("#respuesta").text(data.mensaje);
-                },
-                error: function() {
-                    alert("Algo anduvo mal");
-                    $("#respuesta").text("Error en la petición.");
-                }
+            // MANEJAR EL CLICK DEL BOTÓN
+            $("#btnEnviar").click(function() {
+                /*
+                 * ¿QUÉ HACE ESTA LÍNEA?
+                 * • $("#btnEnviar") → Busca el elemento con id="btnEnviar"
+                 * • .click() → Define qué hacer cuando se hace click
+                 * • function() {} → La función que se ejecuta al hacer click
+                 */
+
+                // OBTENER VALORES DE LOS CAMPOS QUE INGRESÓ EL USUARIO
+                let nombre = $("#nombre").val();
+                let edad = $("#edad").val(); //En string, no numero
+
+                // LLAMADA AJAX AL SERVLET
+                $.ajax({
+                    /*
+                     * AJAX: Asynchronous JavaScript And XML
+                     * 1. Usuario envía datos
+                     * 2. JavaScript hace la petición en segundo plano
+                     * 3. Página sigue funcionando
+                     * 4. Solo se actualiza la parte necesaria
+                     */
+                    
+                    url: "hola",
+                    /*
+                     * URL DEL SERVLET:
+                     * • "hola" es una URL relativa
+                     * • Se resuelve como: http://localhost:8080/servletproject/hola
+                     * • Debe coincidir con el <url-pattern> en web.xml
+                     */
+                    
+                    type: "GET",
+                    /*
+                     * MÉTODO HTTP:
+                     * • "GET" → Ejecutará doGet() en el servlet
+                     * • "POST" → Ejecutaría doPost() en el servlet
+                     * 
+                     * ¿POR QUÉ GET?
+                     * • Estamos "obteniendo" información (saludo personalizado)
+                     * • No modificamos datos en el servidor
+                     * • Los parámetros van en la URL
+                     */
+                    
+                    data: {
+                        nombre: nombre,
+                        edad: edad
+                    },
+                    /*
+                     * DATOS A ENVIAR:
+                     * • Se convierten en parámetros de la URL
+                     * • nombre: nombre → ?nombre=Juan
+                     * • edad: edad → &edad=25
+                     * • URL final: /hola?nombre=Juan&edad=25
+                     * 
+                     * FORMATO:
+                     * • { clave: valor, clave2: valor2 }
+                     * • Las claves deben coincidir con request.getParameter()
+                     */
+                    
+                    success: function(data) {
+                        /*
+                         * ¿CUÁNDO SE EJECUTA?
+                         * • Cuando el servlet responde correctamente (código 200)
+                         * • 'data' contiene la respuesta del servlet
+                         * 
+                         * ¿QUÉ CONTIENE 'data'?
+                         * • El JSON que devuelve doGet(): {"mensaje":"Hola, Juan. Tienes 25 años."}
+                         * • jQuery automáticamente convierte JSON string a objeto JavaScript
+                         * • Puedes acceder con: data.mensaje
+                         */
+                        
+                        alert("Se llamó al servlet");
+                        /*
+                         * ALERT():
+                         * • Muestra un popup con el mensaje
+                         * • Para debugging/confirmación
+                         * • En producción, usarías notificaciones más elegantes
+                         */
+                        
+                        $("#respuesta").text(data.mensaje);
+                        /*
+                         * MOSTRAR LA RESPUESTA:
+                         * • $("#respuesta") → Encuentra el div con id="respuesta"
+                         * • .text() → Cambia el contenido de texto del div
+                         * • data.mensaje → Extrae el "mensaje" del JSON
+                         * 
+                         * RESULTADO:
+                         * • El div ahora muestra: "Hola, Juan. Tienes 25 años."
+                         * • Solo esa parte se actualiza, el resto de la página igual
+                         * 
+                         * .text() vs .html():
+                         * • .text() → Solo texto plano (más seguro)
+                         * • .html() → Puede insertar HTML (cuidado con XSS)
+                         */
+                    },
+                    
+                    error: function() {
+                        /*
+                         * ¿CUÁNDO SE EJECUTA?
+                         * • Cuando algo falla en la comunicación
+                         * • Error de red, servidor caído, servlet con error
+                         * • URL incorrecta, timeout, etc.
+                         * 
+                         * BUENAS PRÁCTICAS:
+                         * • Siempre manejar errores
+                         * • Mostrar mensajes claros al usuario
+                         * • Logear errores para debugging
+                         */
+                        
+                        alert("Algo anduvo mal");
+                        $("#respuesta").text("Error en la petición.");
+                        /*
+                         * MANEJO DE ERRORES:
+                         * • Informar al usuario que algo falló
+                         * • No dejar la aplicación "colgada"
+                         * • Dar pistas sobre qué hacer
+                         */
+                    }
+                });
+                /*
+                 * FIN DE LA CONFIGURACIÓN AJAX
+                 * Todo lo anterior define cómo hacer la petición
+                 * Al llegar aquí, jQuery ejecuta la petición
+                 */
             });
+            /*
+             * FIN DEL MANEJADOR DE CLICK
+             * Al llegar aquí, el botón ya está "preparado" para responder clicks
+             */
         });
-    });
-</script>
+        /*
+         * FIN DE DOCUMENT.READY
+         * Al llegar aquí, toda la página está inicializada y lista
+         */
+
+        /*
+         * ========================================================================
+         * FLUJO COMPLETO PASO A PASO:
+         * ========================================================================
+         * 
+         * 1. CARGA DE LA PÁGINA:
+         *    • Navegador descarga index.html
+         *    • Se carga jQuery desde CDN
+         *    • Se ejecuta $(document).ready()
+         *    • Se "conecta" el botón con su manejador de eventos
+         * 
+         * 2. USUARIO INTERACTÚA:
+         *    • Usuario escribe "Juan" y "25"
+         *    • Usuario hace click en "Enviar"
+         *    • Se ejecuta la función click()
+         * 
+         * 3. PREPARACIÓN DE DATOS:
+         *    • JavaScript extrae valores: nombre="Juan", edad="25"
+         *    • Se configuran los parámetros AJAX
+         * 
+         * 4. PETICIÓN AL SERVIDOR:
+         *    • $.ajax() envía GET a /hola?nombre=Juan&edad=25
+         *    • La página NO se recarga (magia del AJAX)
+         * 
+         * 5. PROCESAMIENTO EN EL SERVIDOR:
+         *    • Tomcat recibe la petición
+         *    • web.xml redirige a HolaServlet
+         *    • doGet() procesa los parámetros
+         *    • Se genera JSON: {"mensaje":"Hola, Juan. Tienes 25 años."}
+         * 
+         * 6. RESPUESTA AL CLIENTE:
+         *    • Servlet envía JSON de vuelta
+         *    • jQuery recibe la respuesta
+         *    • Se ejecuta success()
+         * 
+         * 7. ACTUALIZACIÓN DE LA INTERFAZ:
+         *    • Se muestra alert: "Se llamó al servlet"
+         *    • Se actualiza div: "Hola, Juan. Tienes 25 años."
+         *    • Usuario ve el resultado SIN que se recargue la página
+         * 
+         * ========================================================================
+         * COMPARACIÓN: CON vs SIN AJAX
+         * ========================================================================
+         * 
+         * SIN AJAX (método tradicional):
+         * <form action="hola" method="GET">
+         *     <input name="nombre" />
+         *     <input name="edad" />
+         *     <input type="submit" value="Enviar" />
+         * </form>
+         * 
+         * Problema: La página se recarga completamente
+         * 
+         * CON AJAX (método moderno):
+         * • Misma funcionalidad
+         * • Mejor experiencia de usuario
+         * • Más control sobre la respuesta
+         * • Aplicación se siente más "rápida"
+         * 
+         * ========================================================================
+         */
+    </script>
+    <!--
+        FIN DEL SCRIPT
+        Todo el JavaScript está aquí dentro
+        Se ejecuta en el navegador del usuario
+    -->
 </body>
 </html>
+
+<!--
+ * ============================================================================
+ * RESUMEN EJECUTIVO
+ * ============================================================================
+ * 
+ * ESTE ARCHIVO ES:
+ * • La interfaz de usuario (lo que ve el usuario)
+ * • Un formulario interactivo que NO recarga la página
+ * • El "cliente" que habla con el "servidor" (servlet)
+ * 
+ * COMPONENTES PRINCIPALES:
+ * 1. HTML → Estructura (campos, botones, divs)
+ * 2. jQuery → Biblioteca para simplificar JavaScript
+ * 3. AJAX → Comunicación asíncrona con el servidor
+ * 4. Event Handlers → Respuesta a acciones del usuario
+ * 
+ * FLUJO PRINCIPAL:
+ * Usuario interactúa → JavaScript captura → AJAX envía → Servlet responde → JavaScript actualiza
+ * 
+ * TECNOLOGÍAS:
+ * • HTML5 (estructura)
+ * • CSS (implícito, styling básico del navegador)
+ * • JavaScript/jQuery (interactividad)
+ * • AJAX (comunicación)
+ * • JSON (formato de datos)
+ * 
+ * VENTAJAS SOBRE FORMULARIOS TRADICIONALES:
+ * ✅ No recarga la página
+ * ✅ Mejor experiencia de usuario
+ * ✅ Más control sobre errores
+ * ✅ Aplicación se siente moderna
+ * ✅ Puede procesar la respuesta como necesite
+ * 
+ * ============================================================================
+-->

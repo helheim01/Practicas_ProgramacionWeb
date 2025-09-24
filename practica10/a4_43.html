@@ -7,22 +7,79 @@
 </head>
 <body>
     <script>
+        /*
+        EJERCICIO: Extraer y sumar las diagonales de una matriz cuadrada
+        
+        Matriz ejemplo 3x3:
+        [1, 2, 3]  ← posiciones: [0,0] [0,1] [0,2]
+        [4, 5, 6]  ← posiciones: [1,0] [1,1] [1,2]  
+        [7, 8, 9]  ← posiciones: [2,0] [2,1] [2,2]
+        
+        DIAGONAL PRINCIPAL (↘):     DIAGONAL SECUNDARIA (↙):
+        [0,0] = 1                   [0,2] = 3
+        [1,1] = 5                   [1,1] = 5  
+        [2,2] = 9                   [2,0] = 7
+        
+        Patrón diagonal principal: [i,i] (índices iguales)
+        Patrón diagonal secundaria: [i, n-1-i] (suma de índices = n-1)
+        */
+
         function diagonales(matriz) {
+            /*
+            Para matrices cuadradas: número de filas = número de columnas
+            n representa tanto las filas como las columnas
+            */
             const n = matriz.length; // número de filas y columnas
 
+            // Arrays para guardar los elementos de cada diagonal
             let diagonalPrincipal = [];
             let diagonalSecundaria = [];
+            
+            // Variables para sumar los elementos
             let sumaPrincipal = 0;
             let sumaSecundaria = 0;
 
+            /*
+            Bucle que recorre desde la primera fila hasta la última
+            i = índice de fila (0, 1, 2...)
+            */
             for (let i = 0; i < n; i++) {
-                diagonalPrincipal.push(matriz[i][i]);           // elemento de la diagonal principal
+                /*
+                DIAGONAL PRINCIPAL:
+                Los elementos están en posiciones donde fila = columna
+                Es decir: [0,0], [1,1], [2,2], etc.
+                Fórmula: matriz[i][i]
+                */
+                diagonalPrincipal.push(matriz[i][i]);
                 sumaPrincipal += matriz[i][i];
 
-                diagonalSecundaria.push(matriz[i][n - 1 - i]); // elemento de la diagonal secundaria
+                /*
+                DIAGONAL SECUNDARIA:
+                Los elementos van desde esquina superior derecha 
+                hasta esquina inferior izquierda.
+                
+                Fórmula: matriz[i][n - 1 - i]
+                
+                ¿Por qué n - 1 - i?
+                - n-1 = último índice de columna (en matriz 3x3 = 2)
+                - Cuando i=0: columna = 2-0 = 2 (última columna)
+                - Cuando i=1: columna = 2-1 = 1 (columna central)  
+                - Cuando i=2: columna = 2-2 = 0 (primera columna)
+                
+                Ejemplo paso a paso (matriz 3x3):
+                i=0: matriz[0][3-1-0] = matriz[0][2] = 3
+                i=1: matriz[1][3-1-1] = matriz[1][1] = 5
+                i=2: matriz[2][3-1-2] = matriz[2][0] = 7
+                */
+                diagonalSecundaria.push(matriz[i][n - 1 - i]);
                 sumaSecundaria += matriz[i][n - 1 - i];
             }
 
+            /*
+            Devuelve un objeto con:
+            - Los elementos de cada diagonal
+            - La suma de cada diagonal
+            */
             return {
                 diagonalPrincipal,
                 diagonalSecundaria,
@@ -30,6 +87,29 @@
                 sumaSecundaria
             };
         }
+
+        /*
+        EJEMPLO PRÁCTICO:
+        Matriz 3x3: [[1,2,3], [4,5,6], [7,8,9]]
+        
+        Proceso paso a paso:
+        
+        i=0:
+        - Diagonal principal: matriz[0][0] = 1
+        - Diagonal secundaria: matriz[0][3-1-0] = matriz[0][2] = 3
+        
+        i=1:  
+        - Diagonal principal: matriz[1][1] = 5
+        - Diagonal secundaria: matriz[1][3-1-1] = matriz[1][1] = 5
+        
+        i=2:
+        - Diagonal principal: matriz[2][2] = 9  
+        - Diagonal secundaria: matriz[2][3-1-2] = matriz[2][0] = 7
+        
+        Resultado:
+        - diagonalPrincipal = [1, 5, 9], suma = 15
+        - diagonalSecundaria = [3, 5, 7], suma = 15
+        */
 
         // Ejemplo de uso
         const matriz = [
@@ -44,6 +124,22 @@
         console.log("Diagonal secundaria:", resultado.diagonalSecundaria); // [3,5,7]
         console.log("Suma diagonal principal:", resultado.sumaPrincipal);  // 15
         console.log("Suma diagonal secundaria:", resultado.sumaSecundaria);// 15
+
+        /*
+        PRUEBA CON OTRA MATRIZ:
+        Probemos con una matriz 2x2 para ver el patrón:
+        */
+        const matriz2x2 = [
+            [10, 20],
+            [30, 40]
+        ];
+
+        const resultado2x2 = diagonales(matriz2x2);
+        console.log("\n--- Matriz 2x2 ---");
+        console.log("Diagonal principal:", resultado2x2.diagonalPrincipal);   // [10, 40]
+        console.log("Diagonal secundaria:", resultado2x2.diagonalSecundaria); // [20, 30]
+        console.log("Suma diagonal principal:", resultado2x2.sumaPrincipal);  // 50
+        console.log("Suma diagonal secundaria:", resultado2x2.sumaSecundaria);// 50
 
     </script>
 </body>

@@ -7,8 +7,19 @@
 </head>
 <body>
     <script>
+        /*
+        EJERCICIO: Calcular la suma de cada fila y cada columna de una matriz
+        
+        Matriz ejemplo:
+        [1, 2, 3]  ← Fila 0: suma = 1+2+3 = 6
+        [4, 5, 6]  ← Fila 1: suma = 4+5+6 = 15  
+        [7, 8, 9]  ← Fila 2: suma = 7+8+9 = 24
+         ↑  ↑  ↑
+         │  │  └─ Columna 2: suma = 3+6+9 = 18
+         │  └──── Columna 1: suma = 2+5+8 = 15
+         └─────── Columna 0: suma = 1+4+7 = 12
+        */
 
-        // Matriz de ejemplo
         const matriz = [
             [1, 2, 3],
             [4, 5, 6],
@@ -16,38 +27,89 @@
         ];
 
         function sumar(matriz) {
-            const n = matriz.length;       // número de filas
-            const m = matriz[0].length;    // número de columnas
+            /*
+            Obtener dimensiones de la matriz:
+            - n = número de filas (cuántos arrays hay)
+            - m = número de columnas (cuántos elementos tiene cada fila)
+            */
+            const n = matriz.length;       // cuenta cuantas filas hay= 3
+            const m = matriz[0].length;    // cuenta cuantas  columnas hay = 3
 
-            let sumaFilas = [];
-            let sumaColumnas = []; 
+            // Arrays para guardar los resultados
+            let sumaFilas = [];     // Guardará la suma de cada fila
+            let sumaColumnas = [];  // Guardará la suma de cada columna
 
+
+            //Bucle principal: recorre cada FILA
             for (let i = 0; i < n; i++) {
-                let sumaFila = 0;
+                let sumaFila = 0;  // Acumulador para la fila actual
+                
+                //Bucle interno: recorre cada COLUMNA de la fila actual
                 for (let j = 0; j < m; j++) {
+
+                    //SUMA DE FILAS: Ejemplo: matriz[0][1] = 2 (fila 0, columna 1)
                     sumaFila += matriz[i][j];
 
-                    // si la columna no existe todavía, la inicializamos en 0
+                    //SUMA DE COLUMNAS: Como recorremos fila por fila, necesitamos ir acumulando los elementos de cada columna en diferentes pasadas.
+                    //Lo sumamos a la columna j. Si esa columna todavía no existe en sumaColumnas, la creamos en 0
                     if (sumaColumnas[j] === undefined) {
                         sumaColumnas[j] = 0;
                     }
 
+                    /*
+                    Sumamos el elemento actual a la columna correspondiente
+                    
+                    Ejemplo paso a paso para columna 0:
+                    - Fila 0: sumaColumnas[0] = 0 + 1 = 1
+                    - Fila 1: sumaColumnas[0] = 1 + 4 = 5  
+                    - Fila 2: sumaColumnas[0] = 5 + 7 = 12
+                    */
                     sumaColumnas[j] += matriz[i][j];
                 }
+                
+                /*
+                Terminamos una fila completa, guardamos su suma
+                Ejemplo: sumaFilas[0] = 6 (suma de la primera fila)
+                */
                 sumaFilas.push(sumaFila);
             }
 
+            // Devuelve un objeto con ambos resultados
             return { sumaFilas, sumaColumnas };
         }
 
-        let matriz1=[[1,2], [3,4]];
+        /*
+        EJEMPLO PRÁCTICO:
+        Matriz: [[1,2]
+                [3,4]]
+        
+        Proceso paso a paso:
+        
+        i=0 (primera fila [1,2]):
+        - j=0: sumaFila=0+1=1, sumaColumnas[0]=0+1=1
+        - j=1: sumaFila=1+2=3, sumaColumnas[1]=0+2=2
+        - sumaFilas.push(3) → sumaFilas=[3]
+        
+        i=1 (segunda fila [3,4]):  
+        - j=0: sumaFila=0+3=3, sumaColumnas[0]=1+3=4
+        - j=1: sumaFila=3+4=7, sumaColumnas[1]=2+4=6  
+        - sumaFilas.push(7) → sumaFilas=[3,7]
+        
+        Resultado final:
+        - sumaFilas = [3, 7] (suma de cada fila)
+        - sumaColumnas = [4, 6] (suma de cada columna)
+        */
+        
+        let matriz1 = [[1,2], [3,4]];
         let resultado = sumar(matriz1);
         console.log("Suma de filas:", resultado.sumaFilas);      // [3, 7]
         console.log("Suma de columnas:", resultado.sumaColumnas); // [4, 6]
 
+        // Probemos también con la matriz original
+        let resultadoOriginal = sumar(matriz);
+        console.log("Matriz 3x3 - Suma de filas:", resultadoOriginal.sumaFilas);      // [6, 15, 24]
+        console.log("Matriz 3x3 - Suma de columnas:", resultadoOriginal.sumaColumnas); // [12, 15, 18]
 
-
-        
     </script>
 </body>
 </html>

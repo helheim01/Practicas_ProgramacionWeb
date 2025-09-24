@@ -1,31 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- Define el tipo de documento y el idioma (inglés en este caso) -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    
-    <title>Practica 1</title>
+    <meta charset="UTF-8"> <!-- Codificación para que los caracteres especiales (ñ, á, é) se vean bien -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Hace que se adapte a móviles -->
+    <link rel="stylesheet" href="style.css"> <!-- Vincula el archivo CSS externo -->
+    <title>Practica 1</title> <!-- Título de la pestaña del navegador -->
 </head>
 <body>
     
+    <!-- ENCABEZADO -->
     <header>
-        <h1>Panceta</h1>
-        <p>La mejor panceta del barrio</p>
+        <h1>Panceta</h1> <!-- Título principal -->
+        <p>La mejor panceta del barrio</p> <!-- Subtítulo o lema -->
     </header>
 
+    <!-- MENÚ DE NAVEGACIÓN -->
     <nav>
         <ul>
+            <!-- Los <a href="#id"> permiten saltar a secciones dentro de la misma página -->
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#productos">Productos</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
     </nav>
 
+    <!-- CONTENIDO PRINCIPAL -->
     <main>
+        <!-- Sección de productos -->
         <section id="productos">
             <h2>Productos</h2>
 
+            <!-- Cada producto se pone en un <article> porque es contenido independiente -->
             <article>
                 <h3>Panceta Ahumada</h3>
                 <p>Deliciosa panceta con ahumado natural y corte artesanal.</p>
@@ -37,14 +42,17 @@
             </article>
         </section>
 
+        <!-- Contenido adicional (barra lateral con ofertas) -->
         <aside>
             <h2>Ofertas</h2>
             <p>¡2x1 en panceta ahumada todos los viernes!</p>
         </aside>
     </main>
 
+    <!-- PIE DE PÁGINA -->
     <footer>
         <p>&copy; 2025 Panceta Lovers. Todos los derechos reservados.</p>
+        <!-- &copy; es un símbolo de copyright -->
     </footer>
 
 </body>

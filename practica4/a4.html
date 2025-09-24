@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" /> <!-- Codificación para caracteres especiales -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Adaptación móvil -->
   <title>Práctica A4 - Jerónimo De Biazi</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css" /> <!-- Archivo CSS externo -->
 </head>
 <body>
 
-    <h1>Mi práctica 4</h1>
-  <table border="1" style="width: 100%;">
+  <!-- TÍTULO PRINCIPAL -->
+  <h1>Mi práctica 4</h1>
+
+  <!-- TABLA DE INFORMACIÓN -->
+  <table border="1" style="width: 100%;"> <!-- Borde y ancho completo -->
     <colgroup>
+      <!-- Cada <col> define el ancho de una columna -->
       <col style="width: 25%;" />
       <col style="width: 25%;" />
       <col style="width: 25%;" />
       <col style="width: 25%;" />
     </colgroup>
+
+    <!-- Fila de encabezado -->
     <tr style="background: #171985; color: #FFF;">
       <th style="padding: 10px;">Nombre</th>
       <th>Edad</th>
       <th>Ciudad</th>
       <th>Profesión</th>
     </tr>
+
+    <!-- Filas de datos -->
     <tr>
       <td>Jerónimo De Biazi</td>
       <td>20</td>
@@ -42,28 +50,40 @@
     </tr>
   </table>
 
-  <img src="1.jpg" alt="Foto de Jerónimo De Biazi" style="max-width: 300px; display: block; margin: 20px auto;" />
+  <!-- IMAGEN -->
+  <img src="1.jpg" alt="Foto de Jerónimo De Biazi" 
+       style="max-width: 300px; display: block; margin: 20px auto;" />
+  <!-- max-width: evita que sea muy grande -->
+  <!-- display: block + margin auto: centra la imagen -->
 
+  <!-- DIV ESTILIZADO -->
   <div id="miDivEstilizado">
     <p>Bienvenidos a mi página personal. Aquí podrás encontrar información sobre mis proyectos y contacto.</p>
   </div>
 
+  <!-- ENLACE EXTERNO -->
   <p style="text-align: center; margin-top: 30px;">
-    Visita mi <a href="https://www.espacoeccos.com.br" target="_blank">último trabajo</a> para conocer mis habilidades.
+    Visita mi <a href="https://www.espacoeccos.com.br" target="_blank">último trabajo</a> 
+    para conocer mis habilidades.
   </p>
 
+  <!-- FORMULARIO -->
   <form action="procesar.php" method="post" class="form-estilizado">
     <h2>Formulario de Contacto</h2>
 
+    <!-- Campo de texto -->
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required />
 
+    <!-- Campo email -->
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" placeholder="tuemail@ejemplo.com" required />
 
+    <!-- Campo numérico con límites -->
     <label for="edad">Edad:</label>
     <input type="number" id="edad" name="edad" min="18" max="100" placeholder="Edad" />
 
+    <!-- Menú desplegable -->
     <label for="genero">Género:</label>
     <select id="genero" name="genero" required>
       <option value="" disabled selected>Selecciona tu género</option>
@@ -72,14 +92,17 @@
       <option value="otro">Otro</option>
     </select>
 
+    <!-- Checkbox -->
     <label class="checkbox-container">
       <input type="checkbox" name="aceptar" required />
       Acepto los términos y condiciones
     </label>
 
+    <!-- Botón -->
     <button type="submit">Enviar</button>
   </form>
 
+  <!-- LISTA -->
   <ul class="lista-estilos">
     <li>HTML5</li>
     <li>CSS3</li>
@@ -87,5 +110,22 @@
     <li>Node.js</li>
   </ul>
 
+  <!--
+  Estudiar: 
+
+  Tabla → <table>, <tr>, <th>, <td> y uso de <colgroup>.
+  Imagen → <img src="..." alt="..." /> → alt siempre es obligatorio para accesibilidad.
+  Div → contenedor para agrupar contenido (id o class para darle estilo).
+  Enlace externo → <a href="URL" target="_blank">Texto</a>.
+  Formulario:
+    action="procesar.php" → archivo al que se envía la info.
+    method="post" → forma de envío.
+    Inputs:
+      text, email, number.
+      select con option.
+      checkbox con required.
+      button type="submit".
+  Lista → <ul> para lista no ordenada y <li> para ítems.
+  -->
 </body>
 </html>

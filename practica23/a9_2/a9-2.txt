@@ -1,0 +1,24 @@
+SENTENCIAS SQL PARA CREAR LAS TABLAS NECESARIAS:
+-- Tabla de especialidades
+CREATE TABLE IF NOT EXISTS especialidades (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT NOT NULL
+);
+
+-- Tabla de usuarios
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+-- Insertar un usuario de prueba (password = "1234")
+INSERT INTO usuarios (usuario, password) 
+VALUES ('admin', PASSWORD('1234'));
+
+Luego hay que modificar el nombre de la base de datos en todas las conexiones, luego guardar todos los archivos en una carpeta dentro del directorio htdocs de XAMPP.
+
+Para ejecutar todo como corresponde, primero hay que ingresar a http://localhost/"nombre de la carpeta donde están los archivos"/crear_usuario.php
+
+Una vez se modifique el hash de la contraseña hay que entrar a: http://localhost/"nombre de la carpeta donde están los archivos"/login.php

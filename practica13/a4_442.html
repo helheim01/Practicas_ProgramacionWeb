@@ -1,27 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- Indica que este documento es HTML5 -->
+<html lang="en"> <!-- Idioma del documento -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8"> <!-- Codificación de caracteres (acentos, ñ, etc.) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Hace que la página responda en móviles -->
+    <title>Document</title> <!-- Texto que aparece en la pestaña del navegador -->
 </head>
 <body>
-    <p id="demo"></p>
-    <script>
-        //Dado un arreglo de objetos con {nombre, clave}, aplicar funciones de primer orden para capitalizar el nombre, y encriptar la clave
-        const usuarios = [
-            {nombre: "juan", clave: "1234"},
-            {nombre: "maria", clave: "abcd"},
-            {nombre: "pedro", clave: "5678"}
-        ];
-        const capitalizar = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-        const encriptar = (str) => btoa(str); // Usando base64
-        const procesarUsuarios = (arr) => arr.map(user => ({
-            nombre: capitalizar(user.nombre),
-            clave: encriptar(user.clave)
-        }));
-        document.getElementById("demo").innerHTML=procesarUsuarios(usuarios).map(u => `Nombre: ${u.nombre}, Clave: ${u.clave}`).join("<br>");
 
+    <p id="demo"></p> <!-- Un párrafo vacío donde vamos a mostrar el resultado -->
+
+    <script>
+        // Dado un arreglo de objetos con {nombre, clave}, aplicar funciones de primer orden para capitalizar el nombre, y "encriptar" la clave (aquí se usa base64).
+
+        // 1) Datos - arreglo de usuarios con nombre en minúscula y clave en texto plano
+        const usuarios = [
+            { nombre: "juan", clave: "1234" },
+            { nombre: "maria", clave: "abcd" },
+            { nombre: "pedro", clave: "5678" }
+        ];
+
+        // 2) Función para capitalizar: convierte la primera letra a mayúscula
+        //    Ej: "juan" -> "Juan"
+        const capitalizar = (str) =>
+            str.charAt(0).toUpperCase() + str.slice(1);
+            // str.charAt(0) -> primera letra
+            // .toUpperCase() -> la pasa a mayúscula
+            // str.slice(1) -> devuelve el resto de la cadena desde el índice 1
+
+        // 3) "Encriptar" la clave usando base64 (btoa)
+        //    OJO: base64 NO es una encriptación segura, es sólo una codificación.
+        //    No usar esto para proteger contraseñas reales.
+        const encriptar = (str) => btoa(str);
+
+        // 4) Procesar usuarios: usamos .map (función de primer orden)
+        //    - recorre cada usuario y devuelve un **nuevo** objeto con:
+        //       nombre capitalizado y clave codificada (base64)
+        //    - el paréntesis ({ ... }) es necesario para devolver un objeto literal
+        const procesarUsuarios = (arr) =>
+            arr.map(user => ({
+                nombre: capitalizar(user.nombre), // aplico capitalizar
+                clave: encriptar(user.clave)      // aplico encriptar (base64)
+            }));
+
+        // 5) Tomo el resultado procesado y lo muestro en el <p id="demo">
+        //    - procesarUsuarios(usuarios) devuelve un array de objetos procesados
+        //    - .map(u => `Nombre: ${u.nombre}, Clave: ${u.clave}`) crea un array de strings
+        //    - .join("<br>") une esas líneas con saltos de línea HTML para que se vean en la página
+        //    - asignamos la cadena final a innerHTML del párrafo demo
+        document.getElementById("demo").innerHTML =
+            procesarUsuarios(usuarios)
+                .map(u => `Nombre: ${u.nombre}, Clave: ${u.clave}`)
+                .join("<br>");
+
+        // FIN
     </script>
 </body>
 </html>

@@ -8,146 +8,194 @@
 <body>
   <p id="demo"></p>
   <script>
+    // QUÉ HACE EL CÓDIGO: Sistema de gestión de vehículos con POO (clases, herencia, composición)
+
+    /*
+    CLASE RUEDA: Representa las ruedas de un vehículo
+    - Atributos privados: #marca, #rodaje
+    - Métodos: constructor, getters, mostrar()
+    */
     class Rueda {
-      #marca; #rodaje;
-      constructor(marca, rodaje) {
-        this.#marca = marca; this.#rodaje = rodaje;
+      #marca; #rodaje;                                  // Atributos privados (no accesibles desde afuera)
+      constructor(marca, rodaje) {                      // Constructor recibe marca y kilómetros de rodaje
+        this.#marca = marca; this.#rodaje = rodaje;     // Asigna valores a atributos privados
       }
-      get marca() { return this.#marca; }
-      get rodaje() { return this.#rodaje; }
-      mostrar() { return `Rueda ${this.#marca}, ${this.#rodaje} km`; }
+      get marca() { return this.#marca; }               // Getter para acceder a marca desde afuera
+      get rodaje() { return this.#rodaje; }             // Getter para acceder a rodaje desde afuera
+      mostrar() { return `Rueda ${this.#marca}, ${this.#rodaje} km`; } // Método que devuelve info de la rueda
     }
 
+    /*
+    CLASE REMOLQUE: Representa un remolque para camiones
+    */
     class Remolque {
-      #longitud;
+      #longitud;                                        // Longitud del remolque en metros
       constructor(longitud) { this.#longitud = longitud; }
       mostrar() { return `Remolque de ${this.#longitud} m`; }
     }
 
+    /*
+    CLASE FRIGORIFICO: Representa un frigorífico para camiones
+    */
     class Frigorifico {
-      #temperatura;
+      #temperatura;                                     // Temperatura del frigorífico
       constructor(temp) { this.#temperatura = temp; }
       mostrar() { return `Frigorífico a ${this.#temperatura}°C`; }
     }
 
+    /*
+    CLASE MOTOR: Representa el motor de un vehículo
+    */
     class Motor {
-      #tipo; #caballos; #descripcion;
+      #tipo; #caballos; #descripcion;                   // Tipo (nafta/diesel), potencia, descripción
       constructor(tipo, caballos, desc) {
         this.#tipo = tipo; this.#caballos = caballos; this.#descripcion = desc;
       }
       mostrar() { return `Motor ${this.#tipo}, ${this.#caballos} CV (${this.#descripcion})`; }
     }
 
+    /*
+    CLASE TITULO: Representa el título de propiedad de un vehículo
+    */
     class Titulo {
-      #prop;
+      #prop;                                            // Propietario del vehículo
       constructor(prop) { this.#prop = prop; }
-      get prop() { return this.#prop; }
+      get prop() { return this.#prop; }                 // Getter para acceder al propietario
     }
 
+    /*
+    CLASE RNA (Registro Nacional de Automotores): Maneja el registro de vehículos
+    */
     class RNA {
-      #provincia; #info;
+      #provincia; #info;                                // Provincia y información adicional
       constructor(provincia, info) {
         this.#provincia = provincia; this.#info = info;
       }
-      registrar(titulo) {
+      registrar(titulo) {                               // Método que registra un título
         return `Título de ${titulo.prop} registrado en ${this.#provincia} (${this.#info})`;
       }
     }
 
+    /*
+    CLASE VEHICULO (CLASE BASE): Representa un vehículo genérico
+    - Usa composición: tiene ruedas, motor, título
+    - Clase padre de Auto y Camion (herencia)
+    */
     class Vehiculo {
-      #velocidad; #marca; #modelo; #ano;
+      #velocidad; #marca; #modelo; #ano;                // Atributos privados básicos
       constructor(marca, modelo, ano, vel) {
         this.#marca = marca; this.#modelo = modelo;
         this.#ano = ano; this.#velocidad = vel;
-        this.ruedas = []; 
-        this.motor = null;
-        this.titulo = null;
+        this.ruedas = [];                               // Array de ruedas (composición)
+        this.motor = null;                              // Motor del vehículo (composición)
+        this.titulo = null;                             // Título de propiedad (composición)
       }
-      agregarRueda(rueda) { this.ruedas.push(rueda); }
-      ponerMotor(motor) { this.motor = motor; }
-      ponerTitulo(titulo) { this.titulo = titulo; }
-      acelerar() { this.#velocidad += 10; }
-      frenar() { this.#velocidad -= 10; }
-      compararVelocidad(otroVehiculo) {
+      agregarRueda(rueda) { this.ruedas.push(rueda); }  // Agrega rueda al array
+      ponerMotor(motor) { this.motor = motor; }         // Asigna motor al vehículo
+      ponerTitulo(titulo) { this.titulo = titulo; }     // Asigna título al vehículo
+      acelerar() { this.#velocidad += 10; }             // Aumenta velocidad en 10
+      frenar() { this.#velocidad -= 10; }               // Disminuye velocidad en 10
+      compararVelocidad(otroVehiculo) {                 // Compara velocidades entre vehículos
         if (this.#velocidad > otroVehiculo.#velocidad) return `${this.#marca} es más rápido`;
         if (this.#velocidad < otroVehiculo.#velocidad) return `${otroVehiculo.#marca} es más rápido`;
         return "Ambos tienen la misma velocidad";
       }
-      info() {
+      info() {                                          // Devuelve información básica del vehículo
         return `${this.#marca} ${this.#modelo} (${this.#ano}) - Vel: ${this.#velocidad} km/h`;
       }
     }
 
+    /*
+    CLASE AUTO: Hereda de Vehiculo, agrega cantidad de puertas
+    */
     class Auto extends Vehiculo {
-      #cantPuertas;
+      #cantPuertas;                                     // Atributo específico de Auto
       constructor(marca, modelo, ano, vel, puertas) {
-        super(marca, modelo, ano, vel);
-        this.#cantPuertas = puertas;
+        super(marca, modelo, ano, vel);                 // Llama al constructor de la clase padre
+        this.#cantPuertas = puertas;                    // Asigna puertas específico del auto
       }
-      info() { return `Auto: ${super.info()}, Puertas: ${this.#cantPuertas}`; }
+      info() {                                          // Sobrescribe método info() del padre
+        return `Auto: ${super.info()}, Puertas: ${this.#cantPuertas}`; // super.info() llama al método del padre
+      }
     }
 
+    /*
+    CLASE CAMION: Hereda de Vehiculo, agrega capacidad de carga y puede tener remolque/frigorífico
+    */
     class Camion extends Vehiculo {
-      #capacidadCarga;
+      #capacidadCarga;                                  // Capacidad en kilogramos
       constructor(marca, modelo, ano, vel, capacidad) {
-        super(marca, modelo, ano, vel);
+        super(marca, modelo, ano, vel);                 // Llama constructor padre
         this.#capacidadCarga = capacidad;
-        this.remolque = null;
-        this.frigorifico = null;
+        this.remolque = null;                           // Composición: puede tener remolque
+        this.frigorifico = null;                        // Composición: puede tener frigorífico
       }
-      engancharRemolque(r) { this.remolque = r; }
-      engancharFrigorifico(f) { this.frigorifico = f; }
-      info() {
+      engancharRemolque(r) { this.remolque = r; }       // Asigna remolque al camión
+      engancharFrigorifico(f) { this.frigorifico = f; } // Asigna frigorífico al camión
+      info() {                                          // Sobrescribe info() incluyendo remolque y frigorífico
         let base = `Camión: ${super.info()}, Carga: ${this.#capacidadCarga} kg`;
-        if (this.remolque) base += " + " + this.remolque.mostrar();
-        if (this.frigorifico) base += " + " + this.frigorifico.mostrar();
+        if (this.remolque) base += " + " + this.remolque.mostrar();     // Agrega info del remolque si existe
+        if (this.frigorifico) base += " + " + this.frigorifico.mostrar(); // Agrega info del frigorífico si existe
         return base;
       }
     }
 
+    /*
+    CLASE FABRICA: Patrón Factory para crear vehículos
+    */
     class Fabrica {
-      #nombre;
+      #nombre;                                          // Nombre de la fábrica
       constructor(nombre) { this.#nombre = nombre; }
-      construir(marca, modelo, ano, vel) {
+      construir(marca, modelo, ano, vel) {              // Método factory que crea vehículos
         return new Vehiculo(marca, modelo, ano, vel);
       }
     }
 
+    /*
+    CLASE CONCESIONARIO: Contiene múltiples vehículos
+    */
     class Concesionario {
-      #nombre; #vehiculos;
+      #nombre; #vehiculos;                              // Nombre y array de vehículos
       constructor(nombre) { this.#nombre = nombre; this.#vehiculos = []; }
-      agregarVehiculo(v) { this.#vehiculos.push(v); }
-      mostrar() {
+      agregarVehiculo(v) { this.#vehiculos.push(v); }   // Agrega vehículo al concesionario
+      mostrar() {                                       // Muestra todos los vehículos
         return `Concesionario ${this.#nombre}:<br>` + 
-          this.#vehiculos.map(v => v.info()).join("<br>");
+          this.#vehiculos.map(v => v.info()).join("<br>"); // map() aplica info() a cada vehículo
       }
     }
     
-    const auto = new Auto("Ford", "Focus", 2020, 180, 4);
-    auto.agregarRueda(new Rueda("Michelin", 10000));
-    auto.ponerMotor(new Motor("Nafta", 120, "1.6L"));
+    // CREACIÓN E USO DE OBJETOS:
+    
+    // Crear un auto con ruedas y motor
+    const auto = new Auto("Ford", "Focus", 2020, 180, 4);        // Auto con 4 puertas
+    auto.agregarRueda(new Rueda("Michelin", 10000));             // Agrega rueda Michelin con 10000km
+    auto.ponerMotor(new Motor("Nafta", 120, "1.6L"));            // Motor nafta 120CV 1.6L
 
-    const camion = new Camion("Volvo", "FH16", 2022, 160, 30000);
-    camion.engancharRemolque(new Remolque(12));
-    camion.engancharFrigorifico(new Frigorifico(-18));
+    // Crear camión con remolque y frigorífico
+    const camion = new Camion("Volvo", "FH16", 2022, 160, 30000); // Camión capacidad 30000kg
+    camion.engancharRemolque(new Remolque(12));                   // Remolque de 12 metros
+    camion.engancharFrigorifico(new Frigorifico(-18));            // Frigorífico a -18°C
 
-    const fabrica = new Fabrica("Ford Argentina");
-    const vehiculoGenerico = fabrica.construir("Ford","Fiesta",2019,150);
+    // Usar patrón factory para crear vehículo
+    const fabrica = new Fabrica("Ford Argentina");                // Crear fábrica
+    const vehiculoGenerico = fabrica.construir("Ford","Fiesta",2019,150); // Crear vehículo
 
-    const titulo = new Titulo("Juan Pérez");
-    vehiculoGenerico.ponerTitulo(titulo);
+    // Crear título y registrarlo
+    const titulo = new Titulo("Juan Pérez");                      // Título a nombre de Juan Pérez
+    vehiculoGenerico.ponerTitulo(titulo);                         // Asignar título al vehículo
+    const registro = new RNA("Buenos Aires","Oficina Central");   // Registro en Buenos Aires
 
-    const registro = new RNA("Buenos Aires","Oficina Central");
+    // Crear concesionario y agregar vehículos
+    const concesionario = new Concesionario("Multimarcas");       // Crear concesionario
+    concesionario.agregarVehiculo(auto);                          // Agregar auto
+    concesionario.agregarVehiculo(camion);                        // Agregar camión
+    concesionario.agregarVehiculo(vehiculoGenerico);              // Agregar vehículo genérico
 
-    const concesionario = new Concesionario("Multimarcas");
-    concesionario.agregarVehiculo(auto);
-    concesionario.agregarVehiculo(camion);
-    concesionario.agregarVehiculo(vehiculoGenerico);
-
+    // MOSTRAR RESULTADOS EN HTML
     document.getElementById("demo").innerHTML =
-      concesionario.mostrar() + "<br><br>" +
-      registro.registrar(titulo) + "<br>" +
-      auto.compararVelocidad(camion);
+      concesionario.mostrar() + "<br><br>" +                     // Lista todos los vehículos
+      registro.registrar(titulo) + "<br>" +                      // Mensaje de registro de título
+      auto.compararVelocidad(camion);                             // Comparación de velocidades
   </script>
 </body>
 </html>
