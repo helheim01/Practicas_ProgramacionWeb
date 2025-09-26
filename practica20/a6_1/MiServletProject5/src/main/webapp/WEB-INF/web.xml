@@ -1,18 +1,34 @@
+<!--
+WEB.XML: Archivo de configuración del proyecto web (Deployment Descriptor)
+- Define cómo Tomcat debe manejar los servlets
+- Mapea URLs a clases servlet específicas
+- Configura página de inicio y otros aspectos de la aplicación web
+-->
+
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
                              http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
+    <!--
+    CONFIGURACIÓN SERVLET A:
+    1. <servlet>: Define un servlet y le asigna un nombre
+    2. <servlet-mapping>: Mapea el servlet a una URL específica
+    -->
     <servlet>
-        <servlet-name>ServletA</servlet-name>
-        <servlet-class>com.ejemplo.servlets.ServletA</servlet-class>
+        <servlet-name>ServletA</servlet-name>                           <!-- Nombre interno del servlet -->
+        <servlet-class>com.ejemplo.servlets.ServletA</servlet-class>    <!-- Clase Java del servlet -->
     </servlet>
     <servlet-mapping>
-        <servlet-name>ServletA</servlet-name>
-        <url-pattern>/servletA</url-pattern>
+        <servlet-name>ServletA</servlet-name>                           <!-- Nombre que coincide con el servlet -->
+        <url-pattern>/servletA</url-pattern>                           <!-- URL que activa este servlet -->
     </servlet-mapping>
 
+    <!--
+    CONFIGURACIÓN SERVLET B:
+    - Cuando llegue petición a /servletB, Tomcat ejecutará ServletB.class
+    -->
     <servlet>
         <servlet-name>ServletB</servlet-name>
         <servlet-class>com.ejemplo.servlets.ServletB</servlet-class>
@@ -22,6 +38,10 @@
         <url-pattern>/servletB</url-pattern>
     </servlet-mapping>
 
+    <!--
+    CONFIGURACIÓN SERVLET C:
+    - Último servlet de la cadena, genera respuesta HTML final
+    -->
     <servlet>
         <servlet-name>ServletC</servlet-name>
         <servlet-class>com.ejemplo.servlets.ServletC</servlet-class>
@@ -31,7 +51,32 @@
         <url-pattern>/servletC</url-pattern>
     </servlet-mapping>
 
+    <!--
+    ARCHIVO DE BIENVENIDA:
+    - welcome-file-list: define qué archivo mostrar por defecto
+    - Cuando usuario va a http://localhost:8080/a6_1/ (sin especificar archivo)
+    - Tomcat automáticamente muestra index.html
+    - Es equivalente a ir a http://localhost:8080/a6_1/index.html
+    -->
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 </web-app>
+
+<!--
+MAPEO DE URLS COMPLETO:
+
+1. http://localhost:8080/a6_1/ → index.html (formulario inicial)
+2. http://localhost:8080/a6_1/servletA → ServletA.class (procesa formulario)
+3. http://localhost:8080/a6_1/servletB → ServletB.class (modifica y guarda en BD)
+4. http://localhost:8080/a6_1/servletC → ServletC.class (genera HTML final)
+
+FLUJO DE NAVEGACIÓN:
+Usuario → index.html → /servletA (forward)→ /servletB (forward)→ /servletC → HTML respuesta
+
+CONCEPTOS IMPORTANTES:
+- servlet-name: nombre interno usado por Tomcat
+- servlet-class: ruta completa de la clase Java
+- url-pattern: URL que activa el servlet
+- Los forward() entre servlets usan estos url-pattern
+-->

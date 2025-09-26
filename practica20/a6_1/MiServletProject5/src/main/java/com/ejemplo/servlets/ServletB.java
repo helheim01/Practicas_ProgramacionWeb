@@ -10,33 +10,42 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/*
+SERVLET B: Segundo servlet en la cadena
+- Recibe objeto Usuario desde ServletA
+- Modifica datos del usuario 
+- Guarda en base de datos MySQL
+- Pasa control a ServletC
+*/
 public class ServletB extends HttpServlet {
 
+    // Logger para registrar eventos y errores
     private static final Logger logger = LoggerFactory.getLogger(ServletB.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        // Recuperar objeto Usuario enviado por ServletA
         Usuario user = (Usuario) req.getAttribute("usuario");
 
         if (user != null) {
+            // Registrar datos recibidos
             logger.info("Recibido usuario desde ServletA: nombre={}, edad={}",
                     user.getNombre(), user.getEdad());
 
-            // Modificamos el objeto
-            user.setEdad(user.getEdad() + 5);
-            user.setNombre(user.getNombre() + " (procesado en B)");
+            // Modificar el objeto Usuario
+            user.setEdad(user.getEdad() + 5);                    // Aumenta edad en 5
+            user.setNombre(user.getNombre() + " (procesado en B)"); // Agrega texto al nombre
 
-            // Guardar en la base de datos
-            //try (Connection conn = DatabaseConnection.getConnection()) {
+            // Guardar en base de datos MySQL
             try  {
-                Connection conn = DatabaseConnection.getConnection();
-                String sql = "INSERT INTO usuarios (nombre, edad) VALUES (?, ?)";
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setString(1, user.getNombre());
-                ps.setInt(2, user.getEdad());
-                ps.executeUpdate();
+                Connection conn = DatabaseConnection.getConnection();           // Obtener conexión BD
+                String sql = "INSERT INTO usuarios (nombre, edad) VALUES (?, ?)"; // Consulta SQL
+                PreparedStatement ps = conn.prepareStatement(sql);             // Preparar consulta
+                ps.setString(1, user.getNombre());                            // Asignar nombre al primer ?
+                ps.setInt(2, user.getEdad());                                 // Asignar edad al segundo ?
+                ps.executeUpdate();                                           // Ejecutar INSERT
                 logger.info("Se guardo el objeto en la base de datos");
             } catch (SQLException e) {
                 logger.error("Error al guardar el usuario en la base de datos", e);
@@ -44,16 +53,18 @@ public class ServletB extends HttpServlet {
             }
         }
 
+        // Actualizar objeto modificado en request para ServletC
         req.setAttribute("usuario", user);
 
-        // Encadenamos hacia ServletC
+        // Pasar control a ServletC
         RequestDispatcher rd = req.getRequestDispatcher("/servletC");
         rd.forward(req, resp);
     }
 }
 
-
 /*
+SCRIPT SQL - Ejecutar en MySQL antes de usar:
+
 CREATE DATABASE servletsdb;
 USE servletsdb;
 
@@ -62,5 +73,4 @@ CREATE TABLE usuarios (
     nombre VARCHAR(100) NOT NULL,
     edad INT NOT NULL
 );
-
 */

@@ -5,10 +5,22 @@
 </head>
 <body>
 <h2>Iniciar Chaining de Servlets</h2>
+<!--
+FORMULARIO HTML:
+- action="servletA": cuando se envía, va al servlet llamado "servletA"
+- method="get": usa método HTTP GET (datos van en la URL como parámetros)
+-->
 <form action="servletA" method="get">
     <label for="nombre">Ingrese su nombre:</label>
     <input type="text" id="nombre" name="nombre" required>
-    <button type="submit">Enviar</button>
+    <button type="submit">Enviar</button> <!--Al hacer click, ejecuta la acción del form (action="servletA")-->
 </form>
+
+<!--
+EJEMPLO DE URL GENERADA:
+Si usuario escribe "María":
+http://localhost:8080/a6_1/servletA?nombre=María
+-->
+
 </body>
 </html>

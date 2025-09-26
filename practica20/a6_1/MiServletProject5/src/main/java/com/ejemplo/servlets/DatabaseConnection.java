@@ -18,7 +18,21 @@ public class DatabaseConnection {
     }
 
     public static Connection getConnection() throws SQLException {
+        /*
+        System.out.println(): Imprime en consola el classpath
+        - java.class.path: ruta donde Java busca las clases (.jar)
+        - Útil para debugging si hay problemas con drivers
+        - Permite verificar que mysql-connector.jar está disponible
+        */
         System.out.println("Classpath: " + System.getProperty("java.class.path"));
+        
+        /*
+        DriverManager.getConnection(): Crea conexión a la base de datos
+        - URL: dirección de la BD (jdbc:mysql://localhost:3306/servletsdb)
+        - USER: usuario para autenticarse (root)
+        - PASSWORD: contraseña del usuario (vacía)
+        - return: objeto Connection listo para ejecutar consultas SQL
+        */
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
