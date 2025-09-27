@@ -1,0 +1,45 @@
+SENTENCIAS SQL PARA CREAR LAS TABLAS NECESARIAS:
+-- Tabla de especialidades
+CREATE TABLE IF NOT EXISTS especialidades (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT NOT NULL
+);
+
+-- Tabla de usuarios
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+-- Insertar un usuario de prueba (password = "1234")
+INSERT INTO usuarios (usuario, password) 
+VALUES ('admin', PASSWORD('1234'));
+
+
+Para ejecutar todo como corresponde, primero hay que ingresar a http://localhost/"nombre de la carpeta donde están los archivos"/crear_usuario.php
+Una vez se modifique el hash de la contraseña hay que entrar a: http://localhost/"nombre de la carpeta donde están los archivos"/login.php
+
+Funcionamiento General del sistema:
+
+1: crear_usuario.php:
+    * Se ejecuta una vez para crear/actualizar el usuario admin con una contraseña 1234 y 3 especialidades de ejemplo.
+
+2: login.php: el usuario ingresa las credenciales
+    * Si son correctas, se guarda la sesión y se redirige a index.php
+    * si son incorrectas, se muestra un error.
+
+3: index.php: Página principal (requiere sesión)
+    * Muestra un saludo y un menú con opciones.
+    * Lista especialidades en un <select>.
+    * Al seleccionar una, se hace una petición AJAX a descricion.php para mostrar la descripción de la especialidad seleccionada.
+
+4: descripcion.php: Devuelve la descripción de la especialidad seleccionada.
+    * El usuario debe estar logueado, si no, no devuelve nada.
+
+5: agregar.php:
+    * Permite registrar nuevas especialidades (requiere sesión).
+
+6: logout.php:
+    * Cierra la sesión y redirige al login.php

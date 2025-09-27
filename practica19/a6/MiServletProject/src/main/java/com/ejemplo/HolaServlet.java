@@ -62,18 +62,9 @@ public class HolaServlet extends HttpServlet {
 
         // EXTRACCIÓN DE PARÁMETROS
         // ====================================================================
-        String nombre = request.getParameter("nombre");
+        String nombre = request.getParameter("nombre"); //getParameter busca en la URL parámetros enviados después del ? (/hola?nombre=Juan&edad=25)
         String edad = request.getParameter("edad");
-        /*
-         * ¿QUÉ HACE getParameter()?
-         * • Busca en la URL parámetros enviados después del ?
-         * • Ejemplo: /hola?nombre=Juan&edad=25
-         *   - request.getParameter("nombre") devuelve "Juan"
-         *   - request.getParameter("edad") devuelve "25"
-         * • Si no existe el parámetro, devuelve null
-         * 
-         * SIEMPRE devuelve String, aunque sea un número
-         */
+        //Si no existe el parámetro, devuelve null. SIEMPRE devuelve String, aunque sea un número
 
         // Validamos que el nombre exista en la URL, y si está vacío.
         //Los usuarios pueden escribir URLs malformadas; JavaScript puede enviar datos vacíos; Sin validación, la aplicación se rompería
@@ -85,12 +76,7 @@ public class HolaServlet extends HttpServlet {
             edad = "desconocida";
         }
 
-        response.setContentType("application/json;charset=UTF-8");
-        /*
-         * ¿QUÉ HACE setContentType()?
-         * • Le dice al navegador: "Lo que te voy a enviar es JSON"
-         * • application/json → Tipo MIME para JSON
-         */
+        response.setContentType("application/json;charset=UTF-8"); //setContentType() le dice al navegador: "Lo que te voy a enviar es JSON"
 
         // OBTENER EL "ESCRITOR"
         // ====================================================================
@@ -100,12 +86,6 @@ public class HolaServlet extends HttpServlet {
          * • Es como un "lápiz" para escribir la respuesta
          * • Todo lo que escribas con 'out' se enviará al navegador
          * • Es la conexión directa entre tu código y la pantalla del usuario
-         * 
-         * ANALOGÍA:
-         * • response es como un sobre
-         * • PrintWriter es como el lápiz
-         * • Lo que escribes va dentro del sobre
-         * • El navegador abre el sobre y lee el contenido
          */
 
         // GENERAR RESPUESTA JSON
@@ -165,20 +145,8 @@ public class HolaServlet extends HttpServlet {
         // ====================================================================
         int edad = 0;
         try {
-            edad = Integer.parseInt(edadStr);
-        } catch (NumberFormatException e) {
-            /*
-             * MANEJO DE ERRORES:
-             * • Integer.parseInt() convierte String a int
-             * • Si edadStr no es un número válido ("abc", ""), lanza excepción
-             * • try-catch captura el error para evitar que la aplicación se rompa
-             * 
-             * EJEMPLOS:
-             * • "25" → 25 (exitoso)
-             * • "abc" → NumberFormatException
-             * • "" → NumberFormatException
-             * • null → NullPointerException (por eso validamos antes)
-             */
+            edad = Integer.parseInt(edadStr); //convierte String a int
+        } catch (NumberFormatException e) { //Si edadStr no es un número válido ("abc", ""), lanza excepción
             
             // RESPUESTA DE ERROR
             out.println("<html><body>");

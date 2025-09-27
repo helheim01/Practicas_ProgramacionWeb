@@ -63,8 +63,7 @@
         ¿POR QUÉ <div> y no <p>? Más flexible para futuros cambios
     -->
 
-    <!-- JAVASCRIPT / JQUERY -->
-    <!-- ================================================================== -->
+    <!--JQUERY -->
     <script>
         // ESPERAR A QUE LA PÁGINA CARGUE COMPLETAMENTE; SOLO DESPUES DE ESTO EJECUTA EL JS
         $(document).ready(function() {
@@ -130,24 +129,14 @@
                     
                     success: function(data) {
                         /*
-                         * ¿CUÁNDO SE EJECUTA?
-                         * • Cuando el servlet responde correctamente (código 200)
-                         * • 'data' contiene la respuesta del servlet
+                         * ¿CUÁNDO SE EJECUTA? Cuando el servlet responde correctamente (código 200)
                          * 
                          * ¿QUÉ CONTIENE 'data'?
                          * • El JSON que devuelve doGet(): {"mensaje":"Hola, Juan. Tienes 25 años."}
                          * • jQuery automáticamente convierte JSON string a objeto JavaScript
-                         * • Puedes acceder con: data.mensaje
                          */
                         
                         alert("Se llamó al servlet");
-                        /*
-                         * ALERT():
-                         * • Muestra un popup con el mensaje
-                         * • Para debugging/confirmación
-                         * • En producción, usarías notificaciones más elegantes
-                         */
-                        
                         $("#respuesta").text(data.mensaje);
                         /*
                          * MOSTRAR LA RESPUESTA:

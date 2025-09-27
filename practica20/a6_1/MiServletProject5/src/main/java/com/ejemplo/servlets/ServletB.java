@@ -18,18 +18,15 @@ SERVLET B: Segundo servlet en la cadena
 - Pasa control a ServletC
 */
 public class ServletB extends HttpServlet {
-
-    // Logger para registrar eventos y errores
-    private static final Logger logger = LoggerFactory.getLogger(ServletB.class);
+    private static final Logger logger = LoggerFactory.getLogger(ServletB.class); // Logger para registrar eventos y errores
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        // Recuperar objeto Usuario enviado por ServletA
-        Usuario user = (Usuario) req.getAttribute("usuario");
+        Usuario user = (Usuario) req.getAttribute("usuario"); // Recuperar objeto Usuario enviado por ServletA
 
-        if (user != null) {
+        if (user != null) { //Verificamos si realmento llegó 
             // Registrar datos recibidos
             logger.info("Recibido usuario desde ServletA: nombre={}, edad={}",
                     user.getNombre(), user.getEdad());
@@ -40,7 +37,7 @@ public class ServletB extends HttpServlet {
 
             // Guardar en base de datos MySQL
             try  {
-                Connection conn = DatabaseConnection.getConnection();           // Obtener conexión BD
+                Connection conn = DatabaseConnection.getConnection();           // Obtener conexión BD del archivo 
                 String sql = "INSERT INTO usuarios (nombre, edad) VALUES (?, ?)"; // Consulta SQL
                 PreparedStatement ps = conn.prepareStatement(sql);             // Preparar consulta
                 ps.setString(1, user.getNombre());                            // Asignar nombre al primer ?
@@ -52,25 +49,10 @@ public class ServletB extends HttpServlet {
                 throw new ServletException("Error guardando en la base de datos", e);
             }
         }
-
-        // Actualizar objeto modificado en request para ServletC
-        req.setAttribute("usuario", user);
+        req.setAttribute("usuario", user); // Actualizar objeto modificado en request para ServletC
 
         // Pasar control a ServletC
         RequestDispatcher rd = req.getRequestDispatcher("/servletC");
         rd.forward(req, resp);
     }
 }
-
-/*
-SCRIPT SQL - Ejecutar en MySQL antes de usar:
-
-CREATE DATABASE servletsdb;
-USE servletsdb;
-
-CREATE TABLE usuarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    edad INT NOT NULL
-);
-*/

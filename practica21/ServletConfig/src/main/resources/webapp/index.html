@@ -106,60 +106,48 @@
             color: #667eea;
             font-weight: bold;
         }
-
-        .footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            color: #666;
-            font-size: 0.9em;
-        }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>🚀 ServletConfig Demo</h1>
-    <p class="subtitle">Demostración de configuración de Servlets con Spring Boot</p>
+    <div class="container"><!--CONTENEDOR PRINCIPAL: div con clase "container" para aplicar estilos CSS-->
+        <h1>🚀 ServletConfig Demo</h1>
+        <p class="subtitle">Demostración de configuración de Servlets con Spring Boot</p>
+        <div class="servlet-links">
 
-    <div class="servlet-links">
-        <a href="/miservlet" class="servlet-card">
-            <h3>MiServlet</h3>
-            <p>Servlet configurado mediante web.xml</p>
-            <p><strong>URL:</strong> /miservlet</p>
-        </a>
+            <!-- 
+            TARJETA PARA MiServlet: Lleva a la URL del primer servlet
+            - href="/miservlet" referencia al url de MiServlet en el web.xml
+            - class="servlet-card" para estilos CSS de tarjeta
+            - Al hacer clic, navegador hace GET request a /miservlet
+            -->
 
-        <a href="/anotado" class="servlet-card">
-            <h3>MiServletAnotado</h3>
-            <p>Servlet configurado con anotaciones @WebServlet</p>
-            <p><strong>URL:</strong> /anotado</p>
-        </a>
+            <a href="/miservlet" class="servlet-card"> 
+                <h3>MiServlet</h3>
+                <p>Servlet configurado mediante web.xml</p>
+                <!-- URL exacta para que usuario sepa donde va -->
+                <p><strong>URL:</strong> /miservlet</p>
+            </a>
+
+            <!-- TARJETA PARA MiServletAnotado: Lleva a la URL del segundo servlet. El Segundo servlet que usa anotaciones en lugar de configuración XML-->
+            <a href="/anotado" class="servlet-card">
+                <h3>MiServletAnotado</h3>
+                <!-- Explicación de la diferencia clave -->
+                <p>Servlet configurado con anotaciones @WebServlet</p>
+                <!-- URL del segundo servlet -->
+                <p><strong>URL:</strong> /anotado</p>
+            </a>
+        </div>
+
+        <!-- SECCIÓN INFORMATIVA: Diferencias entre Servlets-->
+        <div class="info-section">
+             <h3>🔧 Diferencias entre Servlets</h3>
+                <ul class="info-list">
+                    <li><strong>MiServlet:</strong> Configurado en web.xml con parámetros de inicialización</li>
+                    <li><strong>MiServletAnotado:</strong> Configurado completamente con anotaciones Java</li>
+                    <li>Ambos muestran sus parámetros de configuración</li>
+                    <li>Demuestran diferentes enfoques de configuración</li>
+                </ul>
+        </div>
     </div>
-
-    <div class="info-section">
-        <h3>📋 Características del Proyecto</h3>
-        <ul class="info-list">
-            <li><strong>Framework:</strong> Spring Boot 3.5.5</li>
-            <li><strong>Java Version:</strong> 17</li>
-            <li><strong>Build Tool:</strong> Maven</li>
-            <li><strong>Servlet API:</strong> Jakarta EE</li>
-            <li><strong>Configuración:</strong> web.xml + Anotaciones</li>
-        </ul>
-    </div>
-
-    <div class="info-section">
-        <h3>🔧 Diferencias entre Servlets</h3>
-        <ul class="info-list">
-            <li><strong>MiServlet:</strong> Configurado en web.xml con parámetros de inicialización</li>
-            <li><strong>MiServletAnotado:</strong> Configurado completamente con anotaciones Java</li>
-            <li>Ambos muestran sus parámetros de configuración</li>
-            <li>Demuestran diferentes enfoques de configuración</li>
-        </ul>
-    </div>
-
-    <div class="footer">
-        <p>💡 Haz clic en cualquier servlet para ver su funcionamiento</p>
-        <p>Proyecto creado con Spring Boot y configuración tradicional de Servlets</p>
-    </div>
-</div>
 </body>
 </html>

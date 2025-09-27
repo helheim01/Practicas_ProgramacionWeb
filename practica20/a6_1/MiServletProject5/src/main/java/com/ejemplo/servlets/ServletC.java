@@ -36,7 +36,7 @@ public class ServletC extends HttpServlet {
             out.println("<p>No se recibió usuario.</p>");
         }
         
-        out.println("</body></html>");                     // Cerrar HTML
+        out.println("</body></html>");// Cerrar HTML
     }
 }
 
