@@ -22,13 +22,6 @@
     */
     let Repetidos = numeros.reduce((acc, n) => {
         /*
-        Esta línea cuenta cada número:
-        
-        1. acc[n] → Busca si el número ya existe como propiedad
-        2. || 0 → Si no existe, toma 0 como valor inicial
-        3. + 1 → Le suma 1 (incrementa el contador)
-        4. acc[n] = → Asigna el nuevo valor al número en el objeto
-        
         Ejemplo con el primer 3:
         - acc[3] es undefined
         - undefined || 0 = 0
@@ -41,7 +34,7 @@
         - 1 + 1 = 2
         - acc[3] = 2
         */
-        acc[n] = (acc[n] || 0) + 1;
+        acc[n] = (acc[n] || 0) + 1; //Este numero ya existe? Si no existe, lo empiezo en 0 y le sumo uno; si ya existe, solo le sumo 1
         
         return acc; // Devuelve el objeto contador actualizado
     }, {}); // Inicializa el acumulador como objeto vacío

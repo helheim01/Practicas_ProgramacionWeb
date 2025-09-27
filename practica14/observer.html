@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MutationObserver Example</title> <!-- Título de la pestaña -->
+  <title>MutationObserver Example</title>
 </head>
 <body>
 
-  <!-- Un contenedor vacío donde vamos a meter cosas -->
   <div id="contenedor"></div>
 
   <script>
-    // 1) Obtenemos el div donde van a pasar los cambios
+    // Div donde van a pasar los cambios
     const contenedor = document.getElementById("contenedor");
 
-    // 2) Creamos el observador.
-    //    MutationObserver es una clase de JS que "vigila" el DOM y ejecuta una función cada vez que ocurre un cambio.
-    const observer = new MutationObserver(mutaciones => {
-      // "mutaciones" es un array con todos los cambios detectados
-      mutaciones.forEach(m => {
-        console.log("Cambio detectado:", m); 
-        // Mostramos en consola qué cambió exactamente
+    // Creamos el observador
+    const observer = new MutationObserver(mutaciones => {  //MutationObserver: Clase JS que "vigila" el DOM y ejecuta una función cada vez que ocurre un cambio.
+      mutaciones.forEach(m => { // mutaciones: array con todos los cambios detectados
+        console.log("Cambio detectado:", m);  
       });
     });
 
-    // 3) Le decimos al observador QUÉ tiene que mirar
+    // Le digo al observador QUÉ tiene que mirar
     //    - childList: true → vigila si se agregan o eliminan hijos (ej: un <p> nuevo)
     //    - attributes: true → vigila si cambian atributos de ese nodo (ej: id, class, etc.)
     observer.observe(contenedor, { childList: true, attributes: true });
 
-    // 4) Simulamos un cambio en el DOM después de 2 segundos
+    // Simulo un cambio en el DOM después de 2 segundos
     setTimeout(() => {
-      // Creamos un nuevo párrafo <p>
-      const nuevo = document.createElement("p");
-      // Le ponemos texto
-      nuevo.textContent = "Elemento agregado dinámicamente";
+      const nuevo = document.createElement("p"); // Creo un <p>
+      nuevo.textContent = "Elemento agregado dinámicamente"; //le pongo texto
       // Lo agregamos dentro del contenedor
       contenedor.appendChild(nuevo);
       // Al hacer esto, el MutationObserver detecta el cambio

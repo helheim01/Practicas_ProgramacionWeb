@@ -21,7 +21,6 @@
   
   <ul id="lista"></ul>
 
-  <!-- Log para mostrar cambios detectados en el DOM -->
   <h3>Registro de cambios en el DOM:</h3>
   <pre id="log"></pre>
 
@@ -41,20 +40,10 @@
     const lista = document.getElementById("lista");     // Lista ul
     const log = document.getElementById("log");         // Área de registro
 
-    /*
-    MUTATIONOBSERVER: Observa cambios en el DOM
-    
-    - new MutationObserver() → crea un observador
-    - muts → array de mutaciones (cambios) detectados
-    - forEach(c => {}) → recorre cada cambio
-    - log.textContent += → añade texto al registro
-      - c.type → tipo de cambio (childList, attributes, etc.)
-      - c.target.nodeName → nombre del elemento que cambió
-    
-    */
-    const observer = new MutationObserver(muts => {
-      muts.forEach(c => {
-        log.textContent += `Cambio: ${c.type} en ${c.target.nodeName}\n`;
+    //MUTATIONOBSERVER: Observa cambios en el DOM
+    const observer = new MutationObserver(muts => { //creo el observador
+      muts.forEach(c => { // mutaciones: array con todos los cambios detectados
+        log.textContent += `Cambio: ${c.type} en ${c.target.nodeName}\n`; //muestro los cambios
       });
     });
 
@@ -78,19 +67,19 @@
     </li>
     */
     function crearTarea(texto) {
-      // Crear elemento li (contenedor de la tarea)
+      // Elemento li (contenedor de la tarea) (el ul ya está hecho en el html)
       const li = document.createElement("li");
       
-      // Crear span para el texto de la tarea
+      // Span para el texto de la tarea
       const span = document.createElement("span");
-      span.textContent = texto; // Asignar el texto
+      span.textContent = texto; // la tarea en cuestion
 
-      // Crear botón completar
+      // Botón completar
       const btnC = document.createElement("button");
       btnC.textContent = "C";           // Texto del botón
       btnC.className = "completar";     // Clase para identificarlo
 
-      // Crear botón eliminar  
+      // Botón eliminar  
       const btnE = document.createElement("button");
       btnE.textContent = "E";
       btnE.className = "eliminar";
@@ -100,53 +89,20 @@
       return li; // Devolver el elemento completo
     }
 
-    /*
-    EVENT LISTENER: Agregar tarea
-    
-    - addEventListener("click", función) → ejecuta función al hacer click
-    - input.value.trim() → obtiene el texto sin espacios al inicio/final
-    - === "" → verifica si está vacío
-    - return → sale de la función si no hay texto
-    - appendChild() → agrega el nuevo li a la lista ul
-    - input.value = "" → limpia el campo de texto
-    */
-    btnAgregar.addEventListener("click", () => {
-      if(input.value.trim() === "") return; // Validar que no esté vacío
-      lista.appendChild(crearTarea(input.value)); // Agregar a la lista
+    // EVENT LISTENER: Agregar tarea
+    btnAgregar.addEventListener("click", () => { //ejecuta función al hacer click
+      if(input.value.trim() === "") return; // Obtengo el texto, y valido que no esté vacío, si lo está, salgo de la funcion
+      lista.appendChild(crearTarea(input.value)); // Agregar a la lista (ul) el nuevo li
       input.value = ""; // Limpiar campo
     });
 
-    /*
-    DELEGACIÓN DE EVENTOS: En lugar de agregar eventos a cada botón individualmente, agregamos UN solo evento al contenedor padre (lista)
     
-    Ventajas:
-    - Funciona con elementos creados dinámicamente
-    - Mejor rendimiento (menos event listeners)
-    - Código más limpio
-    */
+    //EVENTOS DE LOS BOTONES: En lugar de agregar eventos a cada botón individualmente, agrego UN solo evento al contenedor padre (lista)
     lista.addEventListener("click", e => {
-      /*
-      e.target → elemento que fue clickeado
-      classList.contains() → verifica si tiene una clase específica
-      */
-      
-      if(e.target.classList.contains("eliminar")) {
-        /*
-        ELIMINAR TAREA:
-        - closest("li") → busca el elemento li más cercano hacia arriba
-        - remove() → elimina el elemento del DOM
-        */
-        e.target.closest("li").remove();
+      if(e.target.classList.contains("eliminar")) { //e.target → elemento que fue clickeado y classList.contains() → verifica si tiene una clase específica
+        e.target.closest("li").remove(); //closest("li") → busca el elemento li más cercano hacia arriba y lo elimina del DOM
       }
       else if(e.target.classList.contains("completar")) {
-        /*
-        COMPLETAR TAREA:
-        - closest("li") → encuentra el li contenedor
-        - querySelector("span") → encuentra el span dentro del li
-        - classList.toggle("done") → añade/quita la clase "done"
-        
-        La clase "done" tiene CSS que muestra línea tachada y color verde
-        */
         e.target.closest("li").querySelector("span").classList.toggle("done");
       }
     });

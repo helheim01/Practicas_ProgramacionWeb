@@ -1,53 +1,18 @@
-/*
- * ============================================================================
- * HOLASERVLET.JAVA - SERVLET DE EJEMPLO
- * ============================================================================
- * 
- * ¿QUÉ ES UN SERVLET?
- * • Es una clase Java que puede recibir y responder peticiones HTTP
- * • Funciona como el "backend" de tu aplicación web
- * • Puede procesar datos de formularios, consultar bases de datos, etc.
- * • Es como un "programa servidor" que espera peticiones del navegador
- * 
- * ¿CÓMO FUNCIONA?
- * • El navegador envía una petición HTTP (GET o POST)
- * • El servidor web (Tomcat) recibe la petición
- * • Busca qué servlet debe manejarla (usando web.xml)
- * • Ejecuta el método correspondiente (doGet o doPost)
- * • El servlet genera una respuesta y la envía de vuelta
- * 
- * ESTE SERVLET ESPECÍFICAMENTE:
- * • Recibe nombre y edad como parámetros
- * • En GET: devuelve JSON
- * • En POST: devuelve HTML y valida si es mayor de edad
- * ============================================================================
- */
-
+//SERVLET: Clase Java que puede recibir y responder peticiones HTTP Funciona como el "backend" de tu aplicación web
 package com.ejemplo;
 import javax.servlet.*;          // Clases básicas para servlets
 import javax.servlet.http.*;     // Clases específicas para HTTP (GET, POST, etc.)
 import java.io.IOException;      // Para manejar errores de entrada/salida
 import java.io.PrintWriter;      // Para "escribir" la respuesta al navegador
 
-public class HolaServlet extends HttpServlet {
-/*
- * ¿QUÉ SIGNIFICA "extends HttpServlet"? HttpServlet es una clase que ya tiene todo lo necesario para ser un servidor web
- * • Al heredar de ella, nuestra clase automáticamente puede:
- *   - Recibir peticiones HTTP
- *   - Procesar parámetros
- *   - Enviar respuestas
- *   - Manejar cookies, sesiones, etc.
- */
+public class HolaServlet extends HttpServlet { //HttpServlet es una clase que ya tiene todo lo necesario para ser un servidor web
 
-    // MÉTODO doGet() - MANEJA PETICIONES GET
+    // MÉTODO doGet()----Devuelve JSON
+    //Get: Para obtener/mostrar información (como leer un libro)
     @Override  // Indica que estamos sobrescribiendo un método de la clase padre
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     /*
-     * ¿CUÁNDO SE EJECUTA?
-     * • Cuando el usuario escribe la URL en el navegador
-     * • Cuando JavaScript hace una llamada AJAX con método GET
-     * 
      * PARÁMETROS:
      * • HttpServletRequest request → Contiene TODO lo que envió el navegador
      *   - Parámetros de la URL (?nombre=Juan&edad=25)
@@ -60,95 +25,48 @@ public class HolaServlet extends HttpServlet {
      *   - Es como la "hoja en blanco" donde escribimos la respuesta
      */
 
-        // EXTRACCIÓN DE PARÁMETROS
-        // ====================================================================
-        String nombre = request.getParameter("nombre"); //getParameter busca en la URL parámetros enviados después del ? (/hola?nombre=Juan&edad=25)
+        // Tomo los parametros de la URL después del ? (/hola?nombre=Juan&edad=25)
+        String nombre = request.getParameter("nombre");
         String edad = request.getParameter("edad");
         //Si no existe el parámetro, devuelve null. SIEMPRE devuelve String, aunque sea un número
 
-        // Validamos que el nombre exista en la URL, y si está vacío.
-        //Los usuarios pueden escribir URLs malformadas; JavaScript puede enviar datos vacíos; Sin validación, la aplicación se rompería
+        // Valido que el nombre exista en la URL, y si está vacío.
         if (nombre == null || nombre.isEmpty()) {
             nombre = "invitado";
         }
-        
         if (edad == null || edad.isEmpty()) {
             edad = "desconocida";
         }
 
         response.setContentType("application/json;charset=UTF-8"); //setContentType() le dice al navegador: "Lo que te voy a enviar es JSON"
 
-        // OBTENER EL "ESCRITOR"
-        // ====================================================================
+        // Obtengo el escritor para preparar el JSON (lo que voy a mostrar en el div de respuesta)
         PrintWriter out = response.getWriter();
-        /*
-         * ¿QUÉ ES PrintWriter?
-         * • Es como un "lápiz" para escribir la respuesta
-         * • Todo lo que escribas con 'out' se enviará al navegador
-         * • Es la conexión directa entre tu código y la pantalla del usuario
-         */
 
-        // GENERAR RESPUESTA JSON
-        // ====================================================================
+        // Genero la respuesta JSON
         out.write("{\"mensaje\":\"Hola, " + nombre + ". Tienes " + edad + " años.\"}");
-        /*
-         * CONSTRUCCIÓN DEL JSON:
-         * • \" → Comilla escapada (para que sea parte del JSON)
-         * • + → Concatenación de strings
-         * • El resultado final es: {"mensaje":"Hola, Juan. Tienes 25 años."}
-         */
     }
 
-    // MÉTODO doPost() - MANEJA PETICIONES POST
-    // ========================================================================
+    // MÉTODO doPost()----Devuelve HTML y valida si es mayor de edad
+    //Post: Para enviar/modificar información (como enviar una carta). Los parámetros vienen en el BODY, no en la URL
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    /*
-     * ¿CUÁNDO SE EJECUTA?
-     * • Cuando se envía un formulario HTML con method="POST"
-     * • Cuando JavaScript hace AJAX con método POST
-     * • Para operaciones que modifican datos (crear, actualizar, eliminar)
-     * 
-     * GET vs POST:
-     * GET  → Para obtener/mostrar información (como leer un libro)
-     * POST → Para enviar/modificar información (como enviar una carta)
-     */
-
-        // EXTRACCIÓN DE PARÁMETROS POST
+        throws ServletException, IOException {
+        
+        //Obtengo los parametros 
         String nombre = request.getParameter("nombre");
         String edadStr = request.getParameter("edad");
-        /*
-         * IMPORTANTE: En POST, los parámetros vienen en el BODY, no en la URL
-         * • getParameter() funciona igual para GET y POST
-         * • En POST los datos no aparecen en la barra de direcciones
-         * • Es más seguro para datos sensibles (contraseñas, etc.)
-         */
 
-        // CONFIGURACIÓN PARA RESPUESTA HTML
-        // ====================================================================
+        // Configuro la respuesta del HTML
         response.setContentType("text/html;charset=UTF-8");
-        /*
-         * DIFERENCIA CON doGet():
-         * • doGet() devuelve JSON → "application/json"
-         * • doPost() devuelve HTML → "text/html"
-         * 
-         * ¿POR QUÉ HTML?
-         * • Para mostrar páginas web completas
-         * • Para mostrar mensajes de error formateados
-         * • Para crear experiencias visuales ricas
-         */
-
         PrintWriter out = response.getWriter();
 
-        // CONVERSIÓN Y VALIDACIÓN DE DATOS
-        // ====================================================================
+        // Valido datos
         int edad = 0;
         try {
             edad = Integer.parseInt(edadStr); //convierte String a int
         } catch (NumberFormatException e) { //Si edadStr no es un número válido ("abc", ""), lanza excepción
             
-            // RESPUESTA DE ERROR
             out.println("<html><body>");
             out.println("<h2>Error: la edad debe ser un número válido.</h2>");
             out.println("</body></html>");
@@ -156,65 +74,10 @@ public class HolaServlet extends HttpServlet {
 
         }
 
-        // LÓGICA DE NEGOCIO
+        //Mayor o menor de edad
         String mayorOMenor = (edad >= 18) ? "mayor" : "menor";
-        /*
-         * EQUIVALE A:
-         * String mayorOMenor;
-         * if (edad >= 18) {
-         *     mayorOMenor = "mayor";
-         * } else {
-         *     mayorOMenor = "menor";
-         * }
-         */
-
-        // GENERAR RESPUESTA HTML
-        out.println("<html><body>");
+        out.println("<html><body>"); //El navegador interpreta este HTML y lo muestra como página web
         out.println("<h2>El usuario " + nombre + " tiene " + edad + " años. Es " + mayorOMenor + " de edad.</h2>");
         out.println("</body></html>");
-        /*
-         * CONSTRUCCIÓN DE HTML:
-         * • println() añade automáticamente un salto de línea
-         * • Cada línea genera parte del HTML final
-         * • El navegador interpreta este HTML y lo muestra como página web
-         * 
-         * RESULTADO FINAL (ejemplo):
-         * <html><body>
-         * <h2>El usuario Juan tiene 25 años. Es mayor de edad.</h2>
-         * </body></html>
-         */
     }
 }
-
-/*
- * ============================================================================
- * RESUMEN EJECUTIVO
- * ============================================================================
- * 
- * ESTE SERVLET HACE:
- * 1. Recibe peticiones HTTP en dos "sabores":
- *    • GET → Devuelve JSON con saludo simple
- *    • POST → Devuelve HTML con validación de mayoría de edad
- * 
- * 2. Procesa parámetros de entrada:
- *    • nombre → String
- *    • edad → String (convertido a int en POST)
- * 
- * 3. Valida datos:
- *    • Valores por defecto para parámetros vacíos
- *    • Validación numérica para la edad
- * 
- * 4. Genera respuestas dinámicas:
- *    • JSON para APIs/AJAX
- *    • HTML para páginas web
- * 
- * FLUJO TÍPICO:
- * Usuario → Navegador → Tomcat → web.xml → HolaServlet → doGet/doPost → Respuesta → Usuario
- * 
- * ¿POR QUÉ ES ÚTIL?
- * • Base para APIs REST
- * • Procesamiento de formularios
- * • Lógica de negocio en el servidor
- * • Separación entre frontend y backend
- * ============================================================================
- */

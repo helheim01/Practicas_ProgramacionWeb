@@ -30,28 +30,23 @@
   </style>
 </head>
 <body>
-  <!-- Explicación de lo que hace la página -->
   <p>Los botones Incrementar y Decrementar cambian un contador.</p>
   
   <div class="contenedor">
-    <!-- Aquí mostramos el contador -->
     <h2 id="contador">Contador: 0</h2>
-    <!-- Botones que llaman funciones en JS -->
     <button onclick="incrementar()">Incrementar</button>
     <button onclick="decrementar()">Decrementar</button>
   </div>
 
   <script>
-    // Valor inicial del contador
     let valor = 0;
 
-    // Guardamos en una variable el elemento <h2> para poder modificarlo
+    // Guardo en una variable el elemento <h2> para poder modificarlo
     const contador = document.getElementById("contador");
 
     // Función que actualiza el texto en pantalla
     function renderizar() {
-      // Mostramos el texto junto con el valor actual
-      contador.textContent = `Contador: ${valor}`;
+      contador.textContent = `Contador: ${valor}`; // texto junto con el valor actual
     }
 
     // Función para aumentar en 1 el contador

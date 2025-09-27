@@ -27,15 +27,15 @@
         const cuentaBancaria = {    
             saldo: 1000,
             titular: "Juan Pérez",
-            depositar: function(monto) {
-                this.saldo += monto; //modifica el saldo del objeto
+            depositar: function(monto) { //tiene como parametro un monto
+                this.saldo += monto; //le sumo el monto ingresado al saldo actual
                 return "Depósito de " + monto + ". Nuevo saldo: " + this.saldo;
-            },
-            retirar: function(monto) {
-                if (monto > this.saldo) {
+            }, 
+            retirar: function(monto) { //tiene como parametro un monto
+                if (monto > this.saldo) { 
                     return "Fondos insuficientes.";
                 }
-                this.saldo -= monto;
+                this.saldo -= monto; //le resto el monto extraído al saldo actual
                 return "Retiro de " + monto + " Nuevo saldo: " + this.saldo;
             }
         };
