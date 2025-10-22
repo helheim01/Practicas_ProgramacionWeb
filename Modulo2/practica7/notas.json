@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1761085218596,
+    "titulo": "Tarea1",
+    "contenido": "Estudiar JavaScript y Node.js",
+    "fechaCreacion": "2025-10-21T22:20:18.596Z",
+    "fechaModificacion": "2025-10-21T22:20:54.939Z"
+  },
+  {
+    "id": 1761085234700,
+    "titulo": "Compras",
+    "contenido": "Leche, pan y cafénode",
+    "fechaCreacion": "2025-10-21T22:20:34.700Z",
+    "fechaModificacion": "2025-10-21T22:20:34.700Z"
+  }
+]

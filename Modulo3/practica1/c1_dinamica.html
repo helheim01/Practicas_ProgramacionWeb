@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+        }
+
+        .calculadora {
+            background: linear-gradient(145deg, #4a4a4a, #2d2d2d);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 3px solid #555;
+        }
+
+        .pantalla {
+            background: #1a1a1a;
+            color: #00ff00;
+            font-size: 3em;
+            text-align: right;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            border: 2px solid #333;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.8);
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        .botones {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        button {
+            padding: 25px;
+            font-size: 1.8em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .numero {
+            background: linear-gradient(145deg, #f0f0f0, #d0d0d0);
+            color: #333;
+        }
+
+        .numero:hover {
+            background: linear-gradient(145deg, #ffffff, #e0e0e0);
+        }
+
+        .operador {
+            background: linear-gradient(145deg, #ff9500, #e68600);
+            color: white;
+        }
+
+        .operador:hover {
+            background: linear-gradient(145deg, #ffaa00, #ff9500);
+        }
+
+        .limpiar {
+            background: linear-gradient(145deg, #ff3b30, #d32f2f);
+            color: white;
+        }
+
+        .limpiar:hover {
+            background: linear-gradient(145deg, #ff5547, #ff3b30);
+        }
+
+        .igual {
+            background: linear-gradient(145deg, #34c759, #28a745);
+            color: white;
+        }
+
+        .igual:hover {
+            background: linear-gradient(145deg, #4cd964, #34c759);
+        }
+    </style>
+</head>
+<body>
+    <div class="calculadora">
+        <div class="pantalla" id="pantalla">0</div>
+        <div class="botones" id="botones"></div>
+    </div>
+
+    <script>
+        // Definir la estructura de los botones
+        const botonesConfig = [
+            ['7', '8', '9', '/'],
+            ['4', '5', '6', '*'],
+            ['1', '2', '3', '-'],
+            ['0', 'C', '=', '+']
+        ];
+
+        // Generar botones dinámicamente
+        const contenedorBotones = document.getElementById('botones');
+        
+        botonesConfig.forEach(fila => {
+            fila.forEach(valor => {
+                const boton = document.createElement('button');
+                boton.textContent = valor;
+                
+                // Asignar clases según el tipo de botón
+                if (valor === 'C') {
+                    boton.className = 'limpiar';
+                } else if (valor === '=') {
+                    boton.className = 'igual';
+                } else if (['+', '-', '*', '/'].includes(valor)) {
+                    boton.className = 'operador';
+                } else {
+                    boton.className = 'numero';
+                }
+                
+                // Agregar evento click
+                boton.onclick = () => manejarClick(valor);
+                
+                contenedorBotones.appendChild(boton);
+            });
+        });
+
+        // Variables para la lógica de la calculadora
+        let pantalla = document.getElementById('pantalla');
+        let valorActual = '0';
+
+        // Función para manejar los clicks
+        function manejarClick(valor) {
+            if (valor === 'C') {
+                // Limpiar pantalla
+                valorActual = '0';
+            } else if (valor === '=') {
+                // Calcular resultado usando eval()
+                try {
+                    // Reemplazar * por × y / por ÷ solo para mostrar, pero eval usa * y /
+                    valorActual = eval(valorActual).toString();
+                } catch (error) {
+                    valorActual = 'Error';
+                }
+            } else {
+                // Agregar número u operador
+                if (valorActual === '0' || valorActual === 'Error') {
+                    valorActual = valor;
+                } else {
+                    valorActual += valor;
+                }
+            }
+            
+            // Actualizar pantalla
+            pantalla.textContent = valorActual;
+        }
+
+        // Soporte para teclado
+        document.addEventListener('keydown', (e) => {
+            const tecla = e.key;
+            
+            if (tecla >= '0' && tecla <= '9') {
+                manejarClick(tecla);
+            } else if (tecla === '+' || tecla === '-' || tecla === '*' || tecla === '/') {
+                manejarClick(tecla);
+            } else if (tecla === 'Enter' || tecla === '=') {
+                manejarClick('=');
+            } else if (tecla === 'Escape' || tecla === 'c' || tecla === 'C') {
+                manejarClick('C');
+            }
+        });
+    </script>
+</body>
+</html>

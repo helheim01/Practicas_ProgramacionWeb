@@ -1,0 +1,23 @@
+
+╔════════════════════════════════════════════════════════════╗
+║           REPORTE DE BÚSQUEDA DE PALABRAS                  ║
+╚════════════════════════════════════════════════════════════╝
+
+Fecha y hora: 21/10/2025, 07:16:29
+
+ARCHIVO ANALIZADO:
+  Nombre: grande.txt
+  Tamaño: 46800 bytes (45.70 KB)
+
+BÚSQUEDA:
+  Palabra buscada: "amor"
+  Ocurrencias encontradas: 1000
+
+ESTADÍSTICAS DE PROCESAMIENTO:
+  Chunks procesados: 1
+  Tamaño promedio de chunk: 46800.00 bytes
+
+RESULTADO:
+  La palabra "amor" aparece 1000 veces en el archivo.
+
+════════════════════════════════════════════════════════════
